@@ -1,0 +1,10 @@
+{
+  "name": "karngdarbo",
+  "version": "0.1.0",
+  "main": "index.html",
+  "window": {
+    "width": 850,
+    "height": 590,
+    "icon": "logo.png"
+  }
+}

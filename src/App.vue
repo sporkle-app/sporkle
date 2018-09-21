@@ -1,29 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <side-bar />
+    <main>
+      <time-line />
+      <commit-log />
+      <file-diff />
+    </main>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import SideBar from '@/views/SideBar.vue';
+import TimeLine from '@/views/TimeLine.vue';
+import CommitLog from '@/views/CommitLog.vue';
+import FileDiff from '@/views/FileDiff.vue';
+
+export default {
+  name: 'Home',
+  components: {
+    'side-bar': SideBar,
+    'time-line': TimeLine,
+    'commit-log': CommitLog,
+    'file-diff': FileDiff
   }
-}
+};
+</script>
+
+<style lang="sass">
+@import 'sass/style.sass'
 </style>

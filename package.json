@@ -1,16 +1,25 @@
 {
   "name": "karngdarbo",
   "version": "0.1.0",
-  "private": true,
+  "main": "http://localhost:8080",
+  "node-remote": "http://localhost:8080",
   "scripts": {
+    "start": "nw ./dist",
+    "dev": "concurrently \"vue-cli-service serve\" \"nw .\"",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
+    "lint": "vue-cli-service lint --no-fix",
+    "fix": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit"
+  },
+  "chromium-args": "--load-extension='./node_modules/nw-vue-devtools/extension'",
+  "window": {
+    "width": 850,
+    "height": 590,
+    "icon": "public/logo.png"
   },
   "dependencies": {
     "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -21,7 +30,10 @@
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
+    "concurrently": "^4.0.1",
     "node-sass": "^4.9.0",
+    "nw": "^0.33.3-sdk",
+    "nw-vue-devtools": "^1.2.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.17"
   }
