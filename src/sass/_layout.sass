@@ -13,7 +13,7 @@
 
 .app-container
     display: grid
+    grid-template-areas: 'sidebar timeline  timeline' 'sidebar commitlog filediff'
     grid-template-columns: $sidebarWidth $commitlogWidth 1fr
     grid-auto-rows: $timelineHeight 1fr
-    grid-template-areas: 'sidebar timeline  timeline' 'sidebar commitlog filediff'
     height: 100%
