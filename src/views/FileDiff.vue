@@ -1,5 +1,5 @@
 <template>
-  <div class="file-diff">
+  <div class="filediff">
     <one-file
       v-for="(file, fileIndex) in files"
       :key="'file' + fileIndex"

@@ -10,12 +10,15 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint --fix",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "sass": "node-sass -w -i -o=src/css --output-style=expanded --error-bell ./src/sass",
+    "sasslint": "sass-lint -c .sass-lint.yml -v -f table",
+    "sassfix": "sass-lint-auto-fix -c .sass-lint.yml"
   },
   "chromium-args": "--load-extension='./node_modules/nw-vue-devtools/extension'",
   "window": {
-    "width": 850,
-    "height": 590,
+    "width": 960,
+    "height": 600,
     "icon": "public/logo.png"
   },
   "dependencies": {
@@ -34,7 +37,11 @@
     "node-sass": "^4.9.0",
     "nw": "^0.33.3-sdk",
     "nw-vue-devtools": "^1.2.0",
+    "nwjs-builder-phoenix": "^1.14.8",
+    "sass-lint-auto-fix": "^0.14.0",
     "sass-loader": "^7.0.1",
+    "sasslint": "0.0.10",
+    "tjw-sasslint-rules": "1.x.x",
     "vue-template-compiler": "^2.5.17"
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="commit-log">
+  <div class="commitlog">
     Commit Log
   </div>
 </template>

@@ -1,11 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" class="app-container">
     <side-bar />
-    <main>
-      <time-line />
-      <commit-log />
-      <file-diff />
-    </main>
+    <time-line />
+    <commit-log />
+    <file-diff />
   </div>
 </template>
 

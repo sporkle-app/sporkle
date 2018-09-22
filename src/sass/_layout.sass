@@ -1,0 +1,19 @@
+
+.sidebar
+    grid-area: sidebar
+
+.timeline
+    grid-area: timeline
+
+.commitlog
+    grid-area: commitlog
+
+.filediff
+    grid-area: filediff
+
+.app-container
+    display: grid
+    grid-template-columns: $sidebarWidth $commitlogWidth 1fr
+    grid-auto-rows: $timelineHeight 1fr
+    grid-template-areas: 'sidebar timeline  timeline' 'sidebar commitlog filediff'
+    height: 100%
