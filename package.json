@@ -7,7 +7,7 @@
     "start": "nw ./dist",
     "dev": "concurrently \"vue-cli-service serve\" \"nw .\"",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && node build-script.js",
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint --fix",
     "test:unit": "vue-cli-service test:unit",
