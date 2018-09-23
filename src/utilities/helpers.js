@@ -1,8 +1,12 @@
+const fs = nw.require('fs');
 const path = nw.require('path');
 
 const helpers = {
   setCurrentWorkingDirectory: function (dir) {
-    nw.process.chdir(path.join(dir));
+    dir = dir.trim();
+    if (fs.existsSync(dir)) {
+      nw.process.chdir(path.join(dir));
+    }
   }
 };
 

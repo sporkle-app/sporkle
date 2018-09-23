@@ -7,7 +7,12 @@
     <button @click="getBranches">
       Get Branches
     </button>
-    <input v-model="newRepoPath" type="text" @keyup.enter="setNewRepoPath" />
+    <input
+      v-model="newRepoPath"
+      type="text"
+      style="width: 100%"
+      @keyup.enter="setNewRepoPath"
+    />
     <div>
       <strong>App Loading</strong>: <pre>{{ appLoading }}</pre>
     </div>
@@ -29,7 +34,7 @@ export default {
   name: 'CommitLog',
   data: function () {
     return {
-      newRepoPath: ''
+      newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app'
     };
   },
   methods: {
@@ -40,7 +45,7 @@ export default {
       this.$store.dispatch('getBranchList');
     },
     setNewRepoPath: function () {
-      this.$store.commit('setRepoPath', this.newRepoPath);
+      this.$store.commit('setRepoPath', this.newRepoPath.trim());
       this.getBranches();
     }
   },

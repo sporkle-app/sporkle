@@ -12,20 +12,24 @@ export default new Vuex.Store({
     appLoading: false,
     appError: '',
     branches: '',
-    repoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app'
+    repoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
+    sidebarCollapsed: false
   },
   mutations: {
-    setAppLoading: function (state, bool) {
-      state.appLoading = bool;
-    },
     setAppError: function (state, error) {
       state.appError = error;
+    },
+    setAppLoading: function (state, bool) {
+      state.appLoading = bool;
     },
     setBranches: function (state, branches) {
       state.branches = branches;
     },
     setRepoPath: function (state, newPath) {
       state.repoPath = newPath;
+    },
+    toggleSidebarCollapsed: function (state) {
+      state.sidebarCollapsed = !state.sidebarCollapsed;
     }
   },
   actions: {
