@@ -1,15 +1,18 @@
 @charset 'utf-8'                    // Character type for the stylesheet
 
+
+// NOTE: This file will be imported by each theme in the themes folder.
+// The themes files have theme specific Variables stored in them that are used
+// throughout the rest of the Sass files.
+
+
 // ITCSS: SETTINGS
-@import '_var.sass'                 // Sass Variables - Does not effect page, but other Sass files reference this file.
+@import 'themes/_masterTheme.scss'  // Sass $theme map referenced by the rest of the files. Uses variables defined in the _var and theme files
 
 
 // ITCSS: TOOLS
 @import '_mixins.sass'              // Sass Mixins - Does not effect page, but other Sass files reference this file.
 @import '_functions.sass'           // Sass Functions - Does not effect page, but other Sass files reference this file.
-
-
-// ITCSS: FRAMEWORKS/THEMES
 
 
 // ITCSS: PLUGINS
