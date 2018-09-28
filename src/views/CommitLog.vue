@@ -25,6 +25,14 @@
     <div>
       <strong>Branches</strong>: <pre>{{ branches }}</pre>
     </div>
+    <div>
+      <strong>Pick Theme</strong>:
+      <select @change="setTheme" v-model="pickedTheme">
+        <option v-for="(theme, themeIndex) in themes" :key="'theme' + themeIndex" :value="theme.file">
+          {{ theme.title }}
+        </option>
+      </select>
+    </div>
   </div>
 </template>
 
@@ -34,7 +42,8 @@ export default {
   name: 'CommitLog',
   data: function () {
     return {
-      newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app'
+      newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
+      pickedTheme: ''
     };
   },
   methods: {
@@ -47,6 +56,9 @@ export default {
     setNewRepoPath: function () {
       this.$store.commit('setRepoPath', this.newRepoPath.trim());
       this.getBranches();
+    },
+    setTheme: function () {
+      this.$store.commit('setTheme', this.pickedTheme);
     }
   },
   computed: {
@@ -54,7 +66,8 @@ export default {
       'appLoading',
       'appError',
       'branches',
-      'repoPath'
+      'repoPath',
+      'themes'
     ])
   }
 };

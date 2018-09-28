@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="app-container">
+    <link :href="'css/themes/' + theme + '.css'" rel="stylesheet" />
     <side-bar />
     <main>
       <time-line />
@@ -12,6 +13,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import SideBar from '@/views/SideBar.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import CommitLog from '@/views/CommitLog.vue';
@@ -24,6 +27,11 @@ export default {
     'time-line': TimeLine,
     'commit-log': CommitLog,
     'file-diff': FileDiff
+  },
+  computed: {
+    ...mapState([
+      'theme'
+    ])
   }
 };
 </script>

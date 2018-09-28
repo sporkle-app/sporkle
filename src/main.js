@@ -2,10 +2,6 @@ import Vue from 'vue';
 import App from './App.vue';
 import store from './store';
 
-import '@/sass/themes/darkmode.sass';
-import '@/sass/themes/highcontrast.sass';
-import '@/sass/themes/lightmode.sass';
-
 Vue.config.productionTip = false;
 
 new Vue({
@@ -15,6 +11,7 @@ new Vue({
   },
   beforeCreate: function () {
     // Load settings
+    this.$store.dispatch('getThemes');
     // Check if git is installed globally
   }
 }).$mount('#app');
