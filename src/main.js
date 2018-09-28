@@ -12,6 +12,7 @@ new Vue({
   beforeCreate: function () {
     // Load settings
     this.$store.dispatch('getThemes');
+    this.$store.dispatch('loadSettings');
     // Check if git is installed globally
   }
 }).$mount('#app');

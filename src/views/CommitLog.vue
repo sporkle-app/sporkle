@@ -27,7 +27,7 @@
     </div>
     <div>
       <strong>Pick Theme</strong>:
-      <select @change="setTheme" v-model="pickedTheme">
+      <select v-model="pickedTheme" @change="setTheme">
         <option v-for="(theme, themeIndex) in themes" :key="'theme' + themeIndex" :value="theme.file">
           {{ theme.title }}
         </option>
@@ -58,7 +58,7 @@ export default {
       this.getBranches();
     },
     setTheme: function () {
-      this.$store.commit('setTheme', this.pickedTheme);
+      this.$store.dispatch('setThemeAndSave', this.pickedTheme);
     }
   },
   computed: {
@@ -67,8 +67,14 @@ export default {
       'appError',
       'branches',
       'repoPath',
+      'theme',
       'themes'
     ])
+  },
+  watch: {
+    theme: function (val) {
+      this.pickedTheme = val;
+    }
   }
 };
 </script>

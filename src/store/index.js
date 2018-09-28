@@ -7,6 +7,8 @@ const fs = nw.require('fs');
 const path = nw.require('path');
 const exec = nw.require('child_process').exec;
 
+const settingsFile = path.join(nw.App.dataPath, 'settings.json');
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -60,7 +62,7 @@ export default new Vuex.Store({
       let themesPath = path.join('.', 'public', 'css', 'themes');
       fs.readdir(themesPath, function (err, files) {
         if (err) {
-          store.commit('setTheme', 'dark-mode');
+          store.dispatch('setThemeAndSave', 'dark-mode');
         } else {
           let themes = [];
           files.forEach(function (file) {
@@ -77,11 +79,42 @@ export default new Vuex.Store({
               });
             }
           });
-          console.log(themes);
           store.commit('setThemes', themes);
         }
         store.commit('setAppLoading', false);
       });
+    },
+    loadSettings: function (store) {
+      store.commit('setAppLoading', true);
+      fs.readFile(settingsFile, function (err, settings) {
+        if (err) {
+          console.log('No settings file find, no biggie', err);
+        } else {
+          settings = String(settings);
+          try {
+            settings = JSON.parse(settings);
+          } catch (error) {
+            console.log('Error attempting to load settings', error);
+          }
+          store.commit('setTheme', settings.theme);
+        }
+        store.commit('setAppLoading', false);
+      });
+    },
+    saveSettings: function (store) {
+      let settings = {
+        theme: store.state.theme
+      };
+      settings = JSON.stringify(settings, null, 2);
+      fs.writeFile(settingsFile, settings, function (err) {
+        if (err) {
+          store.commit('setAppError', 'There was an error saving your settings. ' + err);
+        }
+      });
+    },
+    setThemeAndSave: function (store, theme) {
+      store.commit('setTheme', theme);
+      store.dispatch('saveSettings');
     }
   }
 });
