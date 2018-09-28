@@ -1,11 +1,11 @@
 <template>
   <div id="app" class="app-container">
-    <side-bar></side-bar>
+    <side-bar />
     <main>
-      <time-line></time-line>
+      <time-line />
       <div class="commit-diff-container">
-        <commit-log></commit-log>
-        <file-diff></file-diff>
+        <commit-log />
+        <file-diff />
       </div>
     </main>
   </div>
@@ -27,7 +27,3 @@ export default {
   }
 };
 </script>
-
-<style lang="sass">
-@import 'sass/style.sass'
-</style>

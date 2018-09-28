@@ -6,5 +6,11 @@ Vue.config.productionTip = false;
 
 new Vue({
   store,
-  render: h => h(App)
+  render: function (html) {
+    return html(App);
+  },
+  beforeCreate: function () {
+    // Load settings
+    // Check if git is installed globally
+  }
 }).$mount('#app');
