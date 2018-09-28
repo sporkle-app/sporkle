@@ -1,26 +1,22 @@
-# karngdarbo
+# Karng Darbo
 
-## Project setup
-```
-npm install
-```
+## A cross-platform git GUI for Windows, Linux, and OSX.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Made with [NW.js](https://nwjs.io), [Vue.js](https://vuejs.org), [Sass](https://sass-lang.com), and more
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![Karng Darbo mockup](assets/karng-darbo.png)
 
-### Lints and fixes files
-```
-npm run lint
-```
+* * *
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Running locally for development
+
+**Prerequisites:**
+
+1. [Node.js and npm](http://nodejs.org) installed globally
+1. [git](https://git-scm.com) installed globally
+
+**Instructions:**
+
+1. Fork/clone/download this repo
+1. `npm install`
+1. `npm run dev`
