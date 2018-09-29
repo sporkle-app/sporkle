@@ -1,80 +1,17 @@
 <template>
   <div class="commitlog">
     Commit Log.
-    <button @click="openDevTools">
-      Open Dev tools
-    </button>
-    <button @click="getBranches">
-      Get Branches
-    </button>
-    <input
-      v-model="newRepoPath"
-      type="text"
-      style="width: 100%"
-      @keyup.enter="setNewRepoPath"
-    />
-    <div>
-      <strong>App Loading</strong>: <pre>{{ appLoading }}</pre>
-    </div>
-    <div>
-      <strong>App Error</strong>: <pre>{{ appError }}</pre>
-    </div>
-    <div>
-      <strong>Repo Path</strong>: <pre>{{ repoPath }}</pre>
-    </div>
-    <div>
-      <strong>Branches</strong>: <pre>{{ branches }}</pre>
-    </div>
-    <div>
-      <strong>Pick Theme</strong>:
-      <select v-model="pickedTheme" @change="setTheme">
-        <option v-for="(theme, themeIndex) in themes" :key="'theme' + themeIndex" :value="theme.file">
-          {{ theme.title }}
-        </option>
-      </select>
-    </div>
+    <app-settings />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import AppSettings from '@/views/AppSettings.vue';
+
 export default {
   name: 'CommitLog',
-  data: function () {
-    return {
-      newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
-      pickedTheme: ''
-    };
-  },
-  methods: {
-    openDevTools: function () {
-      window.nw.Window.get().showDevTools();
-    },
-    getBranches: function () {
-      this.$store.dispatch('getBranchList');
-    },
-    setNewRepoPath: function () {
-      this.$store.commit('setRepoPath', this.newRepoPath.trim());
-      this.getBranches();
-    },
-    setTheme: function () {
-      this.$store.dispatch('setThemeAndSave', this.pickedTheme);
-    }
-  },
-  computed: {
-    ...mapState([
-      'appLoading',
-      'appError',
-      'branches',
-      'repoPath',
-      'theme',
-      'themes'
-    ])
-  },
-  watch: {
-    theme: function (val) {
-      this.pickedTheme = val;
-    }
+  components: {
+    'app-settings': AppSettings
   }
 };
 </script>

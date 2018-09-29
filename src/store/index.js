@@ -19,7 +19,11 @@ export default new Vuex.Store({
     repoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
     sidebarCollapsed: false,
     theme: 'dark-mode',
-    themes: []
+    themes: [
+      'dark-mode',
+      'high-contrast',
+      'light-mode'
+    ]
   },
   mutations: {
     setAppError: function (state, error) {
@@ -35,7 +39,9 @@ export default new Vuex.Store({
       state.repoPath = newPath;
     },
     setTheme: function (state, theme) {
-      state.theme = theme || 'dark-mode';
+      theme = theme || 'dark-mode';
+      state.theme = theme;
+      document.documentElement.className = theme;
     },
     setThemes: function (state, themes) {
       state.themes = themes || ['dark-mode'];
@@ -54,34 +60,6 @@ export default new Vuex.Store({
           store.commit('setAppError', 'Git Error: ' + error);
         }
         store.commit('setBranches', stdout);
-      });
-    },
-    getThemes: function (store) {
-      store.commit('setAppLoading', true);
-      // let appPath = nw.process.mainModule.filename;
-      let themesPath = path.join('.', 'public', 'css', 'themes');
-      fs.readdir(themesPath, function (err, files) {
-        if (err) {
-          store.dispatch('setThemeAndSave', 'dark-mode');
-        } else {
-          let themes = [];
-          files.forEach(function (file) {
-            if (file.endsWith('.css')) {
-              file = file.replace('.css', '');
-              let title = file.split('-');
-              title = title.map(function (word) {
-                // Uppercase first letter
-                return word = word[0].toUpperCase() + word.slice(1, word.length);
-              });
-              themes.push({
-                title: title.join(' '),
-                file: file
-              });
-            }
-          });
-          store.commit('setThemes', themes);
-        }
-        store.commit('setAppLoading', false);
       });
     },
     loadSettings: function (store) {

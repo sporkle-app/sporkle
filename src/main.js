@@ -4,6 +4,8 @@ import store from './store';
 
 Vue.config.productionTip = false;
 
+import '@/sass/themes/all-themes.sass';
+
 new Vue({
   store,
   render: function (html) {
@@ -11,7 +13,6 @@ new Vue({
   },
   beforeCreate: function () {
     // Load settings
-    this.$store.dispatch('getThemes');
     this.$store.dispatch('loadSettings');
     // Check if git is installed globally
   }

@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="app-container">
-    <link :href="'css/themes/' + theme + '.css'" rel="stylesheet" />
     <side-bar />
     <main>
       <time-line />

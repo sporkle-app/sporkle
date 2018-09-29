@@ -5,7 +5,7 @@
   "node-remote": "http://localhost:8080",
   "scripts": {
     "start": "nw ./dist",
-    "dev": "concurrently \"npm run sass\" \"vue-cli-service serve\" \"nw .\"",
+    "dev": "concurrently \"vue-cli-service serve\" \"nw .\"",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build && node build-script.js",
     "lint": "vue-cli-service lint --no-fix",
