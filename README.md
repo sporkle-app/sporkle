@@ -19,4 +19,4 @@
 
 1. Fork/clone/download this repo
 1. `npm install`
-1. `npm run dev`
+1. `npm start`

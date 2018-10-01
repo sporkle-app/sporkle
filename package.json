@@ -4,10 +4,9 @@
   "main": "http://localhost:8080",
   "node-remote": "http://localhost:8080",
   "scripts": {
-    "start": "nw ./dist",
-    "dev": "concurrently \"vue-cli-service serve\" \"nw .\"",
+    "start": "concurrently \"vue-cli-service serve\" \"nw .\"",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build && node build-script.js",
+    "build": "vue-cli-service build && node build-script.js && nw ./dist",
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint --fix",
     "test": "npm run unit",

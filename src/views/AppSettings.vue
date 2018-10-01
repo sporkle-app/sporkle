@@ -58,7 +58,7 @@ export default {
       this.getBranches();
     },
     setTheme: function () {
-      this.$store.dispatch('setThemeAndSave', this.pickedTheme);
+      this.$store.dispatch('appSettings/setThemeAndSave', this.pickedTheme);
     }
   },
   computed: {
@@ -77,12 +77,14 @@ export default {
       });
       return list;
     },
+    ...mapState('appSettings', [
+      'theme'
+    ]),
     ...mapState([
       'appLoading',
       'appError',
       'branches',
       'repoPath',
-      'theme',
       'themes'
     ])
   },
@@ -90,6 +92,9 @@ export default {
     theme: function (val) {
       this.pickedTheme = val;
     }
+  },
+  created: function () {
+    this.pickedTheme = this.theme;
   }
 };
 </script>
