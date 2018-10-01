@@ -3,5 +3,9 @@ $theme: (
     defaultFont: $defaultFont,
     defaultBg: $defaultBg,
     defaultColor: $defaultColor,
-    defaultBoderColor: $defaultBoderColor
+    defaultBoderColor: $defaultBoderColor,
+    diffAdd: $diffAdd,
+    diffRemove: $diffRemove,
+    diffAddText: $diffAddText,
+    diffRemoveText: $diffRemoveText
 );
