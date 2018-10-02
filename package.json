@@ -1,11 +1,11 @@
 {
   "name": "karngdarbo",
   "version": "0.1.0",
-  "main": "http://localhost:8080",
-  "node-remote": "http://localhost:8080",
+  "main": "http://localhost:8964",
+  "node-remote": "http://localhost:8964",
   "scripts": {
-    "start": "concurrently \"vue-cli-service serve\" \"nw .\"",
-    "serve": "vue-cli-service serve",
+    "start": "concurrently \"vue-cli-service serve --port=8964\" \"nw .\"",
+    "serve": "vue-cli-service serve --port=8964",
     "build": "vue-cli-service build && node build-script.js && nw ./dist",
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint --fix",
