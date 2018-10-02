@@ -51,3 +51,26 @@
   * Windows XP+ (32-Bit), OSX 10.6+ (64-Bit), Ubuntu 10+ (32-Bit & 64-Bit) (Via NW.js 0.14.7)
 * We will not be supporting "Code-Signed" packages unless someone wants to help set that up.
 * We will not be supporting any OS app store (unless someone wants to help set that up).
+
+* * *
+
+### Technology Colophon
+
+* git :grimacing:
+* NW.js :heart_eyes:
+* NW.js Builder Phoenix :fallen_leaf:
+* Vue.js :heart_eyes:
+* Vuex :neutral_face:
+* Vue CLI 3 :sunglasses:
+* Vue-I18N :accept:
+* NW-Vue-Devtools :dizzy_face:
+* Webpack :fu:
+* ESLint :relieved:
+* Sass :sparkling_heart:
+* Sass-Lint :persevere:
+* TJW Sass Lint Rules :stuck_out_tongue:
+* Vue-Test-Utils :speak_no_evil:
+* Jest :pouting_cat:
+* VMWare :elephant:
+* VirtualBox :wine_glass:
+* Travis-CI :rainbow:
