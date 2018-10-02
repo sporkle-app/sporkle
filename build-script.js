@@ -23,7 +23,8 @@ const buildScript = {
       delete scripts.sass;
       delete scripts.sasslint;
       delete scripts.sassfix;
-      delete scripts['test:unit'];
+      delete scripts.test;
+      delete scripts.unit;
     }
 
     if (Object.keys(scripts).length === 0) {
