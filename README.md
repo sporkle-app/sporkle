@@ -4,6 +4,8 @@
 
 ### Made with [NW.js](https://nwjs.io), [Vue.js](https://vuejs.org), [Sass](https://sass-lang.com), and more
 
+[![Build Status](https://travis-ci.org/TheJaredWilcurt/karngdarbo.svg?branch=master)](https://travis-ci.org/TheJaredWilcurt/karngdarbo)
+
 This is the first pass at a lo-fi mockup for the design of the app.
 
 ![Karng Darbo mockup](assets/karng-darbo.png)
