@@ -4,7 +4,15 @@
 
 ### Made with [NW.js](https://nwjs.io), [Vue.js](https://vuejs.org), [Sass](https://sass-lang.com), and more
 
+This is the first pass at a lo-fi mockup for the design of the app.
+
 ![Karng Darbo mockup](assets/karng-darbo.png)
+
+Karng Darbo will always be:
+
+* Free
+* Open Source
+* Cross-Platform
 
 * * *
 
@@ -23,23 +31,26 @@
 
 * * *
 
-## Goals
+## Features in Priority order
 
-1. Be able to add, clone, or create repos in the app
+1. Be able to add a local repo to the list
+1. Switch between repos
 1. Switch branches
 1. See a history of all commits on the current branch
 1. Pull and push commits
 1. Create commits
 1. See a diff of files
-1. Visually compare against 1 other branch
+1. Clone a remote repo to a local destination
+1. Create repos in the app
 1. Merge in latest from other branch
-1. Undo most recent commit (only if it was not pushed)
-1. Discard changes that have not been commited yet
 1. Have swappable themes including: Light (professional), Dark (Low contrast), and High Contrast (WCAG 2.0 AAA compliant)
 1. Internationalize the app so it can be translated
 1. Check for updates
 1. Filter Sidebar
 1. Organize Repos in sidebar
+1. Undo most recent commit (only if it was not pushed)
+1. Visually compare against 1 other branch
+1. Discard changes that have not been commited yet
 
 * * *
 
