@@ -1,17 +1,19 @@
 <template>
   <div class="one-file">
     <div class="file-header" @click="isCollapsed = !isCollapsed">
-      <span v-if="isCollapsed">&gt;</span>
-      <span v-else>v</span>
+      <span v-if="isCollapsed">▶️</span>
+      <span v-else>🔻</span>
       {{ file.path }}
     </div>
-    <div v-if="!isCollapsed" class="file-diff-container">
-      <pre
-        v-for="(row, rowIndex) in diffRows"
-        :key="'row' + rowIndex"
-        :class="rowClass(row)"
-      >{{ row }}</pre>
-    </div>
+    <transition name="collapse">
+      <div v-if="!isCollapsed" class="file-diff-container">
+        <pre
+          v-for="(row, rowIndex) in diffRows"
+          :key="'row' + rowIndex"
+          :class="rowClass(row)"
+        >{{ row }}</pre>
+      </div>
+    </transition>
   </div>
 </template>
 

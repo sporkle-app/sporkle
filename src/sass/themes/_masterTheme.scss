@@ -1,9 +1,11 @@
 
 $theme: (
-    defaultFont: $defaultFont,
     defaultBg: $defaultBg,
-    defaultColor: $defaultColor,
     defaultBoderColor: $defaultBoderColor,
+    defaultColor: $defaultColor,
+    defaultFont: $defaultFont,
+    defaultFontSize: $defaultFontSize,
+    defaultLineHeight: $defaultLineHeight,
     diffAdd: $diffAdd,
     diffRemove: $diffRemove,
     diffAddText: $diffAddText,
