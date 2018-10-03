@@ -1,11 +1,21 @@
 
 $theme: (
+    // Default global values
     defaultBg: $defaultBg,
     defaultBoderColor: $defaultBoderColor,
     defaultColor: $defaultColor,
     defaultFont: $defaultFont,
     defaultFontSize: $defaultFontSize,
     defaultLineHeight: $defaultLineHeight,
+
+    // Sidebar
+    repoListBackground: $repoListBackground,
+
+    // Timeline
+    timeLineBackground: $timeLineBackground,
+    timeLineText: $timeLineText,
+
+    // File Diff
     diffAdd: $diffAdd,
     diffRemove: $diffRemove,
     diffAddText: $diffAddText,
