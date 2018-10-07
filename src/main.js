@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import App from './App.vue';
 import store from './store';
-import '@/sass/themes/all-themes.sass';
+import '@/_sass/themes/all-themes.sass';
 
 Vue.config.productionTip = false;
 
