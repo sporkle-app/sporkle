@@ -26,6 +26,15 @@
       <strong>Branches</strong>: <pre>{{ branches }}</pre>
     </div>
     <div>
+      <label>
+        <input v-model="useCustomScrollbars" type="checkbox" @change="setCustomScrollbars" />
+        <strong>Use styled scrollbars</strong>
+      </label>
+      <div v-if="scrollbarSettingChanged">
+        Setting saved, <a href="#" @click="reloadApp">reload app</a> for setting to take effect.
+      </div>
+    </div>
+    <div>
       <strong>Pick Theme</strong>:
       <select v-model="pickedTheme" @change="setTheme">
         <option v-for="(theme, themeIndex) in themesList" :key="'theme' + themeIndex" :value="theme.file">
@@ -43,7 +52,9 @@ export default {
   data: function () {
     return {
       newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
-      pickedTheme: ''
+      pickedTheme: '',
+      scrollbarSettingChanged: false,
+      useCustomScrollbars: false
     };
   },
   methods: {
@@ -53,9 +64,16 @@ export default {
     getBranches: function () {
       this.$store.dispatch('getBranchList');
     },
+    reloadApp: function () {
+      nw.Window.get().reload();
+    },
     setNewRepoPath: function () {
       this.$store.commit('setRepoPath', this.newRepoPath.trim());
       this.getBranches();
+    },
+    setCustomScrollbars: function () {
+      this.scrollbarSettingChanged = true;
+      this.$store.dispatch('appSettings/setCustomScrollbarsAndSave', this.useCustomScrollbars);
     },
     setTheme: function () {
       this.$store.dispatch('appSettings/setThemeAndSave', this.pickedTheme);
@@ -78,6 +96,7 @@ export default {
       return list;
     },
     ...mapState('appSettings', [
+      'customScrollbars',
       'theme'
     ]),
     ...mapState([
@@ -95,6 +114,7 @@ export default {
   },
   created: function () {
     this.pickedTheme = this.theme;
+    this.useCustomScrollbars = this.customScrollbars;
   }
 };
 </script>

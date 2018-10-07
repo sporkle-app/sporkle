@@ -1,19 +1,26 @@
+import helpers from '@/utilities/helpers.js';
+
 const fs = nw.require('fs');
 const path = nw.require('path');
 
 const settingsFile = path.join(nw.App.dataPath, 'settings.json');
 
 export const state = {
+  customScrollbars: false,
   theme: ''
 };
 
 export const getters = {};
 
 export const mutations = {
+  setCustomScrollbars: function (state, bool) {
+    state.customScrollbars = bool;
+    helpers.setHtmlTagClasses(state.theme, bool);
+  },
   setTheme: function (state, theme) {
     theme = theme || 'dark-mode';
     state.theme = theme;
-    document.documentElement.className = theme;
+    helpers.setHtmlTagClasses(theme, state.customScrollbars);
   }
 };
 
@@ -48,12 +55,14 @@ export const actions = {
 
     settings = settings || {};
     // Apply Settings
+    store.commit('setCustomScrollbars', settings.customScrollbars);
     store.commit('setTheme', settings.theme);
     store.commit('setAppLoading', false, { root: true });
   },
   saveSettings: function (store) {
     // Grab Settings
     let settings = {
+      customScrollbars: store.state.customScrollbars,
       theme: store.state.theme
     };
     settings = JSON.stringify(settings, null, 2);
@@ -62,6 +71,10 @@ export const actions = {
         store.commit('setAppError', 'There was an error saving your settings. ' + err);
       }
     });
+  },
+  setCustomScrollbarsAndSave: function (store, bool) {
+    store.commit('setCustomScrollbars', bool);
+    store.dispatch('saveSettings');
   },
   setThemeAndSave: function (store, theme) {
     store.commit('setTheme', theme);

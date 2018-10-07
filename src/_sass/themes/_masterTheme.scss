@@ -1,5 +1,12 @@
 
 $theme: (
+    // Custom Scrollbars
+    scrollbarButton: $scrollbarButton,
+    scrollbarThumb: $scrollbarThumb,
+    scrollbarThumbBorder: $scrollbarThumbBorder,
+    scrollbarTrack: $scrollbarTrack,
+    scrollbarTrackPiece: $scrollbarTrackPiece,
+    scrollbarCorner: $scrollbarCorner,
 
     // Default global values
     defaultBg: $defaultBg,
@@ -8,6 +15,7 @@ $theme: (
     defaultFont: $defaultFont,
     defaultFontSize: $defaultFontSize,
     defaultLineHeight: $defaultLineHeight,
+    defaultLinkColor: $defaultLinkColor,
 
     // Sidebar
     repoListBackground: $repoListBackground,
