@@ -1,9 +1,5 @@
 <template>
-  <div class="commitlog">
-    App Settings
-    <button @click="openDevTools">
-      Open Dev tools
-    </button>
+  <div class="app-settings">
     <button @click="getBranches">
       Get Branches
     </button>
@@ -51,16 +47,13 @@ export default {
   name: 'AppSettings',
   data: function () {
     return {
-      newRepoPath: 'C:\\Users\\Lenny\\Documents\\GitHub\\scout-app',
+      newRepoPath: nw.App.startPath,
       pickedTheme: '',
       scrollbarSettingChanged: false,
       useCustomScrollbars: false
     };
   },
   methods: {
-    openDevTools: function () {
-      window.nw.Window.get().showDevTools();
-    },
     getBranches: function () {
       this.$store.dispatch('getBranchList');
     },
