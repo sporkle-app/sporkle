@@ -43,6 +43,7 @@ const buildScript = {
     if (deps) {
       delete deps.vue;
       delete deps.vuex;
+      delete deps['lodash.clonedeep'];
       delete deps['vue-router'];
     }
     if (Object.keys(deps).length === 0) {
@@ -92,6 +93,14 @@ const buildScript = {
     let manifest = JSON.stringify(this.data.manifest, null, 2);
     fs.writeFileSync('./dist/package.json', manifest);
   },
+  deleteMapFiles: function () {
+    let files = fs.readdirSync('./dist/js');
+    files.forEach(function (file) {
+      if (file.endsWith('.map')) {
+        fs.unlinkSync('./dist/js/' + file);
+      }
+    });
+  },
   build: function () {
     this.readManifest();
 
@@ -103,6 +112,8 @@ const buildScript = {
     this.removePublicPrefix();
 
     this.writeManifest();
+
+    this.deleteMapFiles();
   }
 };
 
