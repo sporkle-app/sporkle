@@ -1,12 +1,19 @@
 <template>
   <div class="sidebar-controls">
     <div class="button-group">
-      <button>Add</button>
-      <button>Create</button>
-      <button>Clone</button>
+      <input
+        id="repochoice"
+        type="file"
+        nwdirectory
+        class="hide"
+        @change="repoPicked($event)"
+      />
+      <button @click="addRepo">Add</button>
+      <button :disabled="true">Create</button>
+      <button :disabled="true">Clone</button>
     </div>
     <div class="filter-and-settings">
-      <input type="text" />
+      <input :disabled="true" type="text" />
       <span @click="showSettings = true">🔧</span>
     </div>
     <base-modal
@@ -35,8 +42,17 @@ export default {
   },
   data: function () {
     return {
+      repoChoice: '',
       showSettings: false
     };
+  },
+  methods: {
+    addRepo: function () {
+      document.getElementById('repochoice').click();
+    },
+    repoPicked: function (evt) {
+      this.$store.dispatch('reposList/addRepoToListAndSave', evt.target.value);
+    }
   }
 };
 </script>

@@ -56,6 +56,7 @@ export const actions = {
     settings = settings || {};
     // Apply Settings
     store.commit('setCustomScrollbars', settings.customScrollbars);
+    store.commit('reposList/setReposList', settings.reposList, { root: true });
     store.commit('setTheme', settings.theme);
     store.commit('setAppLoading', false, { root: true });
   },
@@ -63,6 +64,7 @@ export const actions = {
     // Grab Settings
     let settings = {
       customScrollbars: store.state.customScrollbars,
+      reposList: store.rootState.reposList.reposList,
       theme: store.state.theme
     };
     settings = JSON.stringify(settings, null, 2);

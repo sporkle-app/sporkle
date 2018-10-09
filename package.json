@@ -24,6 +24,7 @@
     "icon": "public/logo.png"
   },
   "dependencies": {
+    "lodash.clonedeep": "^4.5.0",
     "vue": "^2.5.17",
     "vuex": "^3.0.1"
   },
