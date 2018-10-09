@@ -10,7 +10,7 @@
     "lint": "vue-cli-service lint --no-fix",
     "fix": "vue-cli-service lint --fix",
     "test": "npm run unit",
-    "unit": "vue-cli-service test:unit",
+    "unit": "vue-cli-service test:unit --runInBand --coverage",
     "sass": "node-sass -w -i -o=public/css --output-style=expanded --error-bell ./src/_sass",
     "sasslint": "sass-lint -c .sass-lint.yml -v -f table",
     "sassfix": "sass-lint-auto-fix -c .sass-lint.yml"
@@ -41,6 +41,7 @@
     "nw": "sdk",
     "nw-vue-devtools": "^1.2.0",
     "nwjs-builder-phoenix": "^1.14.8",
+    "pretty": "^2.0.0",
     "sass-lint-auto-fix": "^0.14.0",
     "sass-loader": "^7.0.1",
     "sasslint": "0.0.10",

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileDiff.vue Created Default snapshot 1`] = `
+<div class="filediff">
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+  <one-file-stub file="[object Object]"></one-file-stub>
+</div>
+`;

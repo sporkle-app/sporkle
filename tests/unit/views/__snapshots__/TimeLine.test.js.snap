@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimeLine.vue Created Default snapshot 1`] = `
+<div class="timeline">
+  <button>⬅</button>
+  Timeline
+</div>
+`;
+
+exports[`TimeLine.vue Sidebar Hide sidebar 1`] = `
+<div class="timeline">
+  <button>➡</button>
+  Timeline
+</div>
+`;

@@ -1,4 +1,7 @@
 module.exports = {
+  globals: {
+    'nw': true
+  },
   moduleFileExtensions: [
     'js',
     'jsx',
@@ -14,10 +17,10 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
   snapshotSerializers: [
-    'jest-serializer-vue'
+    './tests/serializer.js'
   ],
   testMatch: [
-    '**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
+    '**/tests/unit/**/*.test.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
   testURL: 'http://localhost/'
 };

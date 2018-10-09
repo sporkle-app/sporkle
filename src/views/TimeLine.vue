@@ -1,6 +1,6 @@
 <template>
   <div class="timeline">
-    <button @click="toggleSidebar">
+    <button @click="toggleSidebar" ref="testToggleSidebar">
       <template v-if="sidebarCollapsed">➡</template>
       <template v-else>⬅</template>
     </button>
