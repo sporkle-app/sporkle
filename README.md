@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TheJaredWilcurt/karngdarbo.svg?branch=master)](https://travis-ci.org/TheJaredWilcurt/karngdarbo)
+
 # Karng Darbo
 
 ## A cross-platform git GUI for Windows, Linux, and OSX.
