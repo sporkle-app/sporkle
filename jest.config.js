@@ -25,5 +25,8 @@ module.exports = {
   testMatch: [
     '**/tests/unit/**/*.test.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)'
   ],
+  coveragePathIgnorePatterns: [
+    '/tests/'
+  ],
   testURL: 'http://localhost/'
 };

@@ -20,7 +20,7 @@ global.nw = {
       return {
         exec: function (command, callback) {
           if (command === 'git --version') {
-            callback(null, 'git version 2.12.2.windows.2 ')
+            callback(null, 'git version 2.12.2.windows.2 ');
           }
         }
       };
