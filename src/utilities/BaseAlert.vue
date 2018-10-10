@@ -4,7 +4,7 @@
       <div class="alert error">
         <span class="close" @click="closeAlert">&times;</span>
         <strong>Error: </strong>
-        <span class="message">{{ message }}</span>
+        <span class="message">{{ message.replace('Error: ', '') }}</span>
       </div>
     </div>
   </transition>

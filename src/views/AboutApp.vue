@@ -39,7 +39,7 @@ export default {
     getGitVersion: function () {
       exec('git --version', (err, data) => {
         if (err) {
-          console.log(err);
+          this.$store.commit('setAppError', String(err));
         }
         this.versions.git = data.replace('git version ', '').trim();
       });

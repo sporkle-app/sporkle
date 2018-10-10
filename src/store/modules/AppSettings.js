@@ -37,28 +37,36 @@ export const actions = {
   },
   loadSettings: function (store) {
     store.commit('setAppLoading', true, { root: true });
-    let settings = {};
-    try {
-      settings = String(fs.readFileSync(settingsFile));
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.log('No settings file find, no biggie', err);
-    }
-    try {
-      if (typeof(settings) === 'string') {
-        settings = JSON.parse(settings);
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log('Error attempting to load settings', error);
-    }
 
-    settings = settings || {};
-    // Apply Settings
-    store.commit('setCustomScrollbars', settings.customScrollbars);
-    store.commit('reposList/setReposList', settings.reposList, { root: true });
-    store.commit('setTheme', settings.theme);
-    store.commit('setAppLoading', false, { root: true });
+    if (fs.existsSync(settingsFile)) {
+      let settings = {};
+
+      fs.readFile(settingsFile, function (err, data) {
+        if (err) {
+          store.commit('setAppError', 'Unable to load settings.\n' + err, { root: true });
+        }
+
+        if (data && typeof(data) === 'string') {
+          try {
+            settings = JSON.parse(data);
+          } catch (error) {
+            store.commit('setAppError', 'Error attempting to load settings.\n' + error, { root: true });
+            return;
+          }
+        }
+
+        if (Object.keys(settings).length) {
+          // Apply Settings
+          store.commit('setCustomScrollbars', settings.customScrollbars);
+          store.commit('reposList/setReposList', settings.reposList, { root: true });
+          store.commit('setTheme', settings.theme);
+        }
+
+        store.commit('setAppLoading', false, { root: true });
+      });
+    } else {
+      store.commit('setAppLoading', false, { root: true });
+    }
   },
   saveSettings: function (store) {
     // Grab Settings
