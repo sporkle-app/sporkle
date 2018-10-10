@@ -10,5 +10,6 @@ exports[`App.vue Created Default snapshot 1`] = `
       <file-diff-stub></file-diff-stub>
     </div>
   </main>
+  <!---->
 </div>
 `;

@@ -20,6 +20,18 @@ const helpers = {
     ].join(' ').trim();
 
     document.documentElement.className = classes;
+  },
+  validateRepoPath: function (repoPath) {
+    let gitDir = path.join(repoPath, '.git');
+    if (
+      fs.existsSync(repoPath) &&
+      fs.lstatSync(repoPath).isDirectory() &&
+      fs.existsSync(gitDir) &&
+      fs.lstatSync(gitDir).isDirectory()
+    ) {
+      return true;
+    }
+    return false;
   }
 };
 

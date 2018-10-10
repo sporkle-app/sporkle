@@ -28,5 +28,9 @@ $theme: (
     diffAdd: $diffAdd,
     diffRemove: $diffRemove,
     diffAddText: $diffAddText,
-    diffRemoveText: $diffRemoveText
+    diffRemoveText: $diffRemoveText,
+
+    // Alert
+    alertBackground: $alertBackground,
+    errorAccent: $errorAccent
 );

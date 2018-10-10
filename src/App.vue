@@ -8,14 +8,18 @@
         <file-diff />
       </div>
     </main>
+    <base-alert v-if="appError" :message="appError" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import SideBar from '@/views/SideBar.vue';
 import TimeLine from '@/views/TimeLine.vue';
 import CommitLog from '@/views/CommitLog.vue';
 import FileDiff from '@/views/FileDiff.vue';
+import BaseAlert from '@/utilities/BaseAlert.vue';
 
 export default {
   name: 'App',
@@ -23,7 +27,13 @@ export default {
     'side-bar': SideBar,
     'time-line': TimeLine,
     'commit-log': CommitLog,
-    'file-diff': FileDiff
+    'file-diff': FileDiff,
+    'base-alert': BaseAlert
+  },
+  computed: {
+    ...mapState([
+      'appError'
+    ])
   }
 };
 </script>
