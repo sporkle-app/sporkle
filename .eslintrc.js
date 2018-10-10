@@ -14,7 +14,8 @@ module.exports = {
     },
     'globals': {
         'jsdom': true,
-        'Promise': true
+        'Promise': true,
+        'nw': true
     },
     'plugins': [
         'vue'

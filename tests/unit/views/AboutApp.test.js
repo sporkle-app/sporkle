@@ -1,11 +1,11 @@
 import { shallowMount } from '@vue/test-utils';
 
-import App from '@/App.vue';
+import AboutApp from '@/views/AboutApp.vue';
 
-describe('App.vue', () => {
+describe('AboutApp.vue', () => {
   describe('Created', () => {
     test('Default snapshot', () => {
-      const wrapper = shallowMount(App);
+      const wrapper = shallowMount(AboutApp);
 
       expect(wrapper.html())
         .toMatchSnapshot();

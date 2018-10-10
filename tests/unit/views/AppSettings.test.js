@@ -2,7 +2,6 @@ import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex, { Store } from 'vuex';
 
 import AppSettings from '@/views/AppSettings.vue';
-import helpers from '../testHelpers.js';
 
 describe('AppSettings.vue', () => {
   let store;
@@ -11,7 +10,6 @@ describe('AppSettings.vue', () => {
   beforeEach(() => {
     localVue = createLocalVue();
     localVue.use(Vuex);
-    global.nw = helpers.nw;
 
     store = new Store({
       state: {

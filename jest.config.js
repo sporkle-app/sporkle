@@ -16,6 +16,9 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
   },
+  setupFiles: [
+    './tests/setup.js'
+  ],
   snapshotSerializers: [
     './tests/serializer.js'
   ],

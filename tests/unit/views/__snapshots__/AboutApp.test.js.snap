@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AboutApp.vue Created Default snapshot 1`] = `
+<div class="about-app">
+  Karng Darbo is a Cross-Platform Git client made by
+  <strong>
+    <a href="#" title="http://TheJaredWilcurt.com">The Jared Wilcurt</a>
+  </strong>.
+
+  <ul>
+    <li>
+      <strong>Karng Darbo</strong> (v0.0.0)
+    </li>
+    <li>
+      <strong>Git</strong> (v2.12.2.windows.2)
+    </li>
+    <li>
+      <strong>NW.js</strong> (v0.0.0)
+      <ul>
+        <li>
+          <strong>Chromium</strong> (v0.0.0)
+        </li>
+        <li>
+          <strong>Node.js</strong> (v0.0.0)
+        </li>
+      </ul>
+    </li>
+    <li>
+      <strong>Vue.js</strong> (v0.0.0)
+    </li>
+  </ul>
+</div>
+`;

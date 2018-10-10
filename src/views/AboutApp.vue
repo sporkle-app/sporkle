@@ -1,10 +1,10 @@
 <template>
   <div class="about-app">
-    Karng Darbo is a Cross-Platform Git client made by
+    {{ appTitle }} is a Cross-Platform Git client made by
     <strong><a href="#" title="http://TheJaredWilcurt.com" @click.prevent="openExternal">The Jared Wilcurt</a></strong>.
 
     <ul>
-      <li><strong>Karng Darbo</strong> (v{{ versions.karngDarbo }})</li>
+      <li><strong>{{ appTitle }}</strong> (v{{ versions.app }})</li>
       <li><strong>Git</strong> (v{{ versions.git }})</li>
       <li><strong>NW.js</strong> (v{{ versions.nw }})
         <ul>
@@ -24,11 +24,11 @@ export default {
   name: 'AppSettings',
   data: function () {
     return {
-      appTitle: nw.App.manifest.window.title,
+      appTitle: 'Karng Darbo',
       versions: {
+        app: nw.App.manifest.version,
         chromium: nw.process.versions.chromium,
         git: '',
-        karngDarbo: nw.App.manifest.version,
         node: nw.process.versions.node,
         nw: nw.process.versions.nw,
         vue: nw.App.manifest.dependencies.vue
