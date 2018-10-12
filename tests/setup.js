@@ -28,8 +28,6 @@ global.nw = {
     return require(str);
   },
   Shell: {
-    openExternal: function (url) {
-      jest.fn(url);
-    }
+    openExternal: jest.fn()
   }
 };

@@ -12,7 +12,7 @@
     "test": "npm run unit",
     "unit": "vue-cli-service test:unit --runInBand --coverage",
     "sass": "node-sass -w -i -o=public/css --output-style=expanded --error-bell ./src/_sass",
-    "sasslint": "sass-lint -c .sass-lint.yml -v -f table",
+    "sasslint": "sass-lint -c .sass-lint.yml -v -f stylish",
     "sassfix": "sass-lint-auto-fix -c .sass-lint.yml",
     "validate": "npm run lint && npm run sasslint && npm run unit"
   },

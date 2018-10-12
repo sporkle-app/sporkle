@@ -1,7 +1,16 @@
 <template>
   <div class="about-app">
     {{ appTitle }} is a Cross-Platform Git client made by
-    <strong><a href="#" title="http://TheJaredWilcurt.com" @click.prevent="openExternal">The Jared Wilcurt</a></strong>.
+    <strong>
+      <a
+        href="#"
+        title="http://TheJaredWilcurt.com"
+        @click.prevent="openExternal"
+        ref="testExternalLink"
+      >
+        The Jared Wilcurt
+      </a>
+    </strong>.
 
     <ul>
       <li><strong>{{ appTitle }}</strong> (v{{ versions.app }})</li>

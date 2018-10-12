@@ -4,7 +4,9 @@ exports[`AboutApp.vue Created Default snapshot 1`] = `
 <div class="about-app">
   Karng Darbo is a Cross-Platform Git client made by
   <strong>
-    <a href="#" title="http://TheJaredWilcurt.com">The Jared Wilcurt</a>
+    <a href="#" title="http://TheJaredWilcurt.com">
+      The Jared Wilcurt
+    </a>
   </strong>.
 
   <ul>

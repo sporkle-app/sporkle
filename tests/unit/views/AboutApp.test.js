@@ -11,4 +11,15 @@ describe('AboutApp.vue', () => {
         .toMatchSnapshot();
     });
   });
+
+  describe('External link', () => {
+    test('Click link', () => {
+      const wrapper = shallowMount(AboutApp);
+
+      wrapper.find({ ref: 'testExternalLink' }).trigger('click');
+
+      expect(nw.Shell.openExternal)
+        .toHaveBeenCalledWith('http://TheJaredWilcurt.com');
+    });
+  });
 });
