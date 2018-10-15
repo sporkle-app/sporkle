@@ -27,8 +27,6 @@
 </template>
 
 <script>
-const exec = nw.require('child_process').exec;
-
 export default {
   name: 'AppSettings',
   data: function () {
@@ -46,11 +44,13 @@ export default {
   },
   methods: {
     getGitVersion: function () {
-      exec('git --version', (err, data) => {
+      nw.require('child_process').exec('git --version', (err, data) => {
         if (err) {
           this.$store.commit('setAppError', String(err));
         }
-        this.versions.git = data.replace('git version ', '').trim();
+        if (data) {
+          this.versions.git = data.replace('git version ', '').trim();
+        }
       });
     },
     openExternal: function (evt) {

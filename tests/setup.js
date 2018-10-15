@@ -15,17 +15,17 @@ global.nw = {
       nw: '0.0.0'
     }
   },
-  require: function (str) {
-    if (str === 'child_process') {
+  require: function (moduleName) {
+    if (moduleName === 'child_process') {
       return {
         exec: function (command, callback) {
           if (command === 'git --version') {
-            callback(null, 'git version 2.12.2.windows.2 ');
+            callback(null, 'git version 0.0.0.windows.0 ');
           }
         }
       };
     }
-    return require(str);
+    return require(moduleName);
   },
   Shell: {
     openExternal: jest.fn()

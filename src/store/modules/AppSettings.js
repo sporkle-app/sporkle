@@ -29,6 +29,11 @@ export const actions = {
     try {
       if (fs.existsSync(settingsFile)) {
         fs.unlinkSync(settingsFile);
+        // eslint-disable-next-line no-console
+        console.log('Successfully deleted settings');
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('Settings file did not exist');
       }
     } catch (err) {
       // eslint-disable-next-line no-console
