@@ -50,7 +50,7 @@ export const actions = {
           store.commit('setAppError', 'Unable to load settings.\n' + err, { root: true });
         }
 
-        if (data && typeof(data) === 'string') {
+        if (data) {
           try {
             settings = JSON.parse(data);
           } catch (error) {
