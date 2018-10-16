@@ -1,8 +1,6 @@
 
 import helpers from '@/utilities/helpers.js';
 
-const exec = nw.require('child_process').exec;
-
 /*
   ACTIONS:
   These issue the order to mutate the state via commits. Use when doing Async stuff.
@@ -14,7 +12,7 @@ const actions = {
     store.commit('setAppLoading', true);
     helpers.setCurrentWorkingDirectory(store.state.repoPath);
 
-    exec('git branch', function (error, stdout) {
+    nw.require('child_process').exec('git branch', function (error, stdout) {
       store.commit('setAppLoading', false);
       if (error !== null) {
         store.commit('setAppError', 'Git Error: ' + error);

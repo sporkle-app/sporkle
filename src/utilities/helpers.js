@@ -1,8 +1,9 @@
-const fs = nw.require('fs');
 const path = nw.require('path');
 
 const helpers = {
   setCurrentWorkingDirectory: function (dir) {
+    const fs = nw.require('fs');
+
     dir = dir.trim();
     if (fs.existsSync(dir)) {
       nw.process.chdir(path.join(dir));
@@ -22,6 +23,8 @@ const helpers = {
     document.documentElement.className = classes;
   },
   validateRepoPath: function (repoPath) {
+    const fs = nw.require('fs');
+
     let gitDir = path.join(repoPath, '.git');
     if (
       fs.existsSync(repoPath) &&

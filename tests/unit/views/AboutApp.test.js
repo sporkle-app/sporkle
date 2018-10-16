@@ -23,6 +23,21 @@ describe('AboutApp.vue', () => {
   });
 
   describe('Created', () => {
+    beforeEach(() => {
+      global.nw.require = jest.fn(function (moduleName) {
+        if (moduleName === 'child_process') {
+          return {
+            exec: function (command, callback) {
+              if (command === 'git --version') {
+                callback(null, 'git version 0.0.0.windows.0 ');
+              }
+            }
+          };
+        }
+        return require(moduleName);
+      });
+    });
+
     test('Default snapshot', () => {
       const wrapper = shallowMount(AboutApp);
 
@@ -32,6 +47,10 @@ describe('AboutApp.vue', () => {
   });
 
   describe('External link', () => {
+    beforeEach(() => {
+      global.nw.require = require;
+    });
+
     test('Click link', () => {
       const wrapper = shallowMount(AboutApp);
 

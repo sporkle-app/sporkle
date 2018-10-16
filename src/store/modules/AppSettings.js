@@ -1,8 +1,6 @@
 import helpers from '@/utilities/helpers.js';
 
-const fs = nw.require('fs');
 const path = nw.require('path');
-
 const settingsFile = path.join(nw.App.dataPath, 'settings.json');
 
 export const state = {
@@ -26,6 +24,8 @@ export const mutations = {
 
 export const actions = {
   deleteSettings: function () {
+    const fs = nw.require('fs');
+
     try {
       if (fs.existsSync(settingsFile)) {
         fs.unlinkSync(settingsFile);
@@ -41,6 +41,8 @@ export const actions = {
     }
   },
   loadSettings: function (store) {
+    const fs = nw.require('fs');
+
     store.commit('setAppLoading', true, { root: true });
     let settings = {};
 
@@ -72,6 +74,8 @@ export const actions = {
     store.commit('setAppLoading', false, { root: true });
   },
   saveSettings: function (store) {
+    const fs = nw.require('fs');
+
     // Grab Settings
     let settings = {
       customScrollbars: store.state.customScrollbars,
