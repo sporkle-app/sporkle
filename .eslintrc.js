@@ -37,6 +37,8 @@ module.exports = {
         'no-console':                  process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-debugger':                 process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-multi-spaces':             ['error'],
+        // prevent method shorthand() {}, force longform: function () {}
+        'no-restricted-syntax':        ['error', 'Property[method="true"]'],
         'no-unused-vars':              ['error'],
         // Only allow let and const, no var
         'no-var':                      ['error'],
