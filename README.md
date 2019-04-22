@@ -42,6 +42,7 @@ Karng Darbo will always be:
 1. Pull and push commits
 1. Create commits
 1. See a diff of files
+1. Discard changes that have not been commited yet (`git checkout HEAD -- path/to/file.js` - resets file to last commit)
 1. Clone a remote repo to a local destination
 1. Create repos in the app
 1. Merge in latest from other branch
@@ -52,7 +53,6 @@ Karng Darbo will always be:
 1. Organize Repos in sidebar
 1. Undo most recent commit (only if it was not pushed)
 1. Visually compare against 1 other branch
-1. Discard changes that have not been commited yet
 
 * * *
 
