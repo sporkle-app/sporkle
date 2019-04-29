@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
+    "simple-git": "^1.110.0",
     "vue": "^2.5.17",
     "vuex": "^3.0.1"
   },
