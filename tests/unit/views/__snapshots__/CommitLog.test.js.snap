@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`CommitLog.vue Created Default snapshot 1`] = `
-<div class="commitlog">
-  Commit Log.
-</div>
-`;

@@ -1,23 +1,16 @@
-import Vue from 'vue';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
 
-import App from './App.vue';
-import store from './store';
-import '@/_sass/themes/all-themes.sass';
+import router from '@/router/index.js';
 
-Vue.config.productionTip = false;
+import applyPrototypes from '@/helpers/applyPrototypes.js';
 
-let app = new Vue({
-  store,
-  render: function (html) {
-    return html(App);
-  },
-  beforeCreate: function () {
-    // Load settings
-    this.$store.dispatch('appSettings/loadSettings');
-    // Check if git is installed globally
-  }
-}).$mount('#app');
+import App from '@/App.vue';
 
-window.deleteSettings = function () {
-  app.$store.dispatch('appSettings/deleteSettings');
-};
+import '@/assets/main.css';
+
+const app = createApp(App);
+applyPrototypes(app.config.globalProperties);
+app.use(createPinia());
+app.use(router);
+app.mount('#app');

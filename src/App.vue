@@ -1,39 +1,36 @@
 <template>
-  <div id="app" class="app-container">
-    <side-bar />
-    <main>
-      <time-line />
-      <div class="commit-diff-container">
-        <commit-log />
-        <file-diff />
-      </div>
-    </main>
-    <base-alert v-if="appError" :message="appError" />
+  <div class="container-fluid d-flex flex-column g-0 vh-100">
+    <TopNav />
+    <div class="container-fluid g-0 d-flex h-100">
+      <SideBar />
+      <RouterView
+        class="container-fluid mt-3"
+        :key="$route.fullPath"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { settingsStore } from '@/stores/appSettings.js';
 
-import SideBar from '@/views/SideBar.vue';
-import TimeLine from '@/views/TimeLine.vue';
-import CommitLog from '@/views/CommitLog.vue';
-import FileDiff from '@/views/FileDiff.vue';
-import BaseAlert from '@/utilities/BaseAlert.vue';
+import SideBar from '@/components/layout/SideBar.vue';
+import TopNav from '@/components/layout/TopNav.vue';
 
 export default {
   name: 'App',
   components: {
-    'side-bar': SideBar,
-    'time-line': TimeLine,
-    'commit-log': CommitLog,
-    'file-diff': FileDiff,
-    'base-alert': BaseAlert
+    SideBar,
+    TopNav
   },
-  computed: {
-    ...mapState([
-      'appError'
-    ])
+  methods: {
+    setAppName: function () {
+      document.querySelector('head title').innerText = this.appConfig.appName;
+    }
+  },
+  created: function () {
+    this.setAppName();
+    settingsStore().loadSettings();
   }
 };
 </script>

@@ -1,34 +1,30 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex, { Store } from 'vuex';
+import testHelpers from '@@/unit/test-helpers.js';
 
 import App from '@/App.vue';
 
 describe('App.vue', () => {
-  let store;
-  let localVue;
+  const setupWrapper = function () {
+    return testHelpers.mount(App);
+  };
 
-  beforeEach(() => {
-    localVue = createLocalVue();
-    localVue.use(Vuex);
+  describe('Desktop', () => {
+    test('Render default contents', () => {
+      const wrapper = setupWrapper();
 
-    store = new Store({
-      state: {
-        appError: ''
-      },
-      getters: {},
-      mutations: {},
-      actions: {}
+      expect(wrapper)
+        .toMatchSnapshot();
     });
   });
 
-  describe('Created', () => {
-    test('Default snapshot', () => {
-      const wrapper = shallowMount(App, {
-        store,
-        localVue
-      });
+  describe('Web', () => {
+    beforeEach(() => {
+      window.webSetup();
+    });
 
-      expect(wrapper.html())
+    test('Render default contents', () => {
+      const wrapper = setupWrapper();
+
+      expect(wrapper)
         .toMatchSnapshot();
     });
   });

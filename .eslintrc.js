@@ -1,123 +1,68 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
+const path = require('path');
+
+const baseRestrictedSyntax = require('eslint-config-tjw-base/no-restricted-syntax.json');
+const vueRules = require('eslint-config-tjw-vue/index.js');
+
 module.exports = {
-    'root': true,
-    'parserOptions': {
-        'parser': 'babel-eslint',
-        'ecmaVersion': 8,
-        'sourceType': 'module',
-        'ecmaFeatures': {
-          'experimentalObjectRestSpread': true
-        }
-    },
-    'env': {
-        'browser': true,
-        'node': true
-    },
-    'globals': {
-        'jsdom': true,
-        'Promise': true,
-        'nw': true
-    },
-    'plugins': [
-        'vue'
+  root: true,
+  globals: {
+    jsdom: true,
+    Promise: true,
+    Vue: true,
+    Vuex: true,
+    Pinia: true,
+    VueRouter: true,
+    store: true,
+    router: true,
+    vi: true
+  },
+  plugins: [
+    'vue',
+    'vuejs-accessibility'
+  ],
+  extends: [
+    'plugin:vuejs-accessibility/recommended',
+    'eslint:recommended',
+    'plugin:vue/recommended',
+    'tjw-base',
+    'tjw-import'
+  ],
+  rules: {
+    ...vueRules.rules,
+    'import/no-anonymous-default-export': 'off',
+    'import/no-namespace': 'off',
+    'import/no-unresolved': 'off',
+    'no-restricted-syntax': [
+      'error',
+      ...baseRestrictedSyntax
     ],
-    'extends': 'plugin:vue/recommended',
-    'rules': {
-        'arrow-parens':                ['off'],
-        'brace-style':                 ['error', '1tbs', { 'allowSingleLine': true }],
-        'comma-dangle':                ['error', 'never'],
-        'comma-spacing':               ['error', { 'before': false, 'after': true }],
-        'comma-style':                 ['error', 'last'],
-        'curly':                       ['error'],
-        // allow async-await
-        'generator-star-spacing':      ['off'],
-        // 2 space indentation to match .editorconfig
-        'indent':                      ['error', 2, { 'SwitchCase': 1 }],
-        'keyword-spacing':             ['error', { 'before': true, 'after': true }],
-        // allow debugger during development
-        'no-console':                  process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-debugger':                 process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-multi-spaces':             ['error'],
-        // prevent method shorthand() {}, force longform: function () {}
-        'no-restricted-syntax':        ['error', 'Property[method="true"]'],
-        'no-unused-vars':              ['error'],
-        // Only allow let and const, no var
-        'no-var':                      ['error'],
-        'object-curly-spacing':        ['error', 'always'],
-        'one-var':                     ['error', 'never'],
-        'quotes':                      ['error', 'single'],
-        'semi':                        ['error', 'always'],
-        'space-before-blocks':         ['error', 'always'],
-        'space-before-function-paren': ['error', 'always'],
-        'space-in-parens':             ['error', 'never'],
-        'space-infix-ops':             ['error'],
-        'spaced-comment':              ['error', 'always'],
-        // Vue Linter Options
-        'vue/attribute-hyphenation':    ['error', 'never'],
-        'vue/attributes-order':         ['error', {
-                                          'order': [
-                                            'LIST_RENDERING',   // 'v-for item in items'
-                                            'CONDITIONALS',     // 'v-if', 'v-else-if', 'v-else', 'v-show', 'v-cloak'
-                                            'RENDER_MODIFIERS', // 'v-once', 'v-pre'
-                                            'BINDING',          // 'v-model', 'v-bind', ':property="foo"'
-                                            'CONTENT',          // 'v-text', 'v-html'
-                                            'DEFINITION',       // 'is'
-                                            'GLOBAL',           // 'id'
-                                            'OTHER_ATTR',       // 'customProp="foo"', 'class', 'type', 'value' etc
-                                            'EVENTS',           // '@click="functionCall"', 'v-on="event"'
-                                            'UNIQUE'            // 'slot', 'key', 'ref'
-                                          ]
-                                        }],
-        'vue/html-closing-bracket-newline':
-                                        ['error', {
-                                            'singleline': 'never',
-                                            'multiline': 'always'
-                                        }],
-        'vue/html-closing-bracket-spacing':
-                                        ['error', {
-                                            'startTag': 'never',
-                                            'endTag': 'never',
-                                            'selfClosingTag': 'always'
-                                        }],
-        'vue/html-indent':              ['error', 2, {
-                                            'attribute': 1,
-                                            'closeBracket': 0
-                                        }],
-        'vue/html-self-closing':        ['error', {
-                                            'html': {
-                                                'void': 'always',
-                                                'normal': 'never',
-                                                'component': 'always'
-                                            }
-                                        }],
-        'vue/max-attributes-per-line':  ['error', {
-                                            'singleline': 3,
-                                            'multiline': {
-                                                'max': 1,
-                                                'allowFirstLine': false
-                                            }
-                                        }],
-        'vue/name-property-casing':     ['error', 'PascalCase'],
-        'vue/order-in-components':      ['error', { 'order': [
-                                            'el',
-                                            'name',
-                                            ['template', 'render'],
-                                            'parent',
-                                            'functional',
-                                            ['delimiters', 'comments'],
-                                            ['components', 'directives'],
-                                            'extends',
-                                            'mixins',
-                                            'inheritAttrs',
-                                            'model',
-                                            ['props', 'propsData'],
-                                            'data',
-                                            'methods',
-                                            'computed',
-                                            'filters',
-                                            'watch',
-                                            'LIFECYCLE_HOOKS',
-                                            'renderError'
-                                        ]}],
-        'vue/prop-name-casing':         ['error', 'camelCase']
+    'vue/no-multiple-template-root': [
+      'off'
+    ],
+    'vuejs-accessibility/label-has-for': [
+      'error',
+      {
+        components: ['Label'],
+        required: {
+          some: ['nesting', 'id']
+        },
+        allowChildren: false
+      }
+    ]
+  },
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: {
+          resolve: {
+            alias: {
+              '@': path.resolve('src')
+            }
+          }
+        }
+      }
     }
+  }
 };
