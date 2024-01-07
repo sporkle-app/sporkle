@@ -2,6 +2,9 @@
   <div class="sidebar-controls">
 
     <div class="button-group">
+      <label for="repochoice" class="hide">
+        Select repo
+      </label>
       <input
         id="repochoice"
         type="file"
@@ -20,42 +23,40 @@
       <span @click="showAbout = true">❔</span>
     </div>
 
-    <base-modal
+    <BaseModal
       v-if="showSettings"
       title="Settings"
       @close="showSettings = false"
     >
-      <div slot="body">
-        <app-settings />
-      </div>
-      <div slot="footer"></div>
-    </base-modal>
+      <template #body>
+        <AppSettings />
+      </template>
+    </BaseModal>
 
-    <base-modal
+    <BaseModal
       v-if="showAbout"
       title="About"
       @close="showAbout = false"
     >
-      <div slot="body">
-        <about-app />
-      </div>
-      <div slot="footer"></div>
-    </base-modal>
+      <template #body>
+        <AboutApp />
+      </template>
+    </BaseModal>
 
   </div>
 </template>
 
 <script>
-import BaseModal from '@/utilities/BaseModal.vue';
+import BaseModal from '@/components/BaseModal.vue';
 import AboutApp from '@/views/AboutApp.vue';
 import AppSettings from '@/views/AppSettings.vue';
 
 export default {
   name: 'SideBarControls',
   components: {
-    'about-app': AboutApp,
-    'app-settings': AppSettings,
-    'base-modal': BaseModal
+    AboutApp,
+    AppSettings,
+    BaseModal
   },
   data: function () {
     return {

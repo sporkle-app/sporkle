@@ -1,0 +1,84 @@
+@import './base.css';
+
+#app {
+  max-width: 1280px;
+  margin: 0px auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  color: hsla(160, 100%, 37%, 1);
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+button {
+  background: hsla(160, 100%, 37%, 1);
+  border: 0px;
+  border-radius: 3px;
+  padding: 4px 6px;
+}
+button:hover {
+  background: hsla(160, 100%, 40%, 1);
+}
+button:active {
+  background: hsla(160, 100%, 43%, 1);
+}
+
+strong {
+  font-weight: bold;
+}
+
+hr {
+  width: 100%;
+  background: var(--color-text);
+  margin: 15px 0px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 15rem;
+  background: #333;
+  border: 0px;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  color: #CCC;
+}
+
+.flex {
+  display: flex;
+}
+.container {
+  display: inline-block;
+  min-width: 200px;
+  margin-right: 2rem;
+  vertical-align: top;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.center {
+  text-align: center;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}

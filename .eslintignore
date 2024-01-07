@@ -1,5 +1,1 @@
-/node_modules
-/build/
-/config/
 /dist/
-.eslintrc.js

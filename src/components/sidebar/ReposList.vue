@@ -1,47 +1,30 @@
 <template>
   <div class="repos-list">
     <div
-      v-for="(repo, repoIndex) in localReposList"
+      v-for="(repo, repoIndex) in reposList"
       :key="'repo' + repoIndex"
     >
-      <repo-list-item :repo="repo" />
+      <RepoListItem :repo="repo" />
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import cloneDeep from 'lodash.clonedeep';
+import { mapState } from 'pinia';
 
-import repoListItem from '@/components/sidebar/RepoListItem.vue';
+import { sidebarStore } from '@/stores/sidebar.js';
+
+import RepoListItem from '@/components/sidebar/RepoListItem.vue';
 
 export default {
   name: 'ReposList',
   components: {
-    'repo-list-item': repoListItem
-  },
-  data: function () {
-    return {
-      localReposList: []
-    };
-  },
-  methods: {
-    setLocalReposList: function () {
-      this.localReposList = cloneDeep(this.reposList);
-    }
+    RepoListItem
   },
   computed: {
-    ...mapState('reposList', [
+    ...mapState(sidebarStore, [
       'reposList'
     ])
-  },
-  watch: {
-    reposList: function () {
-      this.setLocalReposList();
-    }
-  },
-  created: function () {
-    this.setLocalReposList();
   }
 };
 </script>
