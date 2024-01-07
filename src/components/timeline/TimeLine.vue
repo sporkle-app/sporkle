@@ -9,16 +9,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'pinia';
+
+import { sidebarStore } from '@/stores/sidebar.js';
+
 export default {
   name: 'TimeLine',
   methods: {
-    toggleSidebar: function () {
-      this.$store.commit('toggleSidebarCollapsed');
-    }
+    ...mapActions(sidebarStore, [
+      'toggleSidebarCollapsed'
+    ])
   },
   computed: {
-    ...mapState([
+    ...mapState(sidebarStore, [
       'sidebarCollapsed'
     ])
   }
