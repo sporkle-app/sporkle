@@ -4,6 +4,7 @@
   "main": "http://localhost:8964",
   "node-remote": "http://localhost:8964",
   "scripts": {
+    "postinstall": "npx base-volta-off-of-nwjs@latest",
     "start": "concurrently \"vue-cli-service serve --port=8964\" \"nw .\"",
     "serve": "vue-cli-service serve --port=8964",
     "build": "vue-cli-service build && node build-script.js && nw ./dist",
@@ -40,7 +41,7 @@
     "babel-jest": "^23.0.1",
     "concurrently": "^4.0.1",
     "node-sass": "^4.9.0",
-    "nw": "sdk",
+    "nw": "0.35.3-sdk",
     "nw-vue-devtools": "^1.2.0",
     "nwjs-builder-phoenix": "^1.14.8",
     "pretty": "^2.0.0",
