@@ -4,7 +4,7 @@
 
 export default {
   // Set the name of your application here
-  appName: 'Your App Name Here',
+  appName: 'KarngDarbo',
   // Set the Bootswatch Theme your app will use on first load
   theme: 'vapor',
   // Set the color of the background for the nav bar

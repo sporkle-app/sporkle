@@ -1,12 +1,10 @@
 {
   "ManifestComments": [
     "Only add dependencies that you want shipped to the end user, for everything else, use devDependencies, including things that will be bundled by Vite.",
-    "NW.js requires a name and a main, everything else is optional.",
-    "The build section is used by nwjs-builder-phoenix, see its documentation for more info",
-    "To turn spell checking off, remove it from the chromium-args in this file"
+    "The build section is used by nwjs-builder-phoenix, see its documentation for more info"
   ],
-  "name": "your-app-name",
-  "version": "1.0.0",
+  "name": "karngdarbo",
+  "version": "0.1.0",
   "main": "http://localhost:4175",
   "node-remote": "http://localhost:4175",
   "node-main": "",
