@@ -15,5 +15,5 @@ export default {
     CommitLog,
     FileDiff
   }
-}
+};
 </script>

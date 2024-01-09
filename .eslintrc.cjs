@@ -41,15 +41,8 @@ module.exports = {
       'error',
       ...baseRestrictedSyntax
     ],
-    'vue/no-multiple-template-root': [
-      'off'
-    ],
-    'vue/no-v-text-v-html-on-component': [
-      'error',
-      {
-        allow: 'router-link'
-      }
-    ],
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-v-text-v-html-on-component': 'off',
     'vuejs-accessibility/label-has-for': [
       'error',
       {

@@ -42,35 +42,35 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
-    "@vitejs/plugin-vue": "^4.5.0",
+    "@vitejs/plugin-vue": "^5.0.2",
     "concurrently": "^8.2.2",
-    "eslint": "^8.54.0",
+    "eslint": "^8.56.0",
     "eslint-config-tjw-base": "^2.0.0",
     "eslint-config-tjw-import": "^1.0.0",
     "eslint-config-tjw-jest": "^2.0.0",
     "eslint-config-tjw-vue": "^3.0.0",
     "eslint-import-resolver-webpack": "^0.13.8",
-    "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-jest": "^27.6.0",
-    "eslint-plugin-vue": "^9.18.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.6.1",
+    "eslint-plugin-vue": "^9.19.2",
     "eslint-plugin-vuejs-accessibility": "^2.2.0",
     "happy-dom": "^12.10.3",
     "jest-serializer-vue-tjw": "^3.20.0",
     "lodash-es": "^4.17.21",
-    "nw": "0.82.0-sdk",
+    "nw": "0.83.0-sdk",
     "nw-vue-devtools-prebuilt": "^0.0.10",
     "nwjs-builder-phoenix": "^1.15.0",
-    "pinia": "^2.1.6",
+    "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
-    "vite": "^5.0.2",
-    "vue": "^3.3.9",
+    "vite": "^5.0.11",
+    "vue": "^3.4.6",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
   },
   "chromium-args": "--enable-spell-checking --load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' --disable-features=ProcessPerSiteUpToMainFrameThreshold",
   "build": {
-    "nwVersion": "v0.82.0",
+    "nwVersion": "v0.83.0",
     "nwFlavor": "normal",
     "targets": [
       "zip",
@@ -136,6 +136,6 @@
   },
   "type": "module",
   "volta": {
-    "node": "20.7.0"
+    "node": "21.1.0"
   }
 }
