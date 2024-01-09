@@ -1,12 +1,25 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask" @click="$emit('close')">
+    <div
+      class="modal-mask"
+      role="button"
+      tabindex="0"
+      @click="$emit('close')"
+      @keyup.enter="$emit('close')"
+    >
       <div class="modal-wrapper">
         <div class="modal-container" @click.stop>
 
           <div v-if="title" class="modal-header">
             {{ title }}
-            <span class="modal-close" @click="$emit('close')">&times;</span>
+            <span
+              v-text="'&times;'"
+              class="modal-close"
+              role="button"
+              tabindex="0"
+              @click="$emit('close')"
+              @keyup.enter="$emit('close')"
+            ></span>
           </div>
 
           <div class="modal-body">
@@ -15,9 +28,11 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
+              <button
+                v-text="'OK'"
+                class="modal-default-button"
+                @click="$emit('close')"
+              ></button>
             </slot>
           </div>
 

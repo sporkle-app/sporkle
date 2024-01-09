@@ -1,9 +1,9 @@
 <template>
   <div class="filediff">
-    <one-file
+    <OneFile
       v-for="(file, fileIndex) in files"
-      :key="'file' + fileIndex"
       :file="file"
+      :key="'file' + fileIndex"
     />
   </div>
 </template>
@@ -14,7 +14,7 @@ import OneFile from '@/components/filediff/OneFile.vue';
 export default {
   name: 'FileDiff',
   components: {
-    'one-file': OneFile
+    OneFile
   },
   data: function () {
     return {

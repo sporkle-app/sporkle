@@ -1,32 +1,30 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import FsExample from '@/views/FsExample.vue';
-import HelloWorld from '@/views/HelloWorld.vue';
-import PiniaDemo from '@/views/PiniaDemo.vue';
-import ResourceLinks from '@/views/ResourceLinks.vue';
+import AboutApp from '@/views/AboutApp.vue';
+import AppSettings from '@/views/AppSettings.vue';
+import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
+      path: '/commits',
+      name: 'commits',
+      component: CommitDiffContainer
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: AboutApp
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: AppSettings
+    },
+    {
       path: '/',
-      name: 'welcome',
-      component: HelloWorld
-    },
-    {
-      path: '/fs',
-      name: 'fs',
-      component: FsExample
-    },
-    {
-      path: '/pinia',
-      name: 'pinia',
-      component: PiniaDemo
-    },
-    {
-      path: '/resources',
-      name: 'resources',
-      component: ResourceLinks
+      redirect: '/commits'
     },
     {
       path: '/:catchAll(.*)*',

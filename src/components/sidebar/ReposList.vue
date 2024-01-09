@@ -12,7 +12,7 @@
 <script>
 import { mapState } from 'pinia';
 
-import { sidebarStore } from '@/stores/sidebar.js';
+import { reposStore } from '@/stores/repos.js';
 
 import RepoListItem from '@/components/sidebar/RepoListItem.vue';
 
@@ -22,7 +22,7 @@ export default {
     RepoListItem
   },
   computed: {
-    ...mapState(sidebarStore, [
+    ...mapState(reposStore, [
       'reposList'
     ])
   }

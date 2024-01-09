@@ -1,29 +1,20 @@
 import { defineStore } from 'pinia';
 
-import helpers from '@/helpers/index.js';
-
-import repos from '@/store/repos.js';
+import { alertsStore } from '@/stores/alerts.js';
+import { reposStore } from '@/stores/repos.js';
 
 const fs = window.require('fs');
 const path = window.require('path');
 const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 
-export const appSettingsStore = defineStore('appSettings', {
-  state: function () {
-    return {
-      customScrollbars: false,
-      theme: ''
-    };
-  },
+export const saveLoadDataStore = defineStore('saveLoadData', {
   actions: {
-    setCustomScrollbars: function (bool) {
-      this.customScrollbars = bool;
-      helpers.setHtmlTagClasses(this.theme, bool);
-    },
-    setTheme: function (theme) {
-      theme = theme || 'dark-mode';
-      this.theme = theme;
-      helpers.setHtmlTagClasses(theme, this.customScrollbars);
+    applySettings: function (settings) {
+      settings = settings || {};
+      this.setCustomScrollbars(settings.customScrollbars);
+      reposStore().setReposList(settings.reposList);
+      this.setTheme(settings.theme);
+      store.commit('setAppLoading', false, { root: true });
     },
     deleteSettings: function () {
       try {
@@ -64,42 +55,24 @@ export const appSettingsStore = defineStore('appSettings', {
         this.applySettings(settings);
       }
     },
-    applySettings: function (settings) {
-      settings = settings || {};
-      this.setCustomScrollbars(settings.customScrollbars);
-      repos().setReposList(settings.reposList);
-      this.setTheme(settings.theme);
-      store.commit('setAppLoading', false, { root: true });
-    },
-    saveSettings: function (store) {
-      const fs = nw.require('fs');
-
+    saveSettings: function () {
       // Grab Settings
       let settings = {
-        customScrollbars: store.state.customScrollbars,
-        reposList: store.rootState.reposList.reposList,
-        theme: store.state.theme
+        customScrollbars: this.customScrollbars,
+        theme: this.theme,
+        reposList: reposStore().reposList
       };
       settings = JSON.stringify(settings, null, 2);
-      fs.writeFile(settingsFile, settings, function (err) {
-        if (err) {
-          store.commit('setAppError', 'There was an error saving your settings. ' + err);
+      fs.writeFile(settingsFile, settings, function (error) {
+        if (error) {
+          alertsStore().setAppError('There was an error saving your settings. ' + error);
         }
       });
-    },
-    setCustomScrollbarsAndSave: function (store, bool) {
-      store.commit('setCustomScrollbars', bool);
-      store.dispatch('saveSettings');
-    },
-    setThemeAndSave: function (store, theme) {
-      store.commit('setTheme', theme);
-      store.dispatch('saveSettings');
     }
-
   },
   getters: {
-    doubledCount: function (state) {
-      return state.count * 2;
+    dataToSave: function () {
+      return {};
     }
   }
 });

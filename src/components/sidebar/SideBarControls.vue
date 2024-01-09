@@ -2,25 +2,28 @@
   <div class="sidebar-controls">
 
     <div class="button-group">
-      <label for="repochoice" class="hide">
-        Select repo
-      </label>
-      <input
-        id="repochoice"
-        type="file"
-        nwdirectory
-        class="hide"
-        @change="repoPicked($event)"
-      />
       <button @click="addRepo">Add</button>
       <button :disabled="true">Create</button>
       <button :disabled="true">Clone</button>
     </div>
 
     <div class="filter-and-settings">
-      <input :disabled="true" type="text" />
-      <span @click="showSettings = true">🔧</span>
-      <span @click="showAbout = true">❔</span>
+      <label for="repo-filter">
+        Repo Filter:
+      </label>
+      <input
+        id="repo-filter"
+        :disabled="true"
+        type="text"
+      />
+      <RouterLink
+        v-text="'🔧'"
+        :to="{ name: 'settings' }"
+      />
+      <RouterLink
+        v-text="'❔'"
+        :to="{ name: 'about' }"
+      />
     </div>
 
     <BaseModal
@@ -47,9 +50,15 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+
+import { andSaveStore } from '@/stores/andSave.js';
+
 import BaseModal from '@/components/BaseModal.vue';
 import AboutApp from '@/views/AboutApp.vue';
 import AppSettings from '@/views/AppSettings.vue';
+
+const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
 export default {
   name: 'SideBarControls',
@@ -58,20 +67,18 @@ export default {
     AppSettings,
     BaseModal
   },
-  data: function () {
-    return {
-      repoChoice: '',
-      showAbout: false,
-      showSettings: false
-    };
-  },
   methods: {
     addRepo: function () {
-      document.getElementById('repochoice').click();
+      const title = 'Select your repo folder';
+      openFolderExplorer(window, { title }, (repoPath) => {
+        if (repoPath) {
+          this.addRepoToListAndSave(repoPath);
+        }
+      });
     },
-    repoPicked: function (evt) {
-      this.$store.dispatch('reposList/addRepoToListAndSave', evt.target.value);
-    }
+    ...mapActions(andSaveStore, [
+      'addRepoToListAndSave'
+    ])
   }
 };
 </script>

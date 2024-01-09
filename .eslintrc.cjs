@@ -33,6 +33,7 @@ module.exports = {
   rules: {
     ...vueRules.rules,
     'import/no-anonymous-default-export': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'import/no-namespace': 'off',
     'import/no-unresolved': 'off',
     'import/no-unused-modules': 'off',
@@ -42,6 +43,12 @@ module.exports = {
     ],
     'vue/no-multiple-template-root': [
       'off'
+    ],
+    'vue/no-v-text-v-html-on-component': [
+      'error',
+      {
+        allow: 'router-link'
+      }
     ],
     'vuejs-accessibility/label-has-for': [
       'error',

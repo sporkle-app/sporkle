@@ -2,7 +2,10 @@
   <div class="one-file">
     <div
       class="file-header"
+      role="button"
+      tabindex="0"
       @click="isCollapsed = !isCollapsed"
+      @keyup.enter="isCollapsed = !isCollapsed"
     >
       <span v-if="isCollapsed">▶️</span>
       <span v-else>🔻</span>
@@ -79,8 +82,7 @@ ca\\qwer\\asdfqwerfzxv\\qwer\\asvasvr\\ascaweawe\\cwacawsdca\\acwecawecasd\\qweq
 c\\sdfvs' }
        ]
      };
-   }`,
-      asdf: []
+   }`
     };
   },
   methods: {

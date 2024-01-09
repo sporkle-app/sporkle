@@ -4,7 +4,7 @@
       <div class="alert error">
         <button
           class="close"
-          @click="closeAlert"
+          @click="$emit('close')"
         >&times;</button>
         <strong>Error: </strong>
         <span class="message">{{ message.replace('Error: ', '') }}</span>
@@ -20,11 +20,6 @@ export default {
     message: {
       type: String,
       required: true
-    }
-  },
-  methods: {
-    closeAlert: function () {
-      this.$store.commit('setAppError', '');
     }
   }
 };

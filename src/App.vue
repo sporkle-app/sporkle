@@ -3,28 +3,21 @@
     <SideBar />
     <main>
       <TimeLine />
-      <div class="commit-diff-container">
-        <CommitLog />
-        <FileDiff />
-      </div>
+      <RouterView />
     </main>
-    <BaseAlert v-if="appError" :message="appError" />
+    <GlobalAlerts />
   </div>
 </template>
 
 <script>
-import BaseAlert from '@/components/BaseAlert.vue';
-import CommitLog from '@/components/commitlog/CommitLog.vue';
-import FileDiff from '@/components/filediff/FileDiff.vue';
+import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import TimeLine from '@/components/timeline/TimeLine.vue';
 
 export default {
   name: 'App',
   components: {
-    BaseAlert,
-    CommitLog,
-    FileDiff,
+    GlobalAlerts,
     SideBar,
     TimeLine
   }

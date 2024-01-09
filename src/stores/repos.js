@@ -1,10 +1,10 @@
-import { defineStore } from 'pinia';
+import { defineStore, mapActions } from 'pinia';
 
-import helpers from '@/helpers/index.js';
+import { branchesStore } from '@/stores/branches.js';
 
 const path = window.require('path');
 
-export const sidebarStore = defineStore('sidebar', {
+export const reposStore = defineStore('repos', {
   state: function () {
     return {
       reposList: [],
@@ -15,8 +15,9 @@ export const sidebarStore = defineStore('sidebar', {
     setReposList: function (arr) {
       this.reposList = arr || [];
     },
-    setCurrentRepo: function (value) {
-      this.currentRepo = value;
+    setCurrentRepo: function (repoPath) {
+      this.currentRepo = repoPath;
+      this.updateBranches(repoPath);
     },
     /**
      * Add a new repo to the list of repos.
@@ -29,14 +30,10 @@ export const sidebarStore = defineStore('sidebar', {
         title: path.basename(repoPath)
       };
       this.reposList.push(repo);
+      this.setCurrentRepo(repoPath);
     },
-    addRepoToListAndSave: function (repoPath) {
-      if (helpers.validateRepoPath(repoPath)) {
-        this.addRepoToList(repoPath);
-        store.dispatch('appSettings/saveSettings', null, { root: true });
-      } else {
-        store.commit('setAppError', 'Path is not a valid git repository.\n' + repoPath, { root: true });
-      }
-    }
+    ...mapActions(branchesStore, [
+      'updateBranches'
+    ])
   }
 });
