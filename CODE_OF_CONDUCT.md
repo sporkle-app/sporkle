@@ -8,7 +8,7 @@ The following are the guidelines we expect our community members and maintainers
 
 **What defines a "maintainer"?**
 
-* A maintainer is anyone that interacts with the community on behalf of this project. Amount of code written is not a qualifier. A maintainer may include those who solely help in support roles such as in resolving issues, improving documentation, running or participating in forums/chatrooms, or any other non-coding specific roles. Maintainers also include those that are responsible for the building and upkeep of the project.
+* A maintainer is anyone that interacts with the community on behalf of this project. Amount of code written is not a qualifier. A maintainer may include those who solely help in support roles such as in resolving issues, improving documentation, administrating or moderating forums/chatrooms, or any other non-coding specific roles. Maintainers also include those that are responsible for the building and upkeep of the project.
 
 **What defines a "community member"?**
 
@@ -52,4 +52,4 @@ How to respond to a community member or maintainer violating a guideline.
 
 * * *
 
-Based on version 1.0.2 from https://github.com/CodifiedConduct/coc-no-ideologies
+Based on version 1.0.3 from https://github.com/CodifiedConduct/coc-no-ideologies

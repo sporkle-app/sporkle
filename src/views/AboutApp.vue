@@ -1,19 +1,22 @@
 <template>
   <div class="about-app">
-    {{ appTitle }} is a Cross-Platform Git client made by
-    <strong>
-      <a
-        href="#"
-        title="http://TheJaredWilcurt.com"
-        @click.prevent="openExternal"
-        ref="testExternalLink"
-      >
-        The Jared Wilcurt
-      </a>
-    </strong>.
-
+    <h3>{{ APP_NAME }} is a Cross-Platform Git client made by:</h3>
     <ul>
-      <li><strong>{{ appTitle }}</strong> (v{{ versions.app }})</li>
+      <li>
+        <a
+          v-for="(author, authorIndex) in authors"
+          v-text="author.name"
+          href="#"
+          :title="author.url"
+          @click.prevent="openExternal"
+          :key="'author' + authorIndex"
+        ></a>
+      </li>
+    </ul>
+
+    <h3>Versions:</h3>
+    <ul>
+      <li><strong>{{ APP_NAME }}</strong> (v{{ versions.app }})</li>
       <li><strong>Git</strong> (v{{ versions.git }})</li>
       <li><strong>NW.js</strong> (v{{ versions.nw }})
         <ul>
@@ -21,47 +24,72 @@
           <li><strong>Node.js</strong> (v{{ versions.node }})</li>
         </ul>
       </li>
-      <li><strong>Vue.js</strong> (v{{ versions.vue | clean }})</li>
+      <li><strong>Vue.js</strong> (v{{ clean(versions.vue) }})</li>
     </ul>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+
+import { alertsStore } from '@/stores/alerts.js';
+
+import { APP_NAME } from '@/helpers/constants.js';
+
+const exec = window.nw.require('child_process').exec;
+const manifest = window.nw.App.manifest;
+const versions = window.nw.process.versions;
+
 export default {
   name: 'AppSettings',
+  constants: {
+    APP_NAME
+  },
   data: function () {
     return {
-      appTitle: 'Karng Darbo',
+      authors: [
+        {
+          name: 'The Jared Wilcurt',
+          url: 'https://TheJaredWilcurt.com'
+        }
+      ],
       versions: {
-        app: nw.App.manifest.version,
-        chromium: nw.process.versions.chromium,
+        app: manifest.version,
+        chromium: versions.chromium,
         git: '',
-        node: nw.process.versions.node,
-        nw: nw.process.versions.nw,
-        vue: nw.App.manifest.dependencies.vue
+        node: versions.node,
+        nw: versions.nw,
+        vue: manifest.devDependencies.vue
       }
     };
   },
   methods: {
+    clean: function (value) {
+      value = value || '';
+      value = value.replace('^', '');
+      value = value.replace('~', '');
+      value = value.trim();
+      return value;
+    },
     getGitVersion: function () {
-      nw.require('child_process').exec('git --version', (err, data) => {
-        if (err) {
-          this.$store.commit('setAppError', String(err));
+      exec('git --version', (error, gitVersion) => {
+        if (error) {
+          this.setAppError(String(error));
         }
-        if (data) {
-          this.versions.git = data.replace('git version ', '').trim();
+        if (gitVersion) {
+          gitVersion = gitVersion.replace('git version', '');
+          gitVersion = gitVersion.trim();
+          this.versions.git = gitVersion;
         }
       });
     },
     openExternal: function (evt) {
       let url = evt.target.title;
-      nw.Shell.openExternal(url);
-    }
-  },
-  filters: {
-    clean: function (val) {
-      return val.replace('^', '').replace('~', '').trim();
-    }
+      window.nw.Shell.openExternal(url);
+    },
+    ...mapActions(alertsStore, [
+      'setAppError'
+    ])
   },
   created: function () {
     this.getGitVersion();

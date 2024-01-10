@@ -1,10 +1,11 @@
 <template>
   <div class="app-settings">
-    <button @click="getBranches">
-      Get Branches
-    </button>
+    <label for="new-repo-path">
+      New Repo Path
+    </label>
     <input
       v-model="newRepoPath"
+      id="new-repo-path"
       type="text"
       style="width: 100%"
       @keyup.enter="setNewRepoPath"
@@ -13,17 +14,21 @@
       <strong>App Loading</strong>: <pre>{{ appLoading }}</pre>
     </div>
     <div>
-      <strong>App Error</strong>: <pre>{{ appError }}</pre>
+      <strong>Alerts</strong>: <pre>{{ alerts }}</pre>
     </div>
     <div>
-      <strong>Repo Path</strong>: <pre>{{ repoPath }}</pre>
+      <strong>Repo Path</strong>: <pre>{{ currentRepo }}</pre>
     </div>
     <div>
       <strong>Branches</strong>: <pre>{{ branches }}</pre>
     </div>
     <div>
       <label>
-        <input v-model="useCustomScrollbars" type="checkbox" @change="setCustomScrollbars" />
+        <input
+          v-model="useCustomScrollbars"
+          type="checkbox"
+          @change="setCustomScrollbars"
+        />
         <strong>Use styled scrollbars</strong>
       </label>
       <div v-if="scrollbarSettingChanged">
@@ -32,8 +37,15 @@
     </div>
     <div>
       <strong>Pick Theme</strong>:
-      <select v-model="pickedTheme" @change="setTheme">
-        <option v-for="(theme, themeIndex) in themesList" :key="'theme' + themeIndex" :value="theme.file">
+      <select
+        :value="currentTheme"
+        @change="setTheme"
+      >
+        <option
+          v-for="(theme, themeIndex) in themesList"
+          :value="theme.file"
+          :key="'theme' + themeIndex"
+        >
           {{ theme.title }}
         </option>
       </select>
@@ -42,71 +54,73 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import _startCase from 'lodash-es/startCase.js';
+import { mapActions, mapState } from 'pinia';
+
+import { alertsStore } from '@/stores/alerts.js';
+import { andSaveStore } from '@/stores/andSave.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
+import { branchesStore } from '@/stores/branches.js';
+import { reposStore } from '@/stores/repos.js';
+import { themeStore } from '@/stores/theme.js';
+
+import { THEMES } from '@/helpers/constants.js';
+
 export default {
   name: 'AppSettings',
   data: function () {
     return {
       newRepoPath: nw.App.startPath,
-      pickedTheme: '',
       scrollbarSettingChanged: false,
       useCustomScrollbars: false
     };
   },
   methods: {
-    getBranches: function () {
-      this.$store.dispatch('getBranchList');
-    },
     reloadApp: function () {
-      nw.Window.get().reload();
+      window.nw.Window.get().reload();
     },
     setNewRepoPath: function () {
-      this.$store.commit('setRepoPath', this.newRepoPath.trim());
-      this.getBranches();
+      this.setCurrentRepoAndSave(this.newRepoPath.trim());
     },
     setCustomScrollbars: function () {
       this.scrollbarSettingChanged = true;
-      this.$store.dispatch('appSettings/setCustomScrollbarsAndSave', this.useCustomScrollbars);
+      this.setCustomScrollbarsAndSave(this.useCustomScrollbars);
     },
-    setTheme: function () {
-      this.$store.dispatch('appSettings/setThemeAndSave', this.pickedTheme);
-    }
+    setTheme: function ($event) {
+      this.setThemeAndSave($event.target.value);
+    },
+    ...mapActions(andSaveStore, [
+      'setCurrentRepoAndSave',
+      'setCustomScrollbarsAndSave',
+      'setThemeAndSave'
+    ])
   },
   computed: {
     themesList: function () {
-      let list = [];
-      this.themes.forEach(function (file) {
-        let title = file.split('-');
-        title = title.map(function (word) {
-          // Uppercase first letter
-          return word = word[0].toUpperCase() + word.slice(1, word.length);
-        });
-        list.push({
-          title: title.join(' '),
+      return THEMES.map(function (file) {
+        return {
+          title: _startCase(file),
           file: file
-        });
+        };
       });
-      return list;
     },
-    ...mapState('appSettings', [
-      'customScrollbars',
-      'theme'
+    ...mapState(alertsStore, [
+      'alerts'
     ]),
-    ...mapState([
-      'appLoading',
-      'appError',
-      'branches',
-      'repoPath',
-      'themes'
+    ...mapState(appLoadingStore, [
+      'appLoading'
+    ]),
+    ...mapState(branchesStore, [
+      'branches'
+    ]),
+    ...mapState(reposStore, [
+      'currentRepo'
+    ]),
+    ...mapState(themeStore, [
+      'currentTheme'
     ])
   },
-  watch: {
-    theme: function (val) {
-      this.pickedTheme = val;
-    }
-  },
   created: function () {
-    this.pickedTheme = this.theme;
     this.useCustomScrollbars = this.customScrollbars;
   }
 };
