@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`SideBar.vue Created Default snapshot 1`] = `
-<div class="sidebar">
-  <side-bar-controls-stub></side-bar-controls-stub>
-  <repos-list-stub></repos-list-stub>
-  <repos-list-controls-stub></repos-list-controls-stub>
-</div>
-`;

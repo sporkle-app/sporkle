@@ -1,6 +1,12 @@
 <template>
-  <div :title="repo.filePath" class="repo-list-item">
-    {{ repo.title }}
+  <div
+    :title="repo.filePath"
+    class="repo-list-item"
+  >
+    <RouterLink
+      v-text="repo.title"
+      :to="{ name: 'commits' }"
+    />
   </div>
 </template>
 
@@ -11,9 +17,9 @@ export default {
     repo: {
       type: Object,
       required: true,
-      validator: function (val) {
-        let title = val.title && typeof(val.title) === 'string';
-        let filePath = val.filePath && typeof(val.filePath) === 'string';
+      validator: function (repo) {
+        let title = repo.title && typeof(repo.title) === 'string';
+        let filePath = repo.filePath && typeof(repo.filePath) === 'string';
         return title && filePath;
       }
     }

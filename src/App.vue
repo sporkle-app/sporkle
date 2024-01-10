@@ -1,39 +1,48 @@
 <template>
   <div id="app" class="app-container">
-    <side-bar />
+    <SideBar />
     <main>
-      <time-line />
-      <div class="commit-diff-container">
-        <commit-log />
-        <file-diff />
-      </div>
+      <TimeLine />
+      <RouterView />
     </main>
-    <base-alert v-if="appError" :message="appError" />
+    <GlobalAlerts />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions } from 'pinia';
 
-import SideBar from '@/views/SideBar.vue';
-import TimeLine from '@/views/TimeLine.vue';
-import CommitLog from '@/views/CommitLog.vue';
-import FileDiff from '@/views/FileDiff.vue';
-import BaseAlert from '@/utilities/BaseAlert.vue';
+import { saveLoadDataStore } from '@/stores/saveLoadData.js';
+
+import GlobalAlerts from '@/components/GlobalAlerts.vue';
+import SideBar from '@/components/sidebar/SideBar.vue';
+import TimeLine from '@/components/timeline/TimeLine.vue';
 
 export default {
   name: 'App',
   components: {
-    'side-bar': SideBar,
-    'time-line': TimeLine,
-    'commit-log': CommitLog,
-    'file-diff': FileDiff,
-    'base-alert': BaseAlert
+    GlobalAlerts,
+    SideBar,
+    TimeLine
   },
-  computed: {
-    ...mapState([
-      'appError'
+  methods: {
+    ...mapActions(saveLoadDataStore, [
+      'loadSettings'
     ])
+  },
+  created: function () {
+    this.loadSettings();
   }
 };
 </script>
+
+<style>
+.app-container {
+  display: flex;
+  width:  100%;
+  height: 100vh;
+}
+main {
+  width: 100%;
+}
+</style>

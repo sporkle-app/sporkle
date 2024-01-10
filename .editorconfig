@@ -13,13 +13,5 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # Markdown files uses two trailing spaces to indicate a <br>
-[*.{md}]
+[*.{md,snap}]
 trim_trailing_whitespace = false
-
-# 4 space indentation
-[*.{sass,scss,css}]
-indent_size = 4
-
-# 2 space indentation
-[*.{html,json}]
-indent_size = 2

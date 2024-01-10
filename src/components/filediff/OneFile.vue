@@ -1,6 +1,12 @@
 <template>
   <div class="one-file">
-    <div class="file-header" @click="isCollapsed = !isCollapsed">
+    <div
+      class="file-header"
+      role="button"
+      tabindex="0"
+      @click="isCollapsed = !isCollapsed"
+      @keyup.enter="isCollapsed = !isCollapsed"
+    >
       <span v-if="isCollapsed">▶️</span>
       <span v-else>🔻</span>
       {{ file.path }}
@@ -9,8 +15,8 @@
       <div v-if="!isCollapsed" class="file-diff-container">
         <pre
           v-for="(row, rowIndex) in diffRows"
-          :key="'row' + rowIndex"
           :class="rowClass(row)"
+          :key="'row' + rowIndex"
         >{{ row }}</pre>
       </div>
     </transition>
@@ -76,8 +82,7 @@ ca\\qwer\\asdfqwerfzxv\\qwer\\asvasvr\\ascaweawe\\cwacawsdca\\acwecawecasd\\qweq
 c\\sdfvs' }
        ]
      };
-   }`,
-      asdf: []
+   }`
     };
   },
   methods: {
@@ -105,3 +110,12 @@ c\\sdfvs' }
   }
 };
 </script>
+
+<style>
+.file-header {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
