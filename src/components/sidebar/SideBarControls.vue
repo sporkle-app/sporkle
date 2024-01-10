@@ -18,10 +18,12 @@
       />
       <RouterLink
         v-text="'🔧'"
+        title="Settings"
         :to="{ name: 'settings' }"
       />
       <RouterLink
         v-text="'❔'"
+        title="About"
         :to="{ name: 'about' }"
       />
     </div>
@@ -40,9 +42,10 @@ export default {
   methods: {
     addRepo: function () {
       const title = 'Select your repo folder';
-      openFolderExplorer(window, { title }, (repoPath) => {
+      openFolderExplorer(window, { title }, async (repoPath) => {
         if (repoPath) {
-          this.addRepoToListAndSave(repoPath);
+          await this.addRepoToListAndSave(repoPath);
+          this.$router.push({ name: 'commits' });
         }
       });
     },

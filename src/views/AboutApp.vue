@@ -1,6 +1,6 @@
 <template>
   <div class="about-app">
-    {{ APP_NAME }} is a Cross-Platform Git client made by:
+    <h3>{{ APP_NAME }} is a Cross-Platform Git client made by:</h3>
     <ul>
       <li>
         <a
@@ -14,6 +14,7 @@
       </li>
     </ul>
 
+    <h3>Versions:</h3>
     <ul>
       <li><strong>{{ APP_NAME }}</strong> (v{{ versions.app }})</li>
       <li><strong>Git</strong> (v{{ versions.git }})</li>
@@ -58,12 +59,13 @@ export default {
         git: '',
         node: versions.node,
         nw: versions.nw,
-        vue: manifest.dependencies.vue
+        vue: manifest.devDependencies.vue
       }
     };
   },
   methods: {
     clean: function (value) {
+      value = value || '';
       value = value.replace('^', '');
       value = value.replace('~', '');
       value = value.trim();

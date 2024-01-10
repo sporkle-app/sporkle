@@ -10,6 +10,10 @@
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+
+import { saveLoadDataStore } from '@/stores/saveLoadData.js';
+
 import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import TimeLine from '@/components/timeline/TimeLine.vue';
@@ -20,6 +24,14 @@ export default {
     GlobalAlerts,
     SideBar,
     TimeLine
+  },
+  methods: {
+    ...mapActions(saveLoadDataStore, [
+      'loadSettings'
+    ])
+  },
+  created: function () {
+    this.loadSettings();
   }
 };
 </script>

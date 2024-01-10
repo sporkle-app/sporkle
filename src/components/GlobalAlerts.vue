@@ -1,5 +1,7 @@
 <template>
-  <BaseAlert v-if="alertMessage" :message="alertMessage" />
+  <div class="global-alerts">
+    <BaseAlert v-if="alertMessage" :message="alertMessage" />
+  </div>
 </template>
 
 <script>
@@ -24,3 +26,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.global-alerts {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 20;
+}
+</style>

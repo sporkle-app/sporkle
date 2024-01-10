@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore, mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
@@ -15,23 +15,35 @@ export const branchesStore = defineStore('branches', {
     };
   },
   actions: {
+    ...mapActions(appLoadingStore, [
+      'setAppLoading'
+    ]),
     setBranches: function (branches) {
       this.branches = branches || [];
     },
     updateBranches: async function (currentRepoPath) {
-      appLoadingStore().setAppLoading(true);
+      this.setAppLoading(true);
 
       helpers.setCurrentWorkingDirectory(currentRepoPath);
 
       const { error, stdout, stderr } = await exec('git branch');
 
-      appLoadingStore().setAppLoading(false);
+      this.setAppLoading(false);
 
-      if (error !== null || stderr !== null) {
+      if (error || stderr) {
         alertsStore().setAppError('Git Error: ' + (error || stderr));
       }
 
-      this.setBranches(stdout);
+      const branches = (stdout || '')
+        .replaceAll('*', '')
+        .replaceAll('\r', '')
+        .split('\n')
+        .map((branch) => {
+          return branch.trim();
+        })
+        .filter(Boolean);
+
+      this.setBranches(branches);
     }
   }
 });

@@ -3,7 +3,10 @@
     :title="repo.filePath"
     class="repo-list-item"
   >
-    {{ repo.title }}
+    <RouterLink
+      v-text="repo.title"
+      :to="{ name: 'commits' }"
+    />
   </div>
 </template>
 

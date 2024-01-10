@@ -1,7 +1,9 @@
-import { defineStore } from 'pinia';
+import { defineStore, mapActions, mapState } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
+import { themeStore } from '@/stores/theme.js';
 
 const fs = window.require('fs');
 const path = window.require('path');
@@ -9,12 +11,25 @@ const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 
 export const saveLoadDataStore = defineStore('saveLoadData', {
   actions: {
+    ...mapActions(alertsStore, [
+      'setAppError'
+    ]),
+    ...mapActions(appLoadingStore, [
+      'setAppLoading'
+    ]),
+    ...mapActions(reposStore, [
+      'setReposList'
+    ]),
+    ...mapActions(themeStore, [
+      'setCustomScrollbars',
+      'setTheme'
+    ]),
     applySettings: function (settings) {
       settings = settings || {};
       this.setCustomScrollbars(settings.customScrollbars);
-      reposStore().setReposList(settings.reposList);
+      this.setReposList(settings.reposList);
       this.setTheme(settings.theme);
-      store.commit('setAppLoading', false, { root: true });
+      this.setAppLoading(false);
     },
     deleteSettings: function () {
       try {
@@ -32,20 +47,21 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       }
     },
     loadSettings: function () {
-      store.commit('setAppLoading', true, { root: true });
+      this.setAppLoading(true);
+
       let settings = {};
 
       if (fs.existsSync(settingsFile)) {
-        fs.readFile(settingsFile, function (err, data) {
+        fs.readFile(settingsFile, (err, data) => {
           if (err) {
-            store.commit('setAppError', 'Unable to load settings.\n' + err, { root: true });
+            this.setAppError('Unable to load settings.\n' + err);
           }
 
           if (data) {
             try {
               settings = JSON.parse(data);
             } catch (error) {
-              store.commit('setAppError', 'Error attempting to load settings.\n' + error, { root: true });
+              this.setAppError('Error attempting to load settings.\n' + error);
             }
           }
 
@@ -56,23 +72,29 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       }
     },
     saveSettings: function () {
-      // Grab Settings
-      let settings = {
-        customScrollbars: this.customScrollbars,
-        theme: this.theme,
-        reposList: reposStore().reposList
-      };
-      settings = JSON.stringify(settings, null, 2);
-      fs.writeFile(settingsFile, settings, function (error) {
+      console.log(this.dataToSave);
+      fs.writeFile(settingsFile, this.dataToSave, function (error) {
         if (error) {
-          alertsStore().setAppError('There was an error saving your settings. ' + error);
+          this.setAppError('There was an error saving your settings. ' + error);
         }
       });
     }
   },
   getters: {
+    ...mapState(reposStore, [
+      'reposList'
+    ]),
+    ...mapState(themeStore, [
+      'customScrollbars',
+      'currentTheme'
+    ]),
     dataToSave: function () {
-      return {};
+      const data = {
+        customScrollbars: this.customScrollbars,
+        currentTheme: this.currentTheme,
+        reposList: this.reposList
+      };
+      return JSON.stringify(data, null, 2);
     }
   }
 });

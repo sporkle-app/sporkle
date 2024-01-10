@@ -37,4 +37,8 @@ export default {
 .sidebar {
   border: 1px solid #000;
 }
+.sidebar.collapse {
+  width: 0px;
+  overflow: hidden;
+}
 </style>
