@@ -27,3 +27,10 @@ export default {
   }
 };
 </script>
+
+<style>
+.timeline {
+  height: 135px;
+  border: 1px solid #000;
+}
+</style>

@@ -32,3 +32,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.sidebar {
+  border: 1px solid #000;
+}
+</style>

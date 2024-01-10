@@ -7,9 +7,6 @@ export const sidebarStore = defineStore('sidebar', {
     };
   },
   actions: {
-    setSidebarCollapsed: function (bool) {
-      this.sidebarCollapsed = bool;
-    },
     toggleSidebarCollapsed: function () {
       this.sidebarCollapsed = !this.sidebarCollapsed;
     }

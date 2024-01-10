@@ -23,3 +23,14 @@ export default {
   }
 };
 </script>
+
+<style>
+.app-container {
+  display: flex;
+  width:  100%;
+  height: 100vh;
+}
+main {
+  width: 100%;
+}
+</style>
