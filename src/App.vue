@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="app-container">
+  <div class="app-container">
     <SideBar />
     <main>
       <TimeLine />
