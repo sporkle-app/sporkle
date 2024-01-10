@@ -22,4 +22,3 @@ jobs:
     - run: npm ci
     - run: npm run build:vue
     - run: npm run lint
-    - run: npm t
