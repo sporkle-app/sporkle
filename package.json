@@ -1,7 +1,8 @@
 {
   "ManifestComments": [
     "Only add dependencies that you want shipped to the end user, for everything else, use devDependencies, including things that will be bundled by Vite.",
-    "The build section is used by nwjs-builder-phoenix, see its documentation for more info"
+    "The build section is used by nwjs-builder-phoenix, see its documentation for more info",
+    "Pinned vue to 3.4.5 until accidental Pinia warnings are removed: https://github.com/vuejs/core/discussions/9974#discussioncomment-8057165"
   ],
   "name": "karngdarbo",
   "version": "0.1.0",
@@ -63,7 +64,7 @@
     "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
     "vite": "^5.0.11",
-    "vue": "^3.4.6",
+    "vue": "3.4.5",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
