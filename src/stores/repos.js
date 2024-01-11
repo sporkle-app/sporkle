@@ -46,7 +46,7 @@ export const reposStore = defineStore('repos', {
       return state.reposList
         .toSorted(function (a, b) {
           a = a.title.toLowerCase();
-          b = b.title.toLowerCase()
+          b = b.title.toLowerCase();
           return (a > b) ? 1 : (a < b) ? -1 : 0;
         })
         .filter(function (repo) {
