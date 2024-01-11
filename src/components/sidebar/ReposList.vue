@@ -1,11 +1,10 @@
 <template>
   <div class="repos-list">
-    <div
+    <RepoListItem
       v-for="(repo, repoIndex) in filteredReposList"
+      :repo="repo"
       :key="'repo' + repoIndex"
-    >
-      <RepoListItem :repo="repo" />
-    </div>
+    />
   </div>
 </template>
 
@@ -32,7 +31,6 @@ export default {
 <style>
 .repos-list {
   height: 100%;
-  padding: 10px;
   overflow: auto;
 }
 </style>

@@ -29,12 +29,25 @@ export const reposStore = defineStore('repos', {
      * @param {string} repoPath  File path to the repo
      */
     addRepoToList: function (repoPath) {
+      const match = this.reposList.find((repo) => {
+        return repo.filePath === repoPath;
+      });
+      if (match) {
+        this.setCurrentRepo(repoPath);
+        return;
+      }
+
       const repo = {
         filePath: repoPath,
         title: path.basename(repoPath)
       };
       this.reposList.push(repo);
       this.setCurrentRepo(repoPath);
+    },
+    removeRepoFromList: function (repoPath) {
+      this.setReposList(this.reposList.filter(function (repo) {
+        return repo.filePath !== repoPath;
+      }));
     },
     ...mapActions(branchesStore, [
       'updateBranches'

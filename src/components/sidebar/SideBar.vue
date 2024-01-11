@@ -5,7 +5,7 @@
   >
     <SideBarControls />
     <ReposList />
-    <ReposListControls />
+    <SideBarFooter />
   </div>
 </template>
 
@@ -15,15 +15,15 @@ import { mapState } from 'pinia';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import ReposList from '@/components/sidebar/ReposList.vue';
-import ReposListControls from '@/components/sidebar/ReposListControls.vue';
 import SideBarControls from '@/components/sidebar/SideBarControls.vue';
+import SideBarFooter from '@/components/sidebar/SideBarFooter.vue';
 
 export default {
   name: 'SideBar',
   components: {
     ReposList,
-    ReposListControls,
-    SideBarControls
+    SideBarControls,
+    SideBarFooter
   },
   computed: {
     ...mapState(sidebarStore, [

@@ -1,6 +1,5 @@
 <template>
-  <div class="repos-list-controls">
-    <button disabled>New folder</button>
+  <div class="sidebar-footer">
     <div class="icons-container">
       <RouterLink
         v-text="'🔧'"
@@ -18,15 +17,15 @@
 
 <script>
 export default {
-  name: 'ReposListControls'
+  name: 'SideBarFooter'
 };
 </script>
 
 <style>
-.repos-list-controls {
+.sidebar-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   background: #000A;
   padding: 10px;
 }
