@@ -1,6 +1,12 @@
 <template>
   <div class="about-app">
-    <h3>{{ APP_NAME }} is a Cross-Platform Git client made by:</h3>
+    <CloseView />
+
+    <h2>About</h2>
+
+    <p>{{ APP_NAME }} is a Cross-Platform Git client.</p>
+
+    <h3>Authors:</h3>
     <ul>
       <li>
         <a
@@ -36,12 +42,17 @@ import { alertsStore } from '@/stores/alerts.js';
 
 import { APP_NAME } from '@/helpers/constants.js';
 
+import CloseView from '@/components/CloseView.vue';
+
 const exec = window.nw.require('child_process').exec;
 const manifest = window.nw.App.manifest;
 const versions = window.nw.process.versions;
 
 export default {
   name: 'AppSettings',
+  components: {
+    CloseView
+  },
   constants: {
     APP_NAME
   },
@@ -96,3 +107,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.about-app {
+  padding: 20px;
+}
+</style>

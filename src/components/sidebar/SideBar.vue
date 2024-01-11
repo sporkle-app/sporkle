@@ -5,6 +5,14 @@
   >
     <SideBarControls />
     <ReposList />
+    <ul>
+      <li
+        v-for="x in 100"
+        :key="'x' + x"
+      >
+        {{ x }}
+      </li>
+    </ul>
     <ReposListControls />
   </div>
 </template>
@@ -33,12 +41,18 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sidebar {
-  border: 1px solid #000;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: #0004;
+  overflow: auto;
+  transition: var(--sidebar-transition) ease left;
 }
 .sidebar.collapse {
-  width: 0px;
-  overflow: hidden;
+  left: calc(-1 * var(--sidebar-width));
 }
 </style>

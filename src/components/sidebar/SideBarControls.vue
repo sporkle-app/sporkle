@@ -8,23 +8,28 @@
     </div>
 
     <div class="filter-and-settings">
-      <label for="repo-filter">
-        Repo Filter:
-      </label>
+      <div class="label-and-icons">
+        <label for="repo-filter">
+          Repo Filter:
+        </label>
+        <div>
+          <RouterLink
+            v-text="'🔧'"
+            title="Settings"
+            :to="{ name: 'settings' }"
+          />
+          <RouterLink
+            v-text="'❔'"
+            title="About"
+            :to="{ name: 'about' }"
+          />
+        </div>
+      </div>
       <input
         id="repo-filter"
-        :disabled="true"
+        aria-labelledby="#repo-filter"
+        class="repo-filter"
         type="text"
-      />
-      <RouterLink
-        v-text="'🔧'"
-        title="Settings"
-        :to="{ name: 'settings' }"
-      />
-      <RouterLink
-        v-text="'❔'"
-        title="About"
-        :to="{ name: 'about' }"
       />
     </div>
   </div>
@@ -55,3 +60,15 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.repo-filter {
+  width: calc(100% - 20px);
+  background: #FFF2;
+  margin: 4px 10px 0px 10px;
+}
+.label-and-icons {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

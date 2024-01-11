@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .global-alerts {
   position: absolute;
   right: 10px;

@@ -2,6 +2,7 @@
   <div class="one-file">
     <div
       class="file-header"
+      :class="{ expanded: !isCollapsed }"
       role="button"
       tabindex="0"
       @click="isCollapsed = !isCollapsed"
@@ -111,11 +112,15 @@ c\\sdfvs' }
 };
 </script>
 
-<style>
+<style scoped>
 .file-header {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.file-header.expanded {
+  white-space: unset;
+  word-break: break-all;
 }
 </style>

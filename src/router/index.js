@@ -24,6 +24,7 @@ export const router = createRouter({
     },
     {
       path: '/',
+      name: 'home',
       redirect: '/commits'
     },
     {

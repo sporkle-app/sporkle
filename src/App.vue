@@ -1,7 +1,10 @@
 <template>
   <div class="app-container">
     <SideBar />
-    <main>
+    <main
+      class="main-container"
+      :class="{ 'sidebar-hidden': sidebarCollapsed }"
+    >
       <TimeLine />
       <RouterView />
     </main>
@@ -10,9 +13,10 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
 import { saveLoadDataStore } from '@/stores/saveLoadData.js';
+import { sidebarStore } from '@/stores/sidebar.js';
 
 import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
@@ -30,6 +34,11 @@ export default {
       'loadSettings'
     ])
   },
+  computed: {
+    ...mapState(sidebarStore, [
+      'sidebarCollapsed'
+    ])
+  },
   created: function () {
     this.loadSettings();
   }
@@ -42,7 +51,12 @@ export default {
   width:  100%;
   height: 100vh;
 }
-main {
+.main-container {
   width: 100%;
+  margin-left: var(--sidebar-width);
+  transition: var(--sidebar-transition) ease margin-left;
+}
+.sidebar-hidden {
+  margin-left: 0px;
 }
 </style>
