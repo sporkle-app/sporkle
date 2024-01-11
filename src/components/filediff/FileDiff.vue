@@ -64,7 +64,7 @@ export default {
   width: calc(100vw - var(--commit-log-width) - var(--sidebar-width));
   height: calc(100vh - var(--timeline-height));
   overflow: auto;
-  transition: 0.5 ease all;
+  transition: var(--sidebar-transition) ease width;
 }
 .file-diff.wide {
   width: calc(100vw - var(--commit-log-width));
