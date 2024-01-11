@@ -7,29 +7,17 @@
       <button :disabled="true">Clone</button>
     </div>
 
-    <div class="filter-and-settings">
-      <div class="label-and-icons">
-        <label for="repo-filter">
-          Repo Filter:
-        </label>
-        <div>
-          <RouterLink
-            v-text="'🔧'"
-            title="Settings"
-            :to="{ name: 'settings' }"
-          />
-          <RouterLink
-            v-text="'❔'"
-            title="About"
-            :to="{ name: 'about' }"
-          />
-        </div>
-      </div>
+    <div>
+      <label for="repo-filter" class="sr-only">
+        Repo Filter:
+      </label>
       <input
         id="repo-filter"
         aria-labelledby="#repo-filter"
         class="repo-filter"
         type="text"
+        placeholder="Filter repos"
+        @input="($event) => setRepoFilter($event.target.value)"
       />
     </div>
   </div>
@@ -39,6 +27,7 @@
 import { mapActions } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
+import { reposStore } from '@/stores/repos.js';
 
 const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
@@ -56,19 +45,29 @@ export default {
     },
     ...mapActions(andSaveStore, [
       'addRepoToListAndSave'
+    ]),
+    ...mapActions(reposStore, [
+      'setRepoFilter'
     ])
   }
 };
 </script>
 
 <style scoped>
-.repo-filter {
-  width: calc(100% - 20px);
-  background: #FFF2;
-  margin: 4px 10px 0px 10px;
-}
-.label-and-icons {
+.button-group {
   display: flex;
-  justify-content: space-between;
+}
+.button-group button {
+  flex-grow: 1;
+  border-radius: 0px;
+  margin: 0px;
+}
+.repo-filter {
+  position: relative;
+  width: 100%;
+  background: #FFF2;
+  border-radius: 0px;
+  margin: 0px;
+  z-index: 1;
 }
 </style>

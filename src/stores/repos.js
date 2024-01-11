@@ -8,6 +8,7 @@ export const reposStore = defineStore('repos', {
   state: function () {
     return {
       reposList: [],
+      repoFilter: '',
       currentRepo: null
     };
   },
@@ -18,6 +19,9 @@ export const reposStore = defineStore('repos', {
     setCurrentRepo: function (repoPath) {
       this.currentRepo = repoPath;
       this.updateBranches(repoPath);
+    },
+    setRepoFilter: function (value) {
+      this.repoFilter = value;
     },
     /**
      * Add a new repo to the list of repos.
@@ -35,5 +39,20 @@ export const reposStore = defineStore('repos', {
     ...mapActions(branchesStore, [
       'updateBranches'
     ])
+  },
+  getters: {
+    filteredReposList: function (state) {
+      const filter = state.repoFilter.toLowerCase();
+      return state.reposList
+        .toSorted(function (a, b) {
+          a = a.title.toLowerCase();
+          b = b.title.toLowerCase()
+          return (a > b) ? 1 : (a < b) ? -1 : 0;
+        })
+        .filter(function (repo) {
+          const title = repo.title.toLowerCase();
+          return title.includes(filter);
+        });
+    }
   }
 });

@@ -5,14 +5,6 @@
   >
     <SideBarControls />
     <ReposList />
-    <ul>
-      <li
-        v-for="x in 100"
-        :key="'x' + x"
-      >
-        {{ x }}
-      </li>
-    </ul>
     <ReposListControls />
   </div>
 </template>
@@ -46,6 +38,8 @@ export default {
   position: absolute;
   top: 0px;
   left: 0px;
+  display: flex;
+  flex-direction: column;
   width: var(--sidebar-width);
   height: 100vh;
   background: #0004;

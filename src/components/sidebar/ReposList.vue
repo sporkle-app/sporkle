@@ -1,7 +1,7 @@
 <template>
   <div class="repos-list">
     <div
-      v-for="(repo, repoIndex) in reposList"
+      v-for="(repo, repoIndex) in filteredReposList"
       :key="'repo' + repoIndex"
     >
       <RepoListItem :repo="repo" />
@@ -23,8 +23,16 @@ export default {
   },
   computed: {
     ...mapState(reposStore, [
-      'reposList'
+      'filteredReposList'
     ])
   }
 };
 </script>
+
+<style>
+.repos-list {
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
+}
+</style>
