@@ -5,15 +5,7 @@
   >
     <SideBarControls />
     <ReposList />
-    <ul>
-      <li
-        v-for="x in 100"
-        :key="'x' + x"
-      >
-        {{ x }}
-      </li>
-    </ul>
-    <ReposListControls />
+    <SideBarFooter />
   </div>
 </template>
 
@@ -23,15 +15,15 @@ import { mapState } from 'pinia';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import ReposList from '@/components/sidebar/ReposList.vue';
-import ReposListControls from '@/components/sidebar/ReposListControls.vue';
 import SideBarControls from '@/components/sidebar/SideBarControls.vue';
+import SideBarFooter from '@/components/sidebar/SideBarFooter.vue';
 
 export default {
   name: 'SideBar',
   components: {
     ReposList,
-    ReposListControls,
-    SideBarControls
+    SideBarControls,
+    SideBarFooter
   },
   computed: {
     ...mapState(sidebarStore, [
@@ -46,6 +38,8 @@ export default {
   position: absolute;
   top: 0px;
   left: 0px;
+  display: flex;
+  flex-direction: column;
   width: var(--sidebar-width);
   height: 100vh;
   background: #0004;

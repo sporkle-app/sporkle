@@ -36,7 +36,8 @@ export const andSaveStore = defineStore('andSave', {
 
     // Repo
     ...mapActions(reposStore, [
-      'addRepoToList'
+      'addRepoToList',
+      'removeRepoFromList'
     ]),
     addRepoToListAndSave: function (repoPath) {
       if (helpers.validateRepoPath(repoPath)) {
@@ -45,6 +46,10 @@ export const andSaveStore = defineStore('andSave', {
       } else {
         this.setAppError('Path is not a valid git repository.\n' + repoPath);
       }
+    },
+    removeRepoFromListAndSave: function (repoPath) {
+      this.removeRepoFromList(repoPath);
+      this.saveSettings();
     }
   }
 });
