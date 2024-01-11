@@ -1,7 +1,10 @@
 <template>
   <div
     class="file-diff"
-    :class="{ wide: sidebarCollapsed }"
+    :class="{
+      animate: animateTransition,
+      wide: sidebarCollapsed
+    }"
   >
     <OneFile
       v-for="(file, fileIndex) in files"
@@ -25,6 +28,7 @@ export default {
   },
   data: function () {
     return {
+      animateTransition: false,
       files: [
         { path: 'C:\\Folder' },
         { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
@@ -55,6 +59,15 @@ export default {
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
     ])
+  },
+  watch: {
+    // This is so we get smooth animations when toggling the sidebar, but not when maximizing/restoring the window
+    sidebarCollapsed: function () {
+      this.animateTransition = true;
+      setTimeout(() => {
+        this.animateTransition = false;
+      }, 500);
+    }
   }
 };
 </script>
@@ -64,6 +77,8 @@ export default {
   width: calc(100vw - var(--commit-log-width) - var(--sidebar-width));
   height: calc(100vh - var(--timeline-height));
   overflow: auto;
+}
+.file-diff.animate {
   transition: var(--sidebar-transition) ease width;
 }
 .file-diff.wide {
