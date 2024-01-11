@@ -1,4 +1,8 @@
 :root {
+  --commit-log-width: 350px;
+  --sidebar-transition: 750ms;
+  --sidebar-width: 233px;
+  --timeline-height: 135px;
 }
 
 
@@ -16,6 +20,7 @@ body {
   border: 0px;
   margin: 0px;
   padding: 0px;
+  overflow: hidden;
 }
 
 body {
@@ -24,4 +29,13 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: color 0.5s, background-color 0.5s;
+}
+
+button {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+pre {
+  margin: 0px;
 }

@@ -1,5 +1,9 @@
 <template>
   <div class="app-settings">
+    <CloseView />
+
+    <h2>Settings</h2>
+
     <label for="new-repo-path">
       New Repo Path
     </label>
@@ -66,8 +70,13 @@ import { themeStore } from '@/stores/theme.js';
 
 import { THEMES } from '@/helpers/constants.js';
 
+import CloseView from '@/components/CloseView.vue';
+
 export default {
   name: 'AppSettings',
+  components: {
+    CloseView
+  },
   data: function () {
     return {
       newRepoPath: nw.App.startPath,
@@ -125,3 +134,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.app-settings {
+  padding: 20px;
+}
+</style>

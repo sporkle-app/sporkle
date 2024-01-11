@@ -35,9 +35,9 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .timeline {
-  height: 135px;
-  border: 1px solid #000;
+  height: var(--timeline-height);
+  background: #2229;
 }
 </style>
