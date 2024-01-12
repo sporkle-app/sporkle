@@ -3,6 +3,8 @@
     <div class="icons-container">
       <RouterLink
         :to="{ name: 'settings' }"
+        @focusin="settingsHover = true"
+        @focusout="settingsHover = false"
         @mouseover="settingsHover = true"
         @mouseout="settingsHover = false"
       >
@@ -16,6 +18,8 @@
       </RouterLink>
       <RouterLink
         :to="{ name: 'about' }"
+        @focusin="infoHover = true"
+        @focusout="infoHover = false"
         @mouseover="infoHover = true"
         @mouseout="infoHover = false"
       >

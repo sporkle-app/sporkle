@@ -5,7 +5,7 @@ import {
   RiLayoutColumnFill,
   RiLayoutColumnLine,
   RiSettings5Fill
-} from 'oh-vue-icons/icons';
+} from 'oh-vue-icons/icons/index.js';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import constantsPlugin from 'vue-options-api-constants-plugin';
