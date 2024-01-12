@@ -1,8 +1,14 @@
 <template>
   <div class="timeline">
     <button @click="toggleSidebarCollapsed">
-      <template v-if="sidebarCollapsed">➡</template>
-      <template v-else>⬅</template>
+      <VIcon
+        v-if="sidebarCollapsed"
+        name="ri-layout-column-line"
+      />
+      <VIcon
+        v-else
+        name="ri-layout-column-fill"
+      />
     </button>
     <strong>Branches:</strong> {{ branches }}
     <div>

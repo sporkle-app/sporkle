@@ -62,6 +62,7 @@
     "nw": "0.83.0-sdk",
     "nw-vue-devtools-prebuilt": "^0.0.10",
     "nwjs-builder-phoenix": "^1.15.0",
+    "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
     "vite": "^5.0.11",

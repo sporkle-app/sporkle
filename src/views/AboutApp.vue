@@ -4,7 +4,7 @@
 
     <h2>About</h2>
 
-    <p>{{ APP_NAME }} is a Cross-Platform Git client.</p>
+    <p><em>{{ APP_NAME }}</em> (<strong>v{{ versions.app }}</strong>) is a Cross-Platform Git client.</p>
 
     <h3>Authors:</h3>
     <ul>
@@ -20,9 +20,8 @@
       </li>
     </ul>
 
-    <h3>Versions:</h3>
+    <h3>Built with:</h3>
     <ul>
-      <li><strong>{{ APP_NAME }}</strong> (v{{ versions.app }})</li>
       <li><strong>Git</strong> (v{{ versions.git }})</li>
       <li><strong>NW.js</strong> (v{{ versions.nw }})
         <ul>
@@ -31,6 +30,7 @@
         </ul>
       </li>
       <li><strong>Vue.js</strong> (v{{ clean(versions.vue) }})</li>
+      <li><strong>Remix Icons</strong></li>
     </ul>
   </div>
 </template>

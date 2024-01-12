@@ -1,9 +1,13 @@
 <template>
   <RouterLink
-    v-text="'&#x2715;'"
     class="close-view"
     :to="{ name: 'home' }"
-  />
+  >
+    <VIcon
+      name="ri-close-line"
+      scale="2"
+    />
+  </RouterLink>
 </template>
 
 <script>
