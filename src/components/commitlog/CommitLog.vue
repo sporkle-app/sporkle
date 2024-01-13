@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import CreateCommitForm from '@/components/commitlog/CreateCommitForm.vue';
 import CommitLogSection from '@/components/commitlog/CommitLogSection.vue';
+import CreateCommitForm from '@/components/commitlog/CreateCommitForm.vue';
 
 export default {
   name: 'CommitLog',

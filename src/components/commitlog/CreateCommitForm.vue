@@ -6,13 +6,21 @@
       @toggle="showForm = !showForm"
     />
     <div v-show="showForm">
+      <label class="sr-only" for="create-commit-summary">
+        Commit Summary Title
+      </label>
       <input
         v-model="summary"
+        id="create-commit-summary"
         class="create-commit-summary"
         placeholder="Summary"
-      >
+      />
+      <label class="sr-only" for="create-commit-description">
+        Optional commit description
+      </label>
       <textarea
         v-model="description"
+        id="create-commit-description"
         class="create-commit-description"
         placeholder="Description"
       ></textarea>
@@ -46,7 +54,7 @@ export default {
     files: {
       type: Array,
       default: () => {
-        []
+        [];
       }
     }
   },
