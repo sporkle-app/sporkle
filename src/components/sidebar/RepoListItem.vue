@@ -1,7 +1,7 @@
 <template>
   <button
     :title="repo.filePath"
-    class="repo-list-item"
+    class="repo-list-item truncate"
     @click="loadRepo"
     @contextmenu.prevent="showContextMenu($event)"
   >
@@ -64,8 +64,5 @@ export default {
   border-radius: 0px;
   margin: 0px;
   text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 </style>

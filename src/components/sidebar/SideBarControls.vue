@@ -13,7 +13,7 @@
       </label>
       <input
         id="repo-filter"
-        aria-labelledby="#repo-filter"
+        aria-labelledby="repo-filter"
         class="repo-filter"
         type="text"
         placeholder="Filter repos"

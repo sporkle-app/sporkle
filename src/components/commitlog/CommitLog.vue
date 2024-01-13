@@ -1,20 +1,48 @@
 <template>
   <div class="commit-log">
-    Commit Log.
-    <ul>
-      <li
-        v-for="x in 100"
-        :key="'x' + x"
-      >
-        {{ x }}
-      </li>
-    </ul>
+    <CreateCommitForm
+      :files="uncommitedFiles"
+    />
+    <CommitLogSection
+      title="Unsynced Commits"
+      :commits="unsyncedCommits"
+    />
+    <CommitLogSection
+      title="Synced Commits"
+      :commits="syncedCommits"
+    />
   </div>
 </template>
 
 <script>
+import CommitLogSection from '@/components/commitlog/CommitLogSection.vue';
+import CreateCommitForm from '@/components/commitlog/CreateCommitForm.vue';
+
 export default {
-  name: 'CommitLog'
+  name: 'CommitLog',
+  components: {
+    CreateCommitForm,
+    CommitLogSection
+  },
+  computed: {
+    uncommitedFiles: function () {
+      return [
+        'index.html'
+      ];
+    },
+    unsyncedCommits: function () {
+      return [
+        {}
+      ];
+    },
+    syncedCommits: function () {
+      return [
+        {},
+        {},
+        {}
+      ];
+    }
+  }
 };
 </script>
 

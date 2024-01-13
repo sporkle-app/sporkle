@@ -3,9 +3,20 @@
     class="file-diff"
     :class="{
       animate: animateTransition,
-      wide: sidebarCollapsed
+      'commit-log-collapsed': commitLogCollapsed,
+      'sidebar-collapsed': sidebarCollapsed
     }"
   >
+    <button @click="toggleCommitLogCollapsed">
+      <VIcon
+        v-if="commitLogCollapsed"
+        name="ri-layout-column-line"
+      />
+      <VIcon
+        v-else
+        name="ri-layout-column-fill"
+      />
+    </button>
     <OneFile
       v-for="(file, fileIndex) in files"
       :file="file"
@@ -15,8 +26,9 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
+import { commitLogStore } from '@/stores/commitLog.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import OneFile from '@/components/filediff/OneFile.vue';
@@ -55,18 +67,32 @@ export default {
       ]
     };
   },
+  methods: {
+    ...mapActions(commitLogStore, [
+      'toggleCommitLogCollapsed'
+    ])
+  },
   computed: {
+    ...mapState(commitLogStore, [
+      'commitLogCollapsed'
+    ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
     ])
   },
   watch: {
-    // This is so we get smooth animations when toggling the sidebar, but not when maximizing/restoring the window
+    // This is so we get smooth animations when toggling the sidebar/commitlog, but not when maximizing/restoring the window
+    commitLogCollapsed: function () {
+      this.animateTransition = true;
+      setTimeout(() => {
+        this.animateTransition = false;
+      }, 750);
+    },
     sidebarCollapsed: function () {
       this.animateTransition = true;
       setTimeout(() => {
         this.animateTransition = false;
-      }, 500);
+      }, 750);
     }
   }
 };
@@ -81,7 +107,13 @@ export default {
 .file-diff.animate {
   transition: var(--sidebar-transition) ease width;
 }
-.file-diff.wide {
+.file-diff.sidebar-collapsed {
   width: calc(100vw - var(--commit-log-width));
+}
+.file-diff.commit-log-collapsed {
+  width: calc(100vw - var(--sidebar-width));
+}
+.file-diff.sidebar-collapsed.commit-log-collapsed {
+  width: calc(100vw);
 }
 </style>

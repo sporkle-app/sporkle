@@ -1,7 +1,7 @@
 <template>
   <div class="one-file">
     <div
-      class="file-header"
+      class="file-header truncate"
       :class="{ expanded: !isCollapsed }"
       role="button"
       tabindex="0"
@@ -115,9 +115,6 @@ c\\sdfvs' }
 <style scoped>
 .file-header {
   width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .file-header.expanded {
   white-space: unset;

@@ -1,8 +1,12 @@
 :root {
-  --commit-log-width: 350px;
   --sidebar-transition: 750ms;
+
+  --sans-serif: 'Work Sans', sans-serif;
+
+  --commit-log-width: 350px;
   --sidebar-width: 233px;
   --timeline-height: 135px;
+
   --bg: #1A222D;
   --button: #03080C;
   --button-hover: #13181C;
@@ -32,7 +36,7 @@ body {
 
 body {
   background: var(--bg);
-  font-family: sans-serif;
+  font-family: var(--sans-serif);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -44,6 +48,7 @@ button {
   border: 0px;
   padding: 10px;
   color: var(--text);
+  font-family: var(--sans-serif);
   font-size: 16px;
 }
 button:hover,
@@ -55,11 +60,13 @@ button[disabled] {
 }
 
 input,
-select {
+select,
+textarea {
   background: var(--input);
   border: 0px;
   padding: 10px;
   color: var(--text);
+  font-family: var(--sans-serif);
   font-size: 16px;
 }
 
