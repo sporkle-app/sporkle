@@ -86,13 +86,13 @@ export default {
       this.animateTransition = true;
       setTimeout(() => {
         this.animateTransition = false;
-      }, 500);
+      }, 750);
     },
     sidebarCollapsed: function () {
       this.animateTransition = true;
       setTimeout(() => {
         this.animateTransition = false;
-      }, 500);
+      }, 750);
     }
   }
 };
