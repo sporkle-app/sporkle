@@ -1,5 +1,6 @@
 import { defineStore, mapActions } from 'pinia';
 
+import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 
 import helpers from '@/helpers/index.js';
@@ -13,6 +14,9 @@ export const commitsStore = defineStore('commits', {
     };
   },
   actions: {
+    ...mapActions(alertsStore, [
+      'setAppError'
+    ]),
     ...mapActions(appLoadingStore, [
       'setAppLoading'
     ]),
@@ -26,7 +30,7 @@ export const commitsStore = defineStore('commits', {
         response = await git2json.run();
       } catch (error) {
         if (error) {
-          alertsStore().setAppError('Git Error: ' + error);
+          this.setAppError('Git Error: ' + error);
         }
       }
 

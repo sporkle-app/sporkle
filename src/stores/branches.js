@@ -15,6 +15,9 @@ export const branchesStore = defineStore('branches', {
     };
   },
   actions: {
+    ...mapActions(alertsStore, [
+      'setAppError'
+    ]),
     ...mapActions(appLoadingStore, [
       'setAppLoading'
     ]),
@@ -28,7 +31,7 @@ export const branchesStore = defineStore('branches', {
       const { error, stdout, stderr } = await exec('git branch');
 
       if (error || stderr) {
-        alertsStore().setAppError('Git Error: ' + (error || stderr));
+        this.setAppError('Git Error: ' + (error || stderr));
       }
 
       const branches = (stdout || '')
