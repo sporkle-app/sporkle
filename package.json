@@ -65,6 +65,7 @@
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
+    "timesago": "^1.0.1",
     "vite": "^5.0.11",
     "vue": "3.4.5",
     "vue-options-api-constants-plugin": "^1.0.1",

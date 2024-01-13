@@ -58,5 +58,4 @@ export default {
   margin-left: 10px;
   text-decoration: none;
 }
-
 </style>
