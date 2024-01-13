@@ -2,6 +2,7 @@
   <button
     :title="repo.filePath"
     class="repo-list-item truncate"
+    :class="{ 'is-current-repo': isCurrentRepo }"
     @click="loadRepo"
     @contextmenu.prevent="showContextMenu($event)"
   >
@@ -10,9 +11,10 @@
 </template>
 
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
+import { reposStore } from '@/stores/repos.js';
 
 export default {
   name: 'RepoListItem',
@@ -29,6 +31,7 @@ export default {
   },
   methods: {
     loadRepo: function () {
+      this.setCurrentRepoAndSave(this.repo.filePath);
       this.$router.push({
         name: 'commits'
       });
@@ -52,7 +55,16 @@ export default {
       menu.popup($event.pageX, $event.pageY);
     },
     ...mapActions(andSaveStore, [
-      'removeRepoFromListAndSave'
+      'removeRepoFromListAndSave',
+      'setCurrentRepoAndSave'
+    ])
+  },
+  computed: {
+    isCurrentRepo: function () {
+      return this.repo.filePath === this.currentRepo;
+    },
+    ...mapState(reposStore, [
+      'currentRepo'
     ])
   }
 };
@@ -64,5 +76,13 @@ export default {
   border-radius: 0px;
   margin: 0px;
   text-align: left;
+}
+.repo-list-item:focus-visible {
+  background: var(--button-hover);
+  outline: none;
+}
+.is-current-repo,
+.is-current-repo:focus {
+  background: #ABF2;
 }
 </style>

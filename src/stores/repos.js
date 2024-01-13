@@ -1,6 +1,7 @@
 import { defineStore, mapActions } from 'pinia';
 
 import { branchesStore } from '@/stores/branches.js';
+import { commitsStore } from '@/stores/commits.js';
 
 const path = window.require('path');
 
@@ -19,6 +20,7 @@ export const reposStore = defineStore('repos', {
     setCurrentRepo: function (repoPath) {
       this.currentRepo = repoPath;
       this.updateBranches(repoPath);
+      this.getCommits();
     },
     setRepoFilter: function (value) {
       this.repoFilter = value;
@@ -51,6 +53,9 @@ export const reposStore = defineStore('repos', {
     },
     ...mapActions(branchesStore, [
       'updateBranches'
+    ]),
+    ...mapActions(commitsStore, [
+      'getCommits'
     ])
   },
   getters: {

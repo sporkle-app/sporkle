@@ -23,12 +23,9 @@ export const branchesStore = defineStore('branches', {
     },
     updateBranches: async function (currentRepoPath) {
       this.setAppLoading(true);
-
       helpers.setCurrentWorkingDirectory(currentRepoPath);
 
       const { error, stdout, stderr } = await exec('git branch');
-
-      this.setAppLoading(false);
 
       if (error || stderr) {
         alertsStore().setAppError('Git Error: ' + (error || stderr));
@@ -44,6 +41,7 @@ export const branchesStore = defineStore('branches', {
         .filter(Boolean);
 
       this.setBranches(branches);
+      this.setAppLoading(false);
     }
   }
 });

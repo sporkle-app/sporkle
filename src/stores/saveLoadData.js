@@ -18,6 +18,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setAppLoading'
     ]),
     ...mapActions(reposStore, [
+      'setCurrentRepo',
       'setReposList'
     ]),
     ...mapActions(themeStore, [
@@ -26,6 +27,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     applySettings: function (settings) {
       settings = settings || {};
+      this.setCurrentRepo(settings.currentRepo);
       this.setCustomScrollbars(settings.customScrollbars);
       this.setReposList(settings.reposList);
       this.setTheme(settings.theme);
@@ -82,6 +84,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
   },
   getters: {
     ...mapState(reposStore, [
+      'currentRepo',
       'reposList'
     ]),
     ...mapState(themeStore, [
@@ -90,6 +93,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     dataToSave: function () {
       const data = {
+        currentRepo: this.currentRepo,
         customScrollbars: this.customScrollbars,
         currentTheme: this.currentTheme,
         reposList: this.reposList
