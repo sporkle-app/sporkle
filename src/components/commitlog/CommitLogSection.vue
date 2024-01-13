@@ -3,6 +3,7 @@
     <CommitLogTitle
       :title="title"
       :count="commits.length"
+      :show="showCommits"
       @toggle="showCommits = !showCommits"
     />
     <BaseAccordion :show="showCommits">

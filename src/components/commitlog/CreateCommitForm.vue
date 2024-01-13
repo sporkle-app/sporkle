@@ -3,6 +3,7 @@
     <CommitLogTitle
       title="Uncommitted Changes"
       :count="files.length"
+      :show="showForm"
       @toggle="showForm = !showForm"
     />
     <BaseAccordion :show="showForm">
@@ -28,13 +29,17 @@
         class="create-commit-button truncate"
         :disabled="!summary"
         :title="'Commit to ' + currentBranch"
+        @focusin="hoverCreate = true"
+        @focusout="hoverCreate = false"
+        @mouseover="hoverCreate = true"
+        @mouseout="hoverCreate = false"
         @click="createCommit"
       >
         <VIcon
           name="ri-checkbox-circle-line"
-          animation="ring"
-          hover
+          :animation="hoverCreate ? 'wrench' : undefined"
           scale="1.2"
+          speed="slow"
         />
         Commit to {{ currentBranch }}
       </button>
@@ -63,6 +68,7 @@ export default {
   data: function () {
     return {
       showForm: true,
+      hoverCreate: false,
       summary: '',
       description: ''
     };

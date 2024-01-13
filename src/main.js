@@ -1,5 +1,6 @@
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import {
+  RiArrowDownSFill,
   RiCheckboxCircleLine,
   RiCloseLine,
   RiInformationLine,
@@ -20,6 +21,7 @@ import App from '@/App.vue';
 import '@/assets/main.css';
 
 addIcons(
+  RiArrowDownSFill,
   RiCheckboxCircleLine,
   RiCloseLine,
   RiInformationLine,

@@ -1,9 +1,6 @@
 <template>
-  <div
-    class="base-accordion"
-    :class="{ 'base-accordion-hide': !show }"
-  >
-    <div class="base-accordion-inner">
+  <div :style="accordionContainer">
+    <div :style="accordionInner">
       <slot></slot>
     </div>
   </div>
@@ -13,39 +10,48 @@
 export default {
   name: 'BaseAccordion',
   props: {
+    direction: {
+      type: String,
+      default: 'up',
+      validator: function (value) {
+        return ['up', 'left'].includes(value);
+      }
+    },
     show: {
       type: Boolean,
       default: true
     },
-    transitionMs: {
+    speedMs: {
       type: Number,
       default: 750
     }
   },
-  data: function () {
-    return {
-      showContent: true
-    };
-  },
   computed: {
-    transition: function () {
-      return this.transitionMs + 'ms';
+    accordionContainer: function () {
+      let type = 'rows';
+      if (this.direction === 'left') {
+        type = 'columns';
+      }
+      let frames = '1';
+      if (!this.show) {
+        frames = '0';
+      }
+      return [
+        'display: grid',
+        'grid-template-' + type + ': ' + frames + 'fr',
+        'transition: ' + this.speedMs + 'ms ease grid-template-' + type
+      ].join(';');
+    },
+    accordionInner: function () {
+      let type = 'row';
+      if (this.direction === 'left') {
+        type = 'column';
+      }
+      return [
+        'grid-' + type + ': 1 / span 2',
+        'overflow: hidden'
+      ].join(';');
     }
   }
 };
 </script>
-
-<style scoped>
-.base-accordion {
-  display: grid;
-  grid-template-rows: 1fr;
-  transition: v-bind(transition) ease grid-template-rows;
-}
-.base-accordion-inner {
-  grid-row: 1 / span 2;
-  overflow: hidden;
-}
-.base-accordion-hide {
-  grid-template-rows: 0fr;
-}
-</style>
