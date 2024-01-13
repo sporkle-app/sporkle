@@ -9,7 +9,9 @@
 
   --bg: #1A222D;
   --button: #03080C;
-  --button-hover: #13181C;
+  --button-hover: #1B1F2C;
+  --button-active: #ABF2;
+  --button-active-hover: #ABF3;
   --input: #161F27;
   --text: #D1CDC7;
   --link: #8D41FF;

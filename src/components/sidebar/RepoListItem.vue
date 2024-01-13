@@ -83,6 +83,9 @@ export default {
 }
 .is-current-repo,
 .is-current-repo:focus {
-  background: #ABF2;
+  background: var(--button-active);
+}
+.is-current-repo:hover {
+  background: var(--button-active-hover);
 }
 </style>
