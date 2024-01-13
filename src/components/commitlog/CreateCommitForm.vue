@@ -1,11 +1,11 @@
 <template>
-  <div class="create-commit-form">
+  <div>
     <CommitLogTitle
       title="Uncommitted Changes"
       :count="files.length"
       @toggle="showForm = !showForm"
     />
-    <div v-show="showForm">
+    <BaseAccordion :show="showForm">
       <label class="sr-only" for="create-commit-summary">
         Commit Summary Title
       </label>
@@ -38,16 +38,18 @@
         />
         Commit to {{ currentBranch }}
       </button>
-    </div>
+    </BaseAccordion>
   </div>
 </template>
 
 <script>
+import BaseAccordion from '@/components/BaseAccordion.vue';
 import CommitLogTitle from '@/components/commitlog/CommitLogTitle.vue';
 
 export default {
   name: 'CreateCommitForm',
   components: {
+    BaseAccordion,
     CommitLogTitle
   },
   props: {
@@ -87,8 +89,6 @@ export default {
 </script>
 
 <style>
-.create-commit-form {
-}
 .create-commit-summary {
   margin: 10px;
 }

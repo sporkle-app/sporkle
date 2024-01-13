@@ -1,9 +1,12 @@
 :root {
-  --commit-log-width: 350px;
   --sidebar-transition: 750ms;
+
+  --sans-serif: 'Work Sans', sans-serif;
+
+  --commit-log-width: 350px;
   --sidebar-width: 233px;
   --timeline-height: 135px;
-  --sans-serif: 'Work Sans', sans-serif;
+
   --bg: #1A222D;
   --button: #03080C;
   --button-hover: #13181C;

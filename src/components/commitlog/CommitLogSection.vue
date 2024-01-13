@@ -5,22 +5,24 @@
       :count="commits.length"
       @toggle="showCommits = !showCommits"
     />
-    <div v-show="showCommits">
+    <BaseAccordion :show="showCommits">
       <CommitSummaryItem
         v-for="(commit, commitIndex) in commits"
         :key="'commit' + commitIndex"
       />
-    </div>
+    </BaseAccordion>
   </div>
 </template>
 
 <script>
+import BaseAccordion from '@/components/BaseAccordion.vue';
 import CommitLogTitle from '@/components/commitlog/CommitLogTitle.vue';
 import CommitSummaryItem from '@/components/commitlog/CommitSummaryItem.vue';
 
 export default {
   name: 'CommitLogSection',
   components: {
+    BaseAccordion,
     CommitLogTitle,
     CommitSummaryItem
   },
@@ -43,6 +45,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-</style>
