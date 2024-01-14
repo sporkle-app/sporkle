@@ -17,10 +17,9 @@
           fill='none' stroke='white' stroke-width=5 transform='translate(50,0)' />
         <path d='M100,20 Q130,20 160,45 T685,60'
           fill='none' stroke='white' stroke-width=5 transform='translate(50,0)' />
-          M10 80 Q 77.5 10, 145 80 T 280 80
-        <circle
-          cx="520"
-          cy="20"
+        <circle v-for="(circle, index) in commitDataPoints" :key="index"
+          :cx="circle.x"
+          :cy="circle.y"
           r="6"
           stroke-width="6"
           fill="#FFFFFF"
@@ -28,84 +27,13 @@
         />
 
         <circle
-          cx="300"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="340"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="380"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="420"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="460"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="500"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="540"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="580"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
-          cx="620"
-          cy="60"
-          r="6"
-          stroke-width="6"
-          fill="#FFFFFF"
-          stroke="white"
-        />
-        <circle
           cx="660"
           cy="60"
           r="8"
           stroke-width="4"
           stroke="white"
         />
+
         <circle
           cx="700"
           cy="60"
@@ -135,6 +63,56 @@ import { sidebarStore } from '@/stores/sidebar.js';
 
 export default {
   name: 'TimeLine',
+  data: function() {
+    return {
+      commitDataPoints: [
+        {
+          x: 520,
+          y: 20
+        },
+        {
+          x: 300,
+          y: 60
+        },
+        {
+          x: 340,
+          y: 60
+        },
+        {
+          "x": 380,
+          "y": 60
+        },
+        {
+          "x": 420,
+          "y": 60
+        },
+        {
+          "x": 460,
+          "y": 60
+        },
+        {
+          "x": 500,
+          "y": 60
+        },
+        {
+          "x": 540,
+          "y": 60
+        },
+        {
+          "x": 580,
+          "y": 60
+        },
+        {
+          "x": 620,
+          "y": 60
+        },
+        {
+          "x": 660,
+          "y": 60
+        },
+      ]
+    }
+  },
   methods: {
     ...mapActions(sidebarStore, [
       'toggleSidebarCollapsed'
