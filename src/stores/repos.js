@@ -1,6 +1,8 @@
 import { defineStore, mapActions } from 'pinia';
 
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
+import { commitsStore } from '@/stores/commits.js';
 
 const path = window.require('path');
 
@@ -17,8 +19,11 @@ export const reposStore = defineStore('repos', {
       this.reposList = arr || [];
     },
     setCurrentRepo: function (repoPath) {
+      this.setReposLoading(true);
       this.currentRepo = repoPath;
       this.updateBranches(repoPath);
+      this.getCommits();
+      this.setReposLoading(false);
     },
     setRepoFilter: function (value) {
       this.repoFilter = value;
@@ -29,11 +34,13 @@ export const reposStore = defineStore('repos', {
      * @param {string} repoPath  File path to the repo
      */
     addRepoToList: function (repoPath) {
+      this.setReposLoading(true);
       const match = this.reposList.find((repo) => {
         return repo.filePath === repoPath;
       });
       if (match) {
         this.setCurrentRepo(repoPath);
+        this.setReposLoading(false);
         return;
       }
 
@@ -43,14 +50,23 @@ export const reposStore = defineStore('repos', {
       };
       this.reposList.push(repo);
       this.setCurrentRepo(repoPath);
+      this.setReposLoading(false);
     },
     removeRepoFromList: function (repoPath) {
+      this.setReposLoading(true);
       this.setReposList(this.reposList.filter(function (repo) {
         return repo.filePath !== repoPath;
       }));
+      this.setReposLoading(false);
     },
+    ...mapActions(appLoadingStore, [
+      'setReposLoading'
+    ]),
     ...mapActions(branchesStore, [
       'updateBranches'
+    ]),
+    ...mapActions(commitsStore, [
+      'getCommits'
     ])
   },
   getters: {

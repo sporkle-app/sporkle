@@ -1,0 +1,20 @@
+.custom-scrollbars ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.custom-scrollbars ::-webkit-scrollbar-button {
+  background: var(--scrollbar-button);
+}
+.custom-scrollbars ::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+}
+.custom-scrollbars ::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+.custom-scrollbars ::-webkit-scrollbar-track-piece {
+  background: var(--scrollbar-track-piece);
+}
+.custom-scrollbars ::-webkit-scrollbar-corner {
+  background: var(--scrollbar-corner);
+}
+

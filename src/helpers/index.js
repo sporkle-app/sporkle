@@ -3,24 +3,11 @@ const path = window.require('path');
 
 const helpers = {
   setCurrentWorkingDirectory: function (directory) {
-    directory = directory.trim();
+    directory = (directory || '').trim();
 
     if (fs.existsSync(directory)) {
       window.process.chdir(path.join(directory));
     }
-  },
-  setHtmlTagClasses: function (theme, useCustomScrollbars) {
-    let customScrollbars = '';
-    if (useCustomScrollbars) {
-      customScrollbars = 'custom-scrollbars';
-    }
-
-    let classes = [
-      theme,
-      customScrollbars
-    ].join(' ').trim();
-
-    document.documentElement.className = classes;
   },
   validateRepoPath: function (repoPath) {
     let gitDirectory = path.join(repoPath, '.git');

@@ -9,6 +9,7 @@
     <BaseAccordion :show="showCommits">
       <CommitSummaryItem
         v-for="(commit, commitIndex) in commits"
+        :commit="commit"
         :key="'commit' + commitIndex"
       />
     </BaseAccordion>
