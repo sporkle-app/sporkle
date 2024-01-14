@@ -70,11 +70,12 @@ export default {
 .commit-summary-title {
   width: 100%;
   margin-bottom: 5px;
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 600;
 }
 .commit-summary-subtitle {
   width: 100%;
+  font-size: 13px;
   opacity: 0.7;
 }
 .commit-summary-file-count {
