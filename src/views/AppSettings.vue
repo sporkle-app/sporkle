@@ -27,17 +27,9 @@
       <strong>Branches</strong>: <pre>{{ branches }}</pre>
     </div>
     <div>
-      <label>
-        <input
-          v-model="useCustomScrollbars"
-          type="checkbox"
-          @change="setCustomScrollbars"
-        />
+      <BaseCheckbox v-model="useCustomScrollbars">
         <strong>Use styled scrollbars</strong>
-      </label>
-      <div v-if="scrollbarSettingChanged">
-        Setting saved, <a href="#" @click="reloadApp">reload app</a> for setting to take effect.
-      </div>
+      </BaseCheckbox>
     </div>
     <div>
       <strong>Pick Theme</strong>:
@@ -70,30 +62,23 @@ import { themeStore } from '@/stores/theme.js';
 
 import { THEMES } from '@/helpers/constants.js';
 
+import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import CloseView from '@/components/CloseView.vue';
 
 export default {
   name: 'AppSettings',
   components: {
+    BaseCheckbox,
     CloseView
   },
   data: function () {
     return {
-      newRepoPath: nw.App.startPath,
-      scrollbarSettingChanged: false,
-      useCustomScrollbars: false
+      newRepoPath: nw.App.startPath
     };
   },
   methods: {
-    reloadApp: function () {
-      window.nw.Window.get().reload();
-    },
     setNewRepoPath: function () {
       this.setCurrentRepoAndSave(this.newRepoPath.trim());
-    },
-    setCustomScrollbars: function () {
-      this.scrollbarSettingChanged = true;
-      this.setCustomScrollbarsAndSave(this.useCustomScrollbars);
     },
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
@@ -105,6 +90,14 @@ export default {
     ])
   },
   computed: {
+    useCustomScrollbars: {
+      get: function () {
+        return this.customScrollbars;
+      },
+      set: function (value) {
+        this.setCustomScrollbarsAndSave(value);
+      }
+    },
     themesList: function () {
       return THEMES.map(function (file) {
         return {
@@ -126,11 +119,9 @@ export default {
       'currentRepo'
     ]),
     ...mapState(themeStore, [
+      'customScrollbars',
       'currentTheme'
     ])
-  },
-  created: function () {
-    this.useCustomScrollbars = this.customScrollbars;
   }
 };
 </script>

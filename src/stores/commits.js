@@ -18,10 +18,11 @@ export const commitsStore = defineStore('commits', {
       'setAppError'
     ]),
     ...mapActions(appLoadingStore, [
-      'setAppLoading'
+      'setCommitsLoading'
     ]),
     getCommits: async function (currentRepoPath) {
-      this.setAppLoading(true);
+      this.commits = [];
+      this.setCommitsLoading(true);
       helpers.setCurrentWorkingDirectory(currentRepoPath);
 
       let response = [];
@@ -35,7 +36,7 @@ export const commitsStore = defineStore('commits', {
       }
 
       this.commits = response || [];
-      this.setAppLoading(false);
+      this.setCommitsLoading(false);
     }
   }
 });

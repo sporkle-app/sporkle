@@ -15,7 +15,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setAppError'
     ]),
     ...mapActions(appLoadingStore, [
-      'setAppLoading'
+      'setSettingsLoading'
     ]),
     ...mapActions(reposStore, [
       'setCurrentRepo',
@@ -31,7 +31,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setCustomScrollbars(settings.customScrollbars);
       this.setReposList(settings.reposList);
       this.setTheme(settings.theme);
-      this.setAppLoading(false);
+      this.setSettingsLoading(false);
     },
     deleteSettings: function () {
       try {
@@ -49,7 +49,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       }
     },
     loadSettings: function () {
-      this.setAppLoading(true);
+      this.setSettingsLoading(true);
 
       let settings = {};
 

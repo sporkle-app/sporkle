@@ -15,8 +15,12 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+
 import CommitLogSection from '@/components/commitlog/CommitLogSection.vue';
 import CreateCommitForm from '@/components/commitlog/CreateCommitForm.vue';
+
+import { commitsStore } from '@/stores/commits.js';
 
 export default {
   name: 'CommitLog',
@@ -27,21 +31,18 @@ export default {
   computed: {
     uncommitedFiles: function () {
       return [
-        'index.html'
       ];
     },
     unsyncedCommits: function () {
       return [
-        {}
       ];
     },
     syncedCommits: function () {
-      return [
-        {},
-        {},
-        {}
-      ];
-    }
+      return this.commits;
+    },
+    ...mapState(commitsStore, [
+      'commits'
+    ])
   }
 };
 </script>

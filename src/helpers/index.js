@@ -9,19 +9,6 @@ const helpers = {
       window.process.chdir(path.join(directory));
     }
   },
-  setHtmlTagClasses: function (theme, useCustomScrollbars) {
-    let customScrollbars = '';
-    if (useCustomScrollbars) {
-      customScrollbars = 'custom-scrollbars';
-    }
-
-    let classes = [
-      theme,
-      customScrollbars
-    ].join(' ').trim();
-
-    document.documentElement.className = classes;
-  },
   validateRepoPath: function (repoPath) {
     let gitDirectory = path.join(repoPath, '.git');
     if (

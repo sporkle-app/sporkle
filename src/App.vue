@@ -1,5 +1,11 @@
 <template>
-  <div class="app-container">
+  <div
+    class="app-container"
+    :class="{
+      'custom-scrollbars': customScrollbars,
+      loading: appLoading
+    }"
+  >
     <SideBar />
     <main
       class="main-container"
@@ -15,8 +21,10 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { saveLoadDataStore } from '@/stores/saveLoadData.js';
 import { sidebarStore } from '@/stores/sidebar.js';
+import { themeStore } from '@/stores/theme.js';
 
 import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
@@ -35,6 +43,12 @@ export default {
     ])
   },
   computed: {
+    ...mapState(themeStore, [
+      'customScrollbars'
+    ]),
+    ...mapState(appLoadingStore, [
+      'appLoading'
+    ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
     ])
@@ -58,5 +72,8 @@ export default {
 }
 .sidebar-hidden {
   margin-left: 0px;
+}
+.loading {
+  opacity: 0.5;
 }
 </style>

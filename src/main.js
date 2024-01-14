@@ -1,7 +1,9 @@
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import {
   RiArrowDownSFill,
+  RiCheckboxBlankLine,
   RiCheckboxCircleLine,
+  RiCheckboxFill,
   RiCloseLine,
   RiInformationLine,
   RiLayoutColumnFill,
@@ -22,7 +24,9 @@ import '@/assets/main.css';
 
 addIcons(
   RiArrowDownSFill,
+  RiCheckboxBlankLine,
   RiCheckboxCircleLine,
+  RiCheckboxFill,
   RiCloseLine,
   RiInformationLine,
   RiLayoutColumnFill,
