@@ -29,19 +29,10 @@ export default {
     CommitLogSection
   },
   computed: {
-    uncommitedFiles: function () {
-      return [
-      ];
-    },
-    unsyncedCommits: function () {
-      return [
-      ];
-    },
-    syncedCommits: function () {
-      return this.commits;
-    },
     ...mapState(commitsStore, [
-      'commits'
+      'uncommitedFiles',
+      'unsyncedCommits',
+      'syncedCommits'
     ])
   }
 };

@@ -38,5 +38,16 @@ export const commitsStore = defineStore('commits', {
       this.commits = response || [];
       this.setCommitsLoading(false);
     }
+  },
+  getters: {
+    uncommitedFiles: function () {
+      return [];
+    },
+    unsyncedCommits: function (state) {
+      return this.commits;
+    },
+    syncedCommits: function (state) {
+      return this.commits;
+    }
   }
 });
