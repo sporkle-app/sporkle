@@ -1,13 +1,21 @@
 <template>
   <label
+    :aria-checked="modelValue"
     class="checkbox"
     role="checkbox"
     tabindex="0"
-    @click="$emit('update:modelValue', !modelValue)"
+    @keyup.enter="emit"
+    @keyup.space="emit"
+    @click.stop.prevent="emit"
   >
     <VIcon
       :name="modelValue ? 'ri-checkbox-fill' : 'ri-checkbox-blank-line'"
       class="checkbox-icon"
+    />
+    <input
+      :value="modelValue"
+      class="sr-only"
+      @input="emit"
     />
     <slot></slot>
   </label>
@@ -21,8 +29,13 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    emit: function () {
+      this.$emit('update:modelValue', !this.modelValue);
+    }
   }
-}
+};
 </script>
 
 <style scoped>

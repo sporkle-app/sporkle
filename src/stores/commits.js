@@ -44,10 +44,10 @@ export const commitsStore = defineStore('commits', {
       return [];
     },
     unsyncedCommits: function (state) {
-      return this.commits;
+      return state.commits;
     },
     syncedCommits: function (state) {
-      return this.commits;
+      return state.commits;
     }
   }
 });
