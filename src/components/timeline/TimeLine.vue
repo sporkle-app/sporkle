@@ -12,11 +12,11 @@
     </button>
     <strong>Branches:</strong> {{ branches }}
     <div>
-      <svg width=100 height=100 style='overflow: visible;'>
-        <path d='M100,20 L705,20'
-          fill='none' stroke='white' stroke-width=5 transform='translate(50,0)' />
-        <path d='M100,20 Q130,20 160,45 T685,60'
-          fill='none' stroke='white' stroke-width=5 transform='translate(50,0)' />
+      <svg width=100 height=100 style="overflow: visible;">
+        <path d="M100,20 L705,20"
+          fill="none" stroke="white" stroke-width=5 transform="translate(50,0)" />
+        <path d="M100,20 Q130,20 160,45 T685,60"
+          fill="none" stroke="white" stroke-width=5 transform="translate(50,0)" />
         <circle v-for="(circle, index) in commitDataPoints" :key="index"
           :cx="circle.x"
           :cy="circle.y"
