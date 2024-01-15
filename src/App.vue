@@ -11,7 +11,7 @@
       class="main-container"
       :class="{ 'sidebar-hidden': sidebarCollapsed }"
     >
-      <TimeLine />
+      <TimeLinePanel />
       <RouterView />
     </main>
     <GlobalAlerts />
@@ -35,14 +35,14 @@ import { themeStore } from '@/stores/theme.js';
 
 import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
-import TimeLine from '@/components/timeline/TimeLine.vue';
+import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
 
 export default {
   name: 'App',
   components: {
     GlobalAlerts,
     SideBar,
-    TimeLine
+    TimeLinePanel
   },
   methods: {
     ...mapActions(saveLoadDataStore, [
