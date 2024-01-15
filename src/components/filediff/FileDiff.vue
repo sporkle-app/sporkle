@@ -7,14 +7,17 @@
       'sidebar-collapsed': sidebarCollapsed
     }"
   >
-    <button @click="toggleCommitLogCollapsed">
-      <VIcon
+    <button
+      :title="(commitLogCollapsed ? 'Show' : 'Hide') + ' Commit Lifecycle Panel'"
+      @click="toggleCommitLogCollapsed"
+    >
+      <BaseIcon
         v-if="commitLogCollapsed"
-        name="ri-layout-column-line"
+        name="RiLayoutColumnLine"
       />
-      <VIcon
+      <BaseIcon
         v-else
-        name="ri-layout-column-fill"
+        name="RiLayoutColumnFill"
       />
     </button>
     <OneFile
@@ -31,11 +34,13 @@ import { mapActions, mapState } from 'pinia';
 import { commitLogStore } from '@/stores/commitLog.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
+import BaseIcon from '@/components/BaseIcon.vue';
 import OneFile from '@/components/filediff/OneFile.vue';
 
 export default {
   name: 'FileDiff',
   components: {
+    BaseIcon,
     OneFile
   },
   data: function () {
