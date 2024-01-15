@@ -1,5 +1,5 @@
 <template>
-  <span :title="date.toLocaleString()">
+  <span :title="showTitle? date.toLocaleString() : undefined">
     {{ timeAgo(date) }}
   </span>
 </template>
@@ -13,6 +13,10 @@ export default {
     date: {
       type: Date,
       required: true
+    },
+    showTitle: {
+      type: Boolean,
+      defaut: true
     }
   },
   methods: {

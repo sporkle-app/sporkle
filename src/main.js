@@ -8,6 +8,7 @@ import {
   RiInformationLine,
   RiLayoutColumnFill,
   RiLayoutColumnLine,
+  RiLoader5Fill,
   RiSettings5Fill
 } from 'oh-vue-icons/icons/index.js';
 import { createPinia } from 'pinia';
@@ -31,6 +32,7 @@ addIcons(
   RiInformationLine,
   RiLayoutColumnFill,
   RiLayoutColumnLine,
+  RiLoader5Fill,
   RiSettings5Fill
 );
 

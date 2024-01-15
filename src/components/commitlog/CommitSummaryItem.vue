@@ -1,18 +1,22 @@
 <template>
   <div class="commit-summary-item">
     <div class="commit-summary-item-description truncate">
-      <div class="commit-summary-title truncate">
+      <div
+        class="commit-summary-title truncate"
+        :title="commit.subject"
+      >
         {{ commit.subject }}
       </div>
       <div
         v-if="commit && commit.author"
         class="commit-summary-subtitle truncate"
+        :title="subtitleHover"
       >
-        <TimeAgo :date="new Date(commit.author.timestamp)" />
-        by
-        <span :title="commit.author.email">
-          {{ commit.author.name }}
-        </span>
+        <TimeAgo
+          :date="new Date(commit.author.timestamp)"
+          :showTitle="false"
+        />
+        by {{ commit.author.name }}
       </div>
     </div>
     <div
@@ -48,6 +52,14 @@ export default {
         return '1 file';
       }
       return this.fileCount + ' files';
+    },
+    subtitleHover: function () {
+      const dateTime = new Date(this.commit.author.timestamp);
+      return [
+        dateTime.toLocaleString(),
+        this.commit.author.name,
+        this.commit.author.email
+      ].join('\n');
     }
   }
 };
