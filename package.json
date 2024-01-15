@@ -1,7 +1,8 @@
 {
   "ManifestComments": [
     "Only add dependencies that you want shipped to the end user, for everything else, use devDependencies, including things that will be bundled by Vite.",
-    "The build section is used by nwjs-builder-phoenix, see its documentation for more info"
+    "The build section is used by nwjs-builder-phoenix, see its documentation for more info",
+    "Pinned vue due to bug where repos list isn't rendering on page load consistently and commit log is toggling all the way in 3.4.13"
   ],
   "name": "karngdarbo",
   "version": "0.1.0",
@@ -65,7 +66,7 @@
     "rimraf": "^5.0.5",
     "timesago": "^1.0.1",
     "vite": "^5.0.11",
-    "vue": "^3.4.13",
+    "vue": "3.4.5",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
