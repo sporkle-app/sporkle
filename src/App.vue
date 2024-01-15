@@ -15,6 +15,13 @@
       <RouterView />
     </main>
     <GlobalAlerts />
+    <div v-show="appLoading" class="spinner-container">
+      <VIcon
+        name="ri-loader-5-fill"
+        animation="spin"
+        scale="3"
+      />
+    </div>
   </div>
 </template>
 
@@ -75,5 +82,17 @@ export default {
 }
 .loading {
   opacity: 0.5;
+}
+.spinner-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overlay: hidden;
+  z-index: 999;
 }
 </style>

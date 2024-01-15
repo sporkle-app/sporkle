@@ -4,7 +4,7 @@
     @click.prevent="$emit('toggle')"
   >
     <span>
-      {{ title }} ({{ count }})
+      {{ title }} ({{ count.toLocaleString() }})
     </span>
     <VIcon
       name="ri-arrow-down-s-fill"
