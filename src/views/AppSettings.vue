@@ -23,6 +23,14 @@
     <RangeSlider v-model="accentHueRange">
       <strong>Accent color:</strong>
     </RangeSlider>
+
+    <RangeSlider
+      v-model="zoomPercentRange"
+      min="25"
+      max="300"
+    >
+      <strong>Zoom level:</strong>
+    </RangeSlider>
   </div>
 </template>
 
@@ -51,7 +59,8 @@ export default {
       'setAccentHueAndSave',
       'setCustomScrollbarsAndSave',
       'setThemeHueAndSave',
-      'setThemeInvertedAndSave'
+      'setThemeInvertedAndSave',
+      'setZoomPercentAndSave'
     ])
   },
   computed: {
@@ -87,11 +96,20 @@ export default {
         this.setCustomScrollbarsAndSave(bool);
       }
     },
+    zoomPercentRange: {
+      get: function () {
+        return this.zoomPercent;
+      },
+      set: function (percent) {
+        this.setZoomPercentAndSave(percent);
+      }
+    },
     ...mapState(themeStore, [
       'accentHue',
       'customScrollbars',
       'themeHue',
-      'themeInverted'
+      'themeInverted',
+      'zoomPercent'
     ])
   }
 };
@@ -99,7 +117,9 @@ export default {
 
 <style scoped>
 .app-settings {
+  height: calc(100vh - var(--timeline-height));
   padding: 20px;
+  overflow: auto;
 }
 input[type="range"] {
   display: block;

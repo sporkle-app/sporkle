@@ -25,7 +25,8 @@ export const andSaveStore = defineStore('andSave', {
       'setAccentHue',
       'setCustomScrollbars',
       'setThemeHue',
-      'setThemeInverted'
+      'setThemeInverted',
+      'setZoomPercent'
     ]),
     setAccentHueAndSave: function (value) {
       this.setAccentHue(value);
@@ -41,6 +42,10 @@ export const andSaveStore = defineStore('andSave', {
     },
     setThemeInvertedAndSave: function (bool) {
       this.setThemeInverted(bool);
+      this.saveSettings();
+    },
+    setZoomPercentAndSave: function (percent) {
+      this.setZoomPercent(percent);
       this.saveSettings();
     },
 

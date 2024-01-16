@@ -10,8 +10,8 @@
       :id="forId"
       class="range-slider-input"
       type="range"
-      min="0"
-      max="360"
+      :min="min"
+      :max="max"
       :value="modelValue"
       @input="emit"
     />
@@ -25,6 +25,14 @@ export default {
     modelValue: {
       type: [Number, String],
       default: 0
+    },
+    min: {
+      type: [Number, String],
+      default: 0
+    },
+    max: {
+      type: [Number, String],
+      default: 360
     }
   },
   methods: {

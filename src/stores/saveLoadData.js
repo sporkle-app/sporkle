@@ -25,7 +25,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setAccentHue',
       'setCustomScrollbars',
       'setThemeHue',
-      'setThemeInverted'
+      'setThemeInverted',
+      'setZoomPercent'
     ]),
     applySettings: function (settings) {
       settings = settings || {};
@@ -36,6 +37,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setThemeHue(settings.themeHue);
       this.setThemeInverted(settings.themeInverted);
       this.setSettingsLoading(false);
+      this.setZoomPercent(settings.zoomPercent);
     },
     deleteSettings: function () {
       try {
@@ -95,7 +97,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'accentHue',
       'customScrollbars',
       'themeHue',
-      'themeInverted'
+      'themeInverted',
+      'zoomPercent'
     ]),
     dataToSave: function () {
       const data = {
@@ -104,7 +107,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         customScrollbars: this.customScrollbars,
         reposList: this.reposList,
         themeHue: this.themeHue,
-        themeInverted: this.themeInverted
+        themeInverted: this.themeInverted,
+        zoomPercent: this.zoomPercent
       };
       return JSON.stringify(data, null, 2);
     }
