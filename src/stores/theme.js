@@ -8,7 +8,7 @@ export const themeStore = defineStore('theme', {
   state: function () {
     return {
       accentHue: DEFAULT_ACCENT_HUE,
-      customScrollbars: false,
+      customScrollbars: true,
       themeHue: 0,
       themeInverted: false,
       zoomPercent: 100
@@ -17,7 +17,7 @@ export const themeStore = defineStore('theme', {
   actions: {
     resetSettings: function () {
       this.setAccentHue();
-      this.setCustomScrollbars(false);
+      this.setCustomScrollbars(true);
       this.setThemeHue(0);
       this.setThemeInverted(false);
       this.setZoomPercent(100);

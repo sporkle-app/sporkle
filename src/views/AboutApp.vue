@@ -1,39 +1,37 @@
 <template>
-  <div class="about-app">
-    <CloseView />
+  <ViewWrapper title="About">
+    <div class="about-app">
+      <p><em>{{ APP_NAME }}</em> (<strong>v{{ versions.app }}</strong>) is a Cross-Platform Git client.</p>
 
-    <h2>About</h2>
+      <h3>Authors:</h3>
+      <ul>
+        <li>
+          <a
+            v-for="(author, authorIndex) in authors"
+            v-text="author.name"
+            href="#"
+            :title="author.url"
+            @click.prevent="openExternal"
+            :key="'author' + authorIndex"
+          ></a>
+        </li>
+      </ul>
 
-    <p><em>{{ APP_NAME }}</em> (<strong>v{{ versions.app }}</strong>) is a Cross-Platform Git client.</p>
-
-    <h3>Authors:</h3>
-    <ul>
-      <li>
-        <a
-          v-for="(author, authorIndex) in authors"
-          v-text="author.name"
-          href="#"
-          :title="author.url"
-          @click.prevent="openExternal"
-          :key="'author' + authorIndex"
-        ></a>
-      </li>
-    </ul>
-
-    <h3>Built with:</h3>
-    <ul>
-      <li><strong>Git</strong> (v{{ versions.git }})</li>
-      <li><strong>NW.js</strong> (v{{ versions.nw }})
-        <ul>
-          <li><strong>Chromium</strong> (v{{ versions.chromium }})</li>
-          <li><strong>Node.js</strong> (v{{ versions.node }})</li>
-        </ul>
-      </li>
-      <li><strong>Vue.js</strong> (v{{ clean(versions.vue) }})</li>
-      <li><strong>Pinia</strong> (v{{ clean(versions.pinia) }})</li>
-      <li><strong>Remix Icons</strong></li>
-    </ul>
-  </div>
+      <h3>Built with:</h3>
+      <ul>
+        <li><strong>Git</strong> (v{{ versions.git }})</li>
+        <li><strong>NW.js</strong> (v{{ versions.nw }})
+          <ul>
+            <li><strong>Chromium</strong> (v{{ versions.chromium }})</li>
+            <li><strong>Node.js</strong> (v{{ versions.node }})</li>
+          </ul>
+        </li>
+        <li><strong>Vue.js</strong> (v{{ clean(versions.vue) }})</li>
+        <li><strong>Pinia</strong> (v{{ clean(versions.pinia) }})</li>
+        <li><strong>Remix Icons</strong></li>
+      </ul>
+    </div>
+  </ViewWrapper>
 </template>
 
 <script>
@@ -43,7 +41,7 @@ import { alertsStore } from '@/stores/alerts.js';
 
 import { APP_NAME } from '@/helpers/constants.js';
 
-import CloseView from '@/components/CloseView.vue';
+import ViewWrapper from '@/views/ViewWrapper.vue';
 
 const exec = window.nw.require('child_process').exec;
 const manifest = window.nw.App.manifest;
@@ -52,7 +50,7 @@ const versions = window.nw.process.versions;
 export default {
   name: 'AppSettings',
   components: {
-    CloseView
+    ViewWrapper
   },
   constants: {
     APP_NAME
@@ -111,9 +109,4 @@ export default {
 </script>
 
 <style scoped>
-.about-app {
-  height: calc(100vh - var(--timeline-height));
-  padding: 20px;
-  overflow: auto;
-}
 </style>
