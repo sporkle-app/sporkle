@@ -90,17 +90,13 @@ These features are the core value that this project offers and is what is mostly
 * NW.js
 * NW.js Builder Phoenix
   * May replace this with nw-builder later
-* Remix Icons
 * Vite
 * Vue.js
 * Pinia
+* Remix Icons
 * Vue-Router
-* Vue-I18N
 * NW-Vue-Devtools
 * ESLint
-* Sass
-* Sass-Lint
-* TJW Sass Lint Rules
 * VMWare
 * VirtualBox
 * GitHub Actions
