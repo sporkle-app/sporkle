@@ -3,8 +3,8 @@
 
     <div class="button-group">
       <button @click="addRepo">Add</button>
-      <button :disabled="true">Create</button>
-      <button :disabled="true">Clone</button>
+      <button @click="createRepo">Create</button>
+      <button @click="cloneRepo">Clone</button>
     </div>
 
     <div>
@@ -42,6 +42,12 @@ export default {
           this.$router.push({ name: 'commits' });
         }
       });
+    },
+    cloneRepo: function () {
+      this.$router.push({ name: 'cloneRepo' });
+    },
+    createRepo: function () {
+      this.$router.push({ name: 'createRepo' });
     },
     ...mapActions(andSaveStore, [
       'addRepoToListAndSave'

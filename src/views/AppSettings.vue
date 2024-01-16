@@ -1,9 +1,5 @@
 <template>
-  <div class="app-settings">
-    <CloseView />
-
-    <h2>Settings</h2>
-
+  <ViewWrapper title="Settings">
     <button
       v-if="!resetConfirmationVisible"
       class="confirm-reset-button"
@@ -51,7 +47,7 @@
     >
       <strong>Zoom level:</strong>
     </RangeSlider>
-  </div>
+  </ViewWrapper>
 </template>
 
 <script>
@@ -61,15 +57,15 @@ import { andSaveStore } from '@/stores/andSave.js';
 import { themeStore } from '@/stores/theme.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
-import CloseView from '@/components/CloseView.vue';
 import RangeSlider from '@/components/RangeSlider.vue';
+import ViewWrapper from '@/views/ViewWrapper.vue';
 
 export default {
   name: 'AppSettings',
   components: {
     BaseCheckbox,
-    CloseView,
-    RangeSlider
+    RangeSlider,
+    ViewWrapper
   },
   data: function () {
     return {
@@ -146,11 +142,6 @@ export default {
 </script>
 
 <style scoped>
-.app-settings {
-  height: calc(100vh - var(--timeline-height));
-  padding: 20px;
-  overflow: auto;
-}
 .confirm-reset-button {
   margin-bottom: 10px;
 }
