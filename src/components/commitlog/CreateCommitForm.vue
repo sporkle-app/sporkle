@@ -35,8 +35,8 @@
         @mouseout="hoverCreate = false"
         @click="createCommit"
       >
-        <VIcon
-          name="ri-checkbox-circle-line"
+        <BaseIcon
+          name="RiCheckboxCircleLine"
           :animation="hoverCreate ? 'wrench' : undefined"
           scale="1.2"
           speed="slow"
@@ -49,12 +49,14 @@
 
 <script>
 import BaseAccordion from '@/components/BaseAccordion.vue';
+import BaseIcon from '@/components/BaseIcon.vue';
 import CommitLogTitle from '@/components/commitlog/CommitLogTitle.vue';
 
 export default {
   name: 'CreateCommitForm',
   components: {
     BaseAccordion,
+    BaseIcon,
     CommitLogTitle
   },
   props: {

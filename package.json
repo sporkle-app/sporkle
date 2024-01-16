@@ -2,7 +2,7 @@
   "ManifestComments": [
     "Only add dependencies that you want shipped to the end user, for everything else, use devDependencies, including things that will be bundled by Vite.",
     "The build section is used by nwjs-builder-phoenix, see its documentation for more info",
-    "Pinned vue to 3.4.5 until accidental Pinia warnings are removed: https://github.com/vuejs/core/discussions/9974#discussioncomment-8057165"
+    "Pinned vue due to bug where repos list isn't rendering on page load consistently and commit log is toggling all the way in 3.4.13"
   ],
   "name": "karngdarbo",
   "version": "0.1.0",
@@ -57,7 +57,6 @@
     "eslint-plugin-jest": "^27.6.3",
     "eslint-plugin-vue": "^9.20.1",
     "eslint-plugin-vuejs-accessibility": "^2.2.0",
-    "jest-serializer-vue-tjw": "^3.20.0",
     "lodash-es": "^4.17.21",
     "nw": "0.83.0-sdk",
     "nw-vue-devtools-prebuilt": "^0.0.10",

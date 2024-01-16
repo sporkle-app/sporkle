@@ -3,16 +3,21 @@
     class="close-view"
     :to="{ name: 'home' }"
   >
-    <VIcon
-      name="ri-close-line"
+    <BaseIcon
+      name="RiCloseLine"
       scale="2"
     />
   </RouterLink>
 </template>
 
 <script>
+import BaseIcon from '@/components/BaseIcon.vue';
+
 export default {
-  name: 'CloseView'
+  name: 'CloseView',
+  components: {
+    BaseIcon
+  }
 };
 </script>
 

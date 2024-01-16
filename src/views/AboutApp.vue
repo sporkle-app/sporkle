@@ -30,6 +30,7 @@
         </ul>
       </li>
       <li><strong>Vue.js</strong> (v{{ clean(versions.vue) }})</li>
+      <li><strong>Pinia</strong> (v{{ clean(versions.pinia) }})</li>
       <li><strong>Remix Icons</strong></li>
     </ul>
   </div>
@@ -70,6 +71,7 @@ export default {
         git: '',
         node: versions.node,
         nw: versions.nw,
+        pinia: manifest.devDependencies.pinia,
         vue: manifest.devDependencies.vue
       }
     };
