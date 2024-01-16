@@ -2,10 +2,12 @@ import { defineStore } from 'pinia';
 
 const win = window.nw.Window.get();
 
+const DEFAULT_ACCENT_HUE = 264;
+
 export const themeStore = defineStore('theme', {
   state: function () {
     return {
-      accentHue: 0,
+      accentHue: DEFAULT_ACCENT_HUE,
       customScrollbars: false,
       themeHue: 0,
       themeInverted: false,
@@ -13,8 +15,19 @@ export const themeStore = defineStore('theme', {
     };
   },
   actions: {
+    resetSettings: function () {
+      this.setAccentHue();
+      this.setCustomScrollbars(false);
+      this.setThemeHue(0);
+      this.setThemeInverted(false);
+      this.setZoomPercent(100);
+    },
     setAccentHue: function (value) {
-      this.accentHue = value || 264;
+      if (value === 0 || value) {
+        this.accentHue = value;
+      } else {
+        this.accentHue = DEFAULT_ACCENT_HUE;
+      }
     },
     setCustomScrollbars: function (bool) {
       this.customScrollbars = bool;

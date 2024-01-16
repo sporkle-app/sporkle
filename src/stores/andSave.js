@@ -22,12 +22,17 @@ export const andSaveStore = defineStore('andSave', {
 
     // Theme
     ...mapActions(themeStore, [
+      'resetSettings',
       'setAccentHue',
       'setCustomScrollbars',
       'setThemeHue',
       'setThemeInverted',
       'setZoomPercent'
     ]),
+    resetSettingsAndSave: function () {
+      this.resetSettings();
+      this.saveSettings();
+    },
     setAccentHueAndSave: function (value) {
       this.setAccentHue(value);
       this.saveSettings();

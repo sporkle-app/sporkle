@@ -4,6 +4,26 @@
 
     <h2>Settings</h2>
 
+    <button
+      v-if="!resetConfirmationVisible"
+      class="confirm-reset-button"
+      @click="resetConfirmationVisible = true"
+    >
+      Reset all settings to defaults
+    </button>
+
+    <template v-if="resetConfirmationVisible">
+      <p>Are you sure? The below settings will be reset.</p>
+      <button
+        class="reset-button"
+        @click="confirmReset"
+      >Yes, reset</button>
+      <button
+        class="cancel-reset-button"
+        @click="resetConfirmationVisible = false"
+      >No, don't reset</button>
+    </template>
+
     <div>
       <BaseCheckbox v-model="useCustomScrollbars">
         <strong>Use styled scrollbars</strong>
@@ -51,11 +71,21 @@ export default {
     CloseView,
     RangeSlider
   },
+  data: function () {
+    return {
+      resetConfirmationVisible: false
+    };
+  },
   methods: {
+    confirmReset: function () {
+      this.resetConfirmationVisible = false;
+      this.resetSettingsAndSave();
+    },
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
     ...mapActions(andSaveStore, [
+      'resetSettingsAndSave',
       'setAccentHueAndSave',
       'setCustomScrollbarsAndSave',
       'setThemeHueAndSave',
@@ -120,6 +150,15 @@ export default {
   height: calc(100vh - var(--timeline-height));
   padding: 20px;
   overflow: auto;
+}
+.confirm-reset-button {
+  margin-bottom: 10px;
+}
+.reset-button {
+  margin: 0px 10px 20px 0px;
+}
+.cancel-reset-button {
+  margin: 0px 0px 20px 0px;
 }
 input[type="range"] {
   display: block;
