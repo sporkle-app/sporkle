@@ -6,8 +6,8 @@
     <span>
       {{ title }} ({{ count.toLocaleString() }})
     </span>
-    <VIcon
-      name="ri-arrow-down-s-fill"
+    <BaseIcon
+      name="RiArrowDownSFill"
       class="commit-log-caret"
       :class="{ 'commit-log-rotate-caret': !show }"
       scale="1.25"
@@ -16,8 +16,13 @@
 </template>
 
 <script>
+import BaseIcon from '@/components/BaseIcon.vue';
+
 export default {
   name: 'CommitLogTitle',
+  components: {
+    BaseIcon
+  },
   props: {
     title: {
       type: String,

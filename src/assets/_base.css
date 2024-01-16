@@ -1,29 +1,3 @@
-:root {
-  --sidebar-transition: 750ms;
-
-  --sans-serif: 'Work Sans', sans-serif;
-
-  --commit-log-width: 350px;
-  --file-count-width: 44px;
-  --sidebar-width: 233px;
-  --timeline-height: 135px;
-
-  --scrollbar-button: #9F9F9F;
-  --scrollbar-thumb: #767676;
-  --scrollbar-track: #5D5D5D;
-  --scrollbar-track-piece: #555;
-  --scrollbar-corner: #383838;
-
-  --bg: #1A222D;
-  --button: #03080C;
-  --button-hover: #1B1F2C;
-  --button-active: #ABF2;
-  --button-active-hover: #ABF3;
-  --input: #161F27;
-  --text: #D1CDC7;
-  --link: #8D41FF;
-}
-
 *,
 *::before,
 *::after {

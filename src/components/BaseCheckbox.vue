@@ -8,8 +8,8 @@
     @keyup.space="emit"
     @click.stop.prevent="emit"
   >
-    <VIcon
-      :name="modelValue ? 'ri-checkbox-fill' : 'ri-checkbox-blank-line'"
+    <BaseIcon
+      :name="modelValue ? 'RiCheckboxFill' : 'RiCheckboxBlankLine'"
       class="checkbox-icon"
     />
     <input
@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import BaseIcon from '@/components/BaseIcon.vue';
+
 export default {
   name: 'BaseCheckbox',
+  components: {
+    BaseIcon
+  },
   props: {
     modelValue: {
       type: Boolean,

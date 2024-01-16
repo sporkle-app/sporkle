@@ -11,13 +11,13 @@
       class="main-container"
       :class="{ 'sidebar-hidden': sidebarCollapsed }"
     >
-      <TimeLine />
+      <TimeLinePanel />
       <RouterView />
     </main>
     <GlobalAlerts />
     <div v-show="appLoading" class="spinner-container">
-      <VIcon
-        name="ri-loader-5-fill"
+      <BaseIcon
+        name="RiLoader5Fill"
         animation="spin"
         scale="3"
       />
@@ -33,16 +33,18 @@ import { saveLoadDataStore } from '@/stores/saveLoadData.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 import { themeStore } from '@/stores/theme.js';
 
+import BaseIcon from '@/components/BaseIcon.vue';
 import GlobalAlerts from '@/components/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
-import TimeLine from '@/components/timeline/TimeLine.vue';
+import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
 
 export default {
   name: 'App',
   components: {
+    BaseIcon,
     GlobalAlerts,
     SideBar,
-    TimeLine
+    TimeLinePanel
   },
   methods: {
     ...mapActions(saveLoadDataStore, [

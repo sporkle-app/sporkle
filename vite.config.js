@@ -11,6 +11,11 @@ export default defineConfig({
     target: 'chrome119',
     outDir: 'dist-vue'
   },
+  optimizeDeps: {
+    exclude: [
+      'oh-vue-icons/icons'
+    ]
+  },
   plugins: [vue()],
   resolve: {
     alias: {

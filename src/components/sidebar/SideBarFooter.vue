@@ -8,9 +8,9 @@
         @mouseover="settingsHover = true"
         @mouseout="settingsHover = false"
       >
-        <VIcon
+        <BaseIcon
+          name="RiSettings5Fill"
           :animation="settingsHover ? 'spin' : undefined"
-          name="ri-settings-5-fill"
           scale="1.2"
           speed="slow"
         />
@@ -23,9 +23,9 @@
         @mouseover="infoHover = true"
         @mouseout="infoHover = false"
       >
-        <VIcon
+        <BaseIcon
+          name="RiInformationLine"
           :animation="infoHover ? 'wrench': undefined"
-          name="ri-information-line"
           scale="1.2"
         />
         About
@@ -35,8 +35,13 @@
 </template>
 
 <script>
+import BaseIcon from '@/components/BaseIcon.vue';
+
 export default {
   name: 'SideBarFooter',
+  components: {
+    BaseIcon
+  },
   data: function () {
     return {
       infoHover: false,
