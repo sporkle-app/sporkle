@@ -1,21 +1,26 @@
 import { defineStore } from 'pinia';
 
-import { DEFAULT_THEME } from '@/helpers/constants.js';
-
 export const themeStore = defineStore('theme', {
   state: function () {
     return {
+      accentHue: 0,
       customScrollbars: false,
-      currentTheme: ''
+      themeHue: 0,
+      themeInverted: false
     };
   },
   actions: {
+    setAccentHue: function (value) {
+      this.accentHue = value || 264;
+    },
     setCustomScrollbars: function (bool) {
       this.customScrollbars = bool;
     },
-    setTheme: function (theme) {
-      theme = theme || DEFAULT_THEME;
-      this.currentTheme = theme;
+    setThemeHue: function (value) {
+      this.themeHue = value || 0;
+    },
+    setThemeInverted: function (bool) {
+      this.themeInverted = bool;
     }
   }
 });

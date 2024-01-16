@@ -22,15 +22,19 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setReposList'
     ]),
     ...mapActions(themeStore, [
+      'setAccentHue',
       'setCustomScrollbars',
-      'setTheme'
+      'setThemeHue',
+      'setThemeInverted'
     ]),
     applySettings: function (settings) {
       settings = settings || {};
+      this.setAccentHue(settings.accentHue);
       this.setCurrentRepo(settings.currentRepo);
       this.setCustomScrollbars(settings.customScrollbars);
       this.setReposList(settings.reposList);
-      this.setTheme(settings.theme);
+      this.setThemeHue(settings.themeHue);
+      this.setThemeInverted(settings.themeInverted);
       this.setSettingsLoading(false);
     },
     deleteSettings: function () {
@@ -88,15 +92,19 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'reposList'
     ]),
     ...mapState(themeStore, [
+      'accentHue',
       'customScrollbars',
-      'currentTheme'
+      'themeHue',
+      'themeInverted'
     ]),
     dataToSave: function () {
       const data = {
+        accentHue: this.accentHue,
         currentRepo: this.currentRepo,
         customScrollbars: this.customScrollbars,
-        currentTheme: this.currentTheme,
-        reposList: this.reposList
+        reposList: this.reposList,
+        themeHue: this.themeHue,
+        themeInverted: this.themeInverted
       };
       return JSON.stringify(data, null, 2);
     }

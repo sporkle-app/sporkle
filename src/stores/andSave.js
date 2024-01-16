@@ -22,15 +22,25 @@ export const andSaveStore = defineStore('andSave', {
 
     // Theme
     ...mapActions(themeStore, [
+      'setAccentHue',
       'setCustomScrollbars',
-      'setTheme'
+      'setThemeHue',
+      'setThemeInverted'
     ]),
+    setAccentHueAndSave: function (value) {
+      this.setAccentHue(value);
+      this.saveSettings();
+    },
     setCustomScrollbarsAndSave: function (bool) {
       this.setCustomScrollbars(bool);
       this.saveSettings();
     },
-    setThemeAndSave: function (theme) {
-      this.setTheme(theme);
+    setThemeHueAndSave: function (value) {
+      this.setThemeHue(value);
+      this.saveSettings();
+    },
+    setThemeInvertedAndSave: function (bool) {
+      this.setThemeInverted(bool);
       this.saveSettings();
     },
 

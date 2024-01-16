@@ -10,76 +10,88 @@
       </BaseCheckbox>
     </div>
 
-    <div class="theme-section">
-      <p>
-        Only dark theme exists, theme settings come later.
-      </p>
-      <label for="theme-selector">Change Theme:</label>
-      <select
-        id="theme-selector"
-        :disabled="true"
-        :value="currentTheme"
-        @change="setTheme"
-      >
-        <option
-          v-for="(theme, themeIndex) in themesList"
-          :value="theme.file"
-          :key="'theme' + themeIndex"
-        >
-          {{ theme.title }}
-        </option>
-      </select>
+    <div>
+      <BaseCheckbox v-model="themeIsInverted">
+        <strong>Light/Dark Mode</strong>
+      </BaseCheckbox>
     </div>
+
+    <RangeSlider v-model="themeHueRange">
+      <strong>App color:</strong>
+    </RangeSlider>
+
+    <RangeSlider v-model="accentHueRange">
+      <strong>Accent color:</strong>
+    </RangeSlider>
   </div>
 </template>
 
 <script>
-import _startCase from 'lodash-es/startCase.js';
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
 import { themeStore } from '@/stores/theme.js';
 
-import { THEMES } from '@/helpers/constants.js';
-
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import CloseView from '@/components/CloseView.vue';
+import RangeSlider from '@/components/RangeSlider.vue';
 
 export default {
   name: 'AppSettings',
   components: {
     BaseCheckbox,
-    CloseView
+    CloseView,
+    RangeSlider
   },
   methods: {
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
     ...mapActions(andSaveStore, [
+      'setAccentHueAndSave',
       'setCustomScrollbarsAndSave',
-      'setThemeAndSave'
+      'setThemeHueAndSave',
+      'setThemeInvertedAndSave'
     ])
   },
   computed: {
+    accentHueRange: {
+      get: function () {
+        return this.accentHue;
+      },
+      set: function (value) {
+        this.setAccentHueAndSave(value);
+      }
+    },
+    themeHueRange: {
+      get: function () {
+        return this.themeHue;
+      },
+      set: function (value) {
+        this.setThemeHueAndSave(value);
+      }
+    },
+    themeIsInverted: {
+      get: function () {
+        return this.themeInverted;
+      },
+      set: function (bool) {
+        this.setThemeInvertedAndSave(bool);
+      }
+    },
     useCustomScrollbars: {
       get: function () {
         return this.customScrollbars;
       },
-      set: function (value) {
-        this.setCustomScrollbarsAndSave(value);
+      set: function (bool) {
+        this.setCustomScrollbarsAndSave(bool);
       }
     },
-    themesList: function () {
-      return THEMES.map(function (file) {
-        return {
-          title: _startCase(file),
-          file: file
-        };
-      });
-    },
     ...mapState(themeStore, [
+      'accentHue',
       'customScrollbars',
-      'currentTheme'
+      'themeHue',
+      'themeInverted'
     ])
   }
 };
@@ -89,7 +101,7 @@ export default {
 .app-settings {
   padding: 20px;
 }
-.theme-section {
-  margin-top: 20px;
+input[type="range"] {
+  display: block;
 }
 </style>
