@@ -14,3 +14,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: 500ms ease opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}

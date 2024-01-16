@@ -14,11 +14,7 @@
           name="RiLayoutColumnFill"
         />
       </button>
-      <button
-        title="Create branch"
-      >
-        <BaseIcon name="RiGitBranchLine" />
-      </button>
+      <CreateBranchPopout />
       <button>
         <BaseIcon name="RiGitMergeLine" />
         Update from main
@@ -48,11 +44,13 @@ import { commitsStore } from '@/stores/commits.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
+import CreateBranchPopout from '@/components/timeline/CreateBranchPopout.vue';
 
 export default {
   name: 'AboveTimeLine',
   components: {
-    BaseIcon
+    BaseIcon,
+    CreateBranchPopout
   },
   methods: {
     ...mapActions(sidebarStore, [
