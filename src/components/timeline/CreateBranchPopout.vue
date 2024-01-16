@@ -121,7 +121,7 @@ export default {
 }
 .create-branch-popout {
   position: absolute;
-  top: 26px;
+  top: 27px;
   left: -108px;
   width: 260px;
   background: var(--popout);

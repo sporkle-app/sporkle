@@ -31,7 +31,7 @@ export const commitsStore = defineStore('commits', {
     // How many commits is the local ahead of the remote, is the amount that has not been pushed yet
     getCommitsAhead: async function () {
       // The (.*) is a group, so it's value will be in the 1 index position of the match
-      const regexTest = /Your branch is ahead of .* by (.*) commits\./;
+      const regexTest = /Your branch is ahead of .* by (.*) commit/;
       const { error, stdout, stderr } = await exec('git status');
 
       if (error || stderr) {

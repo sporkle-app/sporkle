@@ -1,5 +1,6 @@
 <template>
   <label
+    :for="forId"
     :aria-checked="modelValue"
     class="checkbox"
     role="checkbox"
@@ -13,6 +14,7 @@
       class="checkbox-icon"
     />
     <input
+      :id="forId"
       :value="modelValue"
       class="sr-only"
       @input="emit"
@@ -38,6 +40,11 @@ export default {
   methods: {
     emit: function () {
       this.$emit('update:modelValue', !this.modelValue);
+    }
+  },
+  computed: {
+    forId: function () {
+      return 'checkbox-' + Math.round(Math.random() * 100000);
     }
   }
 };

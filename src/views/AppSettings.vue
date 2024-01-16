@@ -4,82 +4,142 @@
 
     <h2>Settings</h2>
 
+    <button
+      v-if="!resetConfirmationVisible"
+      class="confirm-reset-button"
+      @click="resetConfirmationVisible = true"
+    >
+      Reset all settings to defaults
+    </button>
+
+    <template v-if="resetConfirmationVisible">
+      <p>Are you sure? The below settings will be reset.</p>
+      <button
+        class="reset-button"
+        @click="confirmReset"
+      >Yes, reset</button>
+      <button
+        class="cancel-reset-button"
+        @click="resetConfirmationVisible = false"
+      >No, don't reset</button>
+    </template>
+
     <div>
       <BaseCheckbox v-model="useCustomScrollbars">
         <strong>Use styled scrollbars</strong>
       </BaseCheckbox>
     </div>
 
-    <div class="theme-section">
-      <p>
-        Only dark theme exists, theme settings come later.
-      </p>
-      <label for="theme-selector">Change Theme:</label>
-      <select
-        id="theme-selector"
-        :disabled="true"
-        :value="currentTheme"
-        @change="setTheme"
-      >
-        <option
-          v-for="(theme, themeIndex) in themesList"
-          :value="theme.file"
-          :key="'theme' + themeIndex"
-        >
-          {{ theme.title }}
-        </option>
-      </select>
+    <div>
+      <BaseCheckbox v-model="themeIsInverted">
+        <strong>Light/Dark Mode</strong>
+      </BaseCheckbox>
     </div>
+
+    <RangeSlider v-model="themeHueRange">
+      <strong>App color:</strong>
+    </RangeSlider>
+
+    <RangeSlider v-model="accentHueRange">
+      <strong>Accent color:</strong>
+    </RangeSlider>
+
+    <RangeSlider
+      v-model="zoomPercentRange"
+      min="25"
+      max="300"
+    >
+      <strong>Zoom level:</strong>
+    </RangeSlider>
   </div>
 </template>
 
 <script>
-import _startCase from 'lodash-es/startCase.js';
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
 import { themeStore } from '@/stores/theme.js';
 
-import { THEMES } from '@/helpers/constants.js';
-
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import CloseView from '@/components/CloseView.vue';
+import RangeSlider from '@/components/RangeSlider.vue';
 
 export default {
   name: 'AppSettings',
   components: {
     BaseCheckbox,
-    CloseView
+    CloseView,
+    RangeSlider
+  },
+  data: function () {
+    return {
+      resetConfirmationVisible: false
+    };
   },
   methods: {
+    confirmReset: function () {
+      this.resetConfirmationVisible = false;
+      this.resetSettingsAndSave();
+    },
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
     ...mapActions(andSaveStore, [
+      'resetSettingsAndSave',
+      'setAccentHueAndSave',
       'setCustomScrollbarsAndSave',
-      'setThemeAndSave'
+      'setThemeHueAndSave',
+      'setThemeInvertedAndSave',
+      'setZoomPercentAndSave'
     ])
   },
   computed: {
+    accentHueRange: {
+      get: function () {
+        return this.accentHue;
+      },
+      set: function (value) {
+        this.setAccentHueAndSave(value);
+      }
+    },
+    themeHueRange: {
+      get: function () {
+        return this.themeHue;
+      },
+      set: function (value) {
+        this.setThemeHueAndSave(value);
+      }
+    },
+    themeIsInverted: {
+      get: function () {
+        return this.themeInverted;
+      },
+      set: function (bool) {
+        this.setThemeInvertedAndSave(bool);
+      }
+    },
     useCustomScrollbars: {
       get: function () {
         return this.customScrollbars;
       },
-      set: function (value) {
-        this.setCustomScrollbarsAndSave(value);
+      set: function (bool) {
+        this.setCustomScrollbarsAndSave(bool);
       }
     },
-    themesList: function () {
-      return THEMES.map(function (file) {
-        return {
-          title: _startCase(file),
-          file: file
-        };
-      });
+    zoomPercentRange: {
+      get: function () {
+        return this.zoomPercent;
+      },
+      set: function (percent) {
+        this.setZoomPercentAndSave(percent);
+      }
     },
     ...mapState(themeStore, [
+      'accentHue',
       'customScrollbars',
-      'currentTheme'
+      'themeHue',
+      'themeInverted',
+      'zoomPercent'
     ])
   }
 };
@@ -87,9 +147,20 @@ export default {
 
 <style scoped>
 .app-settings {
+  height: calc(100vh - var(--timeline-height));
   padding: 20px;
+  overflow: auto;
 }
-.theme-section {
-  margin-top: 20px;
+.confirm-reset-button {
+  margin-bottom: 10px;
+}
+.reset-button {
+  margin: 0px 10px 20px 0px;
+}
+.cancel-reset-button {
+  margin: 0px 0px 20px 0px;
+}
+input[type="range"] {
+  display: block;
 }
 </style>
