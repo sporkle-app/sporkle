@@ -6,6 +6,7 @@ export const appLoadingStore = defineStore('appLoading', {
       branchesLoading: false,
       commitsLoading: false,
       reposLoading: false,
+      routingLoading: false,
       settingsLoading: false
     };
   },
@@ -19,6 +20,9 @@ export const appLoadingStore = defineStore('appLoading', {
     setReposLoading: function (bool) {
       this.reposLoading = bool;
     },
+    setRoutingLoading: function (bool) {
+      this.routingLoading = bool;
+    },
     setSettingsLoading: function (bool) {
       this.settingsLoading = bool;
     }
@@ -29,6 +33,7 @@ export const appLoadingStore = defineStore('appLoading', {
         state.branchesLoading ||
         state.commitsLoading ||
         state.reposLoading ||
+        state.routingLoading ||
         state.settingsLoading
       );
     }

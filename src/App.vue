@@ -5,6 +5,7 @@
       'custom-scrollbars': customScrollbars,
       loading: appLoading
     }"
+    :style="appWideCustomProperties"
   >
     <SideBar />
     <main
@@ -52,8 +53,27 @@ export default {
     ])
   },
   computed: {
+    appWideCustomProperties: function () {
+      const customProperties = [];
+      customProperties.push('--link: hsl(' + this.accentHue + ', 100%, 62.7%)');
+      customProperties.push('--popout: hsl(' + this.accentHue + ', 24.7%, 50%)');
+      return customProperties.join(';');
+    },
+    styleFilters: function () {
+      let filters = [];
+      if (this.themeInverted) {
+        filters.push('invert(1)');
+      }
+      if (this.themeHue) {
+        filters.push('hue-rotate(' + this.themeHue + 'deg)');
+      }
+      return filters.join(' ');
+    },
     ...mapState(themeStore, [
-      'customScrollbars'
+      'accentHue',
+      'customScrollbars',
+      'themeHue',
+      'themeInverted'
     ]),
     ...mapState(appLoadingStore, [
       'appLoading'
@@ -73,6 +93,8 @@ export default {
   display: flex;
   width:  100%;
   height: 100vh;
+  background: var(--bg);
+  filter: v-bind(styleFilters);
 }
 .main-container {
   width: 100%;

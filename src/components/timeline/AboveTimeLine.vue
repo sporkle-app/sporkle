@@ -78,6 +78,7 @@ export default {
   justify-content: space-between;
 }
 button {
+  max-height: 39px;
   margin-right: 5px;
 }
 button:last-of-type {

@@ -112,6 +112,8 @@ export default {
 
 <style scoped>
 .about-app {
+  height: calc(100vh - var(--timeline-height));
   padding: 20px;
+  overflow: auto;
 }
 </style>

@@ -1,5 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
+import { appLoadingStore } from '@/stores/appLoading.js';
+
 import AboutApp from '@/views/AboutApp.vue';
 import AppSettings from '@/views/AppSettings.vue';
 import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
@@ -33,4 +35,8 @@ export const router = createRouter({
       redirect: '/'
     }
   ]
+});
+
+router.afterEach(() => {
+  appLoadingStore().setRoutingLoading(false);
 });

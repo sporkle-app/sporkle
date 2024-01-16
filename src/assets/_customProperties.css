@@ -21,6 +21,6 @@
   --button-active-hover: #ABF3;
   --input: #161F27;
   --text: #D1CDC7;
-  --link: #8D41FF;
-  --popout: #79609F;
+  --link: hsl(264, 100%, 62.7%);
+  --popout: hsl(264, 24.7%, 50%);
 }
