@@ -90,6 +90,7 @@ These features are the core value that this project offers and is what is mostly
 * NW.js
 * NW.js Builder Phoenix
   * May replace this with nw-builder later
+* Remix Icons
 * Vite
 * Vue.js
 * Pinia
