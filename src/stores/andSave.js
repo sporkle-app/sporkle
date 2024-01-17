@@ -17,7 +17,7 @@ export const andSaveStore = defineStore('andSave', {
       'saveSettings'
     ]),
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ]),
 
     // Theme
@@ -70,7 +70,7 @@ export const andSaveStore = defineStore('andSave', {
         this.addRepoToList(repoPath);
         this.saveSettings();
       } else {
-        this.setAppError('Path is not a valid git repository.\n' + repoPath);
+        this.addErrorAlert('Path is not a valid Git repository.', repoPath);
       }
     },
     removeRepoFromListAndSave: function (repoPath) {

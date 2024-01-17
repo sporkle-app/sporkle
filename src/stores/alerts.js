@@ -13,14 +13,21 @@ export const alertsStore = defineStore('alerts', {
     };
   },
   actions: {
+    addErrorAlert: function (message, error) {
+      const status = 'error';
+      this.addAlert({ message, error, status });
+    },
+    addSuccessAlert: function (message) {
+      this.addAlert({ message });
+    },
     addAlert: function (payload) {
       const id = helpers.generateUniqueId();
       let status = payload.status || 'success';
       const message = payload.message;
       const error = payload.error;
-      let delay = 15000;
+      let delay = payload.delay || 15000;
 
-      if (payload.error) {
+      if (error) {
         delay = undefined;
         status = 'error';
       }

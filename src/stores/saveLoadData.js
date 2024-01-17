@@ -12,7 +12,7 @@ const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 export const saveLoadDataStore = defineStore('saveLoadData', {
   actions: {
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ]),
     ...mapActions(appLoadingStore, [
       'setSettingsLoading'
@@ -64,14 +64,14 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       if (fs.existsSync(settingsFile)) {
         fs.readFile(settingsFile, (err, data) => {
           if (err) {
-            this.setAppError('Unable to load settings.\n' + err);
+            this.addErrorAlert('Unable to load settings.', err);
           }
 
           if (data) {
             try {
               settings = JSON.parse(data);
             } catch (error) {
-              this.setAppError('Error attempting to load settings.\n' + error);
+              this.addErrorAlert('Error attempting to load settings.', error);
             }
           }
 
@@ -85,7 +85,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       console.log(this.dataToSave);
       fs.writeFile(settingsFile, this.dataToSave, function (error) {
         if (error) {
-          this.setAppError('There was an error saving your settings. ' + error);
+          this.addErrorAlert('There was an error saving your settings.', error);
         }
       });
     }

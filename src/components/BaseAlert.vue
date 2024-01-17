@@ -48,10 +48,17 @@
         <strong>Success:</strong>
       </template>
     </div>
-    <span
-      v-text="alert.message"
-      class="global-alert-message"
-    ></span>
+    <div class="global-alert-overflow">
+      <span
+        v-text="alert.message"
+        class="global-alert-message"
+      ></span>
+      <pre
+        v-if="alert.error"
+        v-text="alert.error"
+        class="global-alert-error-message"
+      ></pre>
+    </div>
   </div>
 </template>
 
@@ -114,15 +121,20 @@ export default {
 .success .global-alert-title-icon {
   color: var(--popout);
 }
-.global-alert-message {
-  display: inline-block;
+.global-alert-overflow {
   max-height: 140px;
   word-break: break-word;
   overflow: auto;
-  margin-left: 5px;
+}
+.global-alert-message {
+  display: inline-block;
+}
+.global-alert-error-message {
+  background: #0004;
+  padding: 5px;
+  font-family: monospace;
 }
 .global-alert-title strong {
-  margin-left: 5px;
   font-size: 19px;
   line-height: 32px;
 }
