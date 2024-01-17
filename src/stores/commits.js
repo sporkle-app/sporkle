@@ -19,7 +19,7 @@ export const commitsStore = defineStore('commits', {
   },
   actions: {
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ]),
     ...mapActions(appLoadingStore, [
       'setCommitsLoading'
@@ -35,7 +35,7 @@ export const commitsStore = defineStore('commits', {
       const { error, stdout, stderr } = await exec('git status');
 
       if (error || stderr) {
-        this.setAppError('Git Error: ' + (error || stderr));
+        this.addErrorAlert('Error checking repo status.', (error || stderr));
       }
 
       let match = stdout.match(regexTest) || [];
@@ -58,7 +58,7 @@ export const commitsStore = defineStore('commits', {
         response = await git2json.run();
       } catch (error) {
         if (error) {
-          this.setAppError('Git Error: ' + error);
+          this.addErrorAlert('Error checking repo commit history.', error);
         }
       }
 

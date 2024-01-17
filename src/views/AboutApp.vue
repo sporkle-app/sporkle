@@ -85,7 +85,7 @@ export default {
     getGitVersion: function () {
       exec('git --version', (error, gitVersion) => {
         if (error) {
-          this.setAppError(String(error));
+          this.addErrorAlert('Failed to retrieve Git version.', error);
         }
         if (gitVersion) {
           gitVersion = gitVersion.replace('git version', '');
@@ -99,7 +99,7 @@ export default {
       window.nw.Shell.openExternal(url);
     },
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ])
   },
   created: function () {

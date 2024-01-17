@@ -3,11 +3,13 @@ import { defineStore } from 'pinia';
 const win = window.nw.Window.get();
 
 const DEFAULT_ACCENT_HUE = 264;
+const DEFAULT_ACCENT_LIGHTNESS = 500;
 
 export const themeStore = defineStore('theme', {
   state: function () {
     return {
       accentHue: DEFAULT_ACCENT_HUE,
+      accentLightness: DEFAULT_ACCENT_LIGHTNESS,
       customScrollbars: true,
       themeHue: 0,
       themeInverted: false,
@@ -27,6 +29,13 @@ export const themeStore = defineStore('theme', {
         this.accentHue = value;
       } else {
         this.accentHue = DEFAULT_ACCENT_HUE;
+      }
+    },
+    setAccentLightness: function (value) {
+      if (value === 0 || value) {
+        this.accentLightness = value;
+      } else {
+        this.accentLightness = DEFAULT_ACCENT_HUE;
       }
     },
     setCustomScrollbars: function (bool) {
