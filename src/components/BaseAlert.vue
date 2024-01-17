@@ -2,6 +2,7 @@
   <div
     :class="alert.status"
     class="global-alert"
+    role="button"
     tabindex="0"
     @focusin="setHover(true)"
     @focusout="setHover(false)"
@@ -10,8 +11,10 @@
   >
     <span
       class="float-right"
+      role="button"
       tabindex="0"
       @keydown.enter="deleteAlert"
+      @keydown.space="deleteAlert"
       @click="deleteAlert"
     >
       <BaseIcon name="RiCloseLine" />

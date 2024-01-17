@@ -70,8 +70,8 @@ import { andSaveStore } from '@/stores/andSave.js';
 import { themeStore } from '@/stores/theme.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
-import RangeSlider from '@/components/RangeSlider.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
+import RangeSlider from '@/components/RangeSlider.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 export default {
