@@ -18,9 +18,10 @@ export const alertsStore = defineStore('alerts', {
       let status = payload.status || 'success';
       const message = payload.message;
       const error = payload.error;
-      const delay = 15000;
+      let delay = 15000;
 
       if (payload.error) {
+        delay = undefined;
         status = 'error';
       }
 
@@ -40,12 +41,6 @@ export const alertsStore = defineStore('alerts', {
       if (status !== 'error') {
         this.countdownThenHideThenDeleteById(alert.id);
       }
-    },
-    pauseCountdown: function (id) {
-      this.setHoverById(id, true);
-    },
-    resumeCountdown: function (id) {
-      this.setHoverById(id, false);
     },
     setHoverById: function (id, bool) {
       const index = this.alerts.findIndex((alert) => {
@@ -92,6 +87,7 @@ export const alertsStore = defineStore('alerts', {
       if (index > -1) {
         this.alerts.splice(index, 1);
       }
+      delete this.intervals[id];
     },
     hideThenDeleteById: function (id) {
       this.hideById(id);

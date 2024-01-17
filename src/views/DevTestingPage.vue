@@ -5,6 +5,7 @@
   >
     <div>
       <button @click="addSuccess">Success</button>
+      <button @click="addError">Error</button>
     </div>
   </ViewWrapper>
 </template>
@@ -25,6 +26,12 @@ export default {
     addSuccess: function () {
       this.addAlert({
         message: 'All good'
+      });
+    },
+    addError: function () {
+      this.addAlert({
+        message: 'Oh no',
+        error: 'bad'
       });
     },
     ...mapActions(alertsStore, [

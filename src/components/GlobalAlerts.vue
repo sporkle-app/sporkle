@@ -5,25 +5,10 @@
     tag="div"
   >
     <BaseAlert
-      v-for="(alert, alertIndex) in alerts"
-      :id="alert.id"
-      :status="alert.status"
-      :dismissible="alert.dismissible"
-      :delay="alert.delay"
-      :index="alertIndex"
+      v-for="alert in alerts"
+      :alert="alert"
       :key="alert.id"
-    >
-      <div
-        v-if="alert.html"
-        v-html="alert.message"
-        class="global-alert-message"
-      ></div>
-      <div
-        v-else
-        v-text="alert.message"
-        class="global-alert-message"
-      ></div>
-    </BaseAlert>
+    />
   </TransitionGroup>
 </template>
 
