@@ -12,7 +12,7 @@ const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 export const saveLoadDataStore = defineStore('saveLoadData', {
   actions: {
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ]),
     ...mapActions(appLoadingStore, [
       'setSettingsLoading'
@@ -23,6 +23,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     ...mapActions(themeStore, [
       'setAccentHue',
+      'setAccentLightness',
       'setCustomScrollbars',
       'setThemeHue',
       'setThemeInverted',
@@ -31,6 +32,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     applySettings: function (settings) {
       settings = settings || {};
       this.setAccentHue(settings.accentHue);
+      this.setAccentLightness(settings.accentLightness);
       this.setCurrentRepo(settings.currentRepo);
       this.setCustomScrollbars(settings.customScrollbars);
       this.setReposList(settings.reposList);
@@ -62,14 +64,14 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       if (fs.existsSync(settingsFile)) {
         fs.readFile(settingsFile, (err, data) => {
           if (err) {
-            this.setAppError('Unable to load settings.\n' + err);
+            this.addErrorAlert('Unable to load settings.', err);
           }
 
           if (data) {
             try {
               settings = JSON.parse(data);
             } catch (error) {
-              this.setAppError('Error attempting to load settings.\n' + error);
+              this.addErrorAlert('Error attempting to load settings.', error);
             }
           }
 
@@ -83,7 +85,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       console.log(this.dataToSave);
       fs.writeFile(settingsFile, this.dataToSave, function (error) {
         if (error) {
-          this.setAppError('There was an error saving your settings. ' + error);
+          this.addErrorAlert('There was an error saving your settings.', error);
         }
       });
     }
@@ -95,6 +97,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     ...mapState(themeStore, [
       'accentHue',
+      'accentLightness',
       'customScrollbars',
       'themeHue',
       'themeInverted',
@@ -103,6 +106,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     dataToSave: function () {
       const data = {
         accentHue: this.accentHue,
+        accentLightness: this.accentLightness,
         currentRepo: this.currentRepo,
         customScrollbars: this.customScrollbars,
         reposList: this.reposList,

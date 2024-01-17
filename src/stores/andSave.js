@@ -17,13 +17,14 @@ export const andSaveStore = defineStore('andSave', {
       'saveSettings'
     ]),
     ...mapActions(alertsStore, [
-      'setAppError'
+      'addErrorAlert'
     ]),
 
     // Theme
     ...mapActions(themeStore, [
       'resetSettings',
       'setAccentHue',
+      'setAccentLightness',
       'setCustomScrollbars',
       'setThemeHue',
       'setThemeInverted',
@@ -35,6 +36,10 @@ export const andSaveStore = defineStore('andSave', {
     },
     setAccentHueAndSave: function (value) {
       this.setAccentHue(value);
+      this.saveSettings();
+    },
+    setAccentLightnessAndSave: function (value) {
+      this.setAccentLightness(value);
       this.saveSettings();
     },
     setCustomScrollbarsAndSave: function (bool) {
@@ -65,7 +70,7 @@ export const andSaveStore = defineStore('andSave', {
         this.addRepoToList(repoPath);
         this.saveSettings();
       } else {
-        this.setAppError('Path is not a valid git repository.\n' + repoPath);
+        this.addErrorAlert('Path is not a valid Git repository.', repoPath);
       }
     },
     removeRepoFromListAndSave: function (repoPath) {
