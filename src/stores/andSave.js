@@ -24,6 +24,7 @@ export const andSaveStore = defineStore('andSave', {
     ...mapActions(themeStore, [
       'resetSettings',
       'setAccentHue',
+      'setAccentLightness',
       'setCustomScrollbars',
       'setThemeHue',
       'setThemeInverted',
@@ -35,6 +36,10 @@ export const andSaveStore = defineStore('andSave', {
     },
     setAccentHueAndSave: function (value) {
       this.setAccentHue(value);
+      this.saveSettings();
+    },
+    setAccentLightnessAndSave: function (value) {
+      this.setAccentLightness(value);
       this.saveSettings();
     },
     setCustomScrollbarsAndSave: function (bool) {

@@ -55,8 +55,11 @@ export default {
   computed: {
     appWideCustomProperties: function () {
       const customProperties = [];
-      customProperties.push('--link: hsl(' + this.accentHue + ', 100%, 62.7%)');
-      customProperties.push('--popout: hsl(' + this.accentHue + ', 24.7%, 50%)');
+      const hue = this.accentHue;
+      const lightnessLink = (this.accentLightness + 127) / 10;
+      const lightnesPopout = (this.accentLightness / 10);
+      customProperties.push('--link: hsl(' + hue + ', 100%, ' + lightnessLink + '%)');
+      customProperties.push('--popout: hsl(' + hue + ', 24.7%, ' + lightnesPopout + '%)');
       return customProperties.join(';');
     },
     styleFilters: function () {
@@ -71,6 +74,7 @@ export default {
     },
     ...mapState(themeStore, [
       'accentHue',
+      'accentLightness',
       'customScrollbars',
       'themeHue',
       'themeInverted'

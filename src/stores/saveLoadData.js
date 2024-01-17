@@ -23,6 +23,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     ...mapActions(themeStore, [
       'setAccentHue',
+      'setAccentLightness',
       'setCustomScrollbars',
       'setThemeHue',
       'setThemeInverted',
@@ -31,6 +32,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     applySettings: function (settings) {
       settings = settings || {};
       this.setAccentHue(settings.accentHue);
+      this.setAccentLightness(settings.accentLightness);
       this.setCurrentRepo(settings.currentRepo);
       this.setCustomScrollbars(settings.customScrollbars);
       this.setReposList(settings.reposList);
@@ -95,6 +97,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     ]),
     ...mapState(themeStore, [
       'accentHue',
+      'accentLightness',
       'customScrollbars',
       'themeHue',
       'themeInverted',
@@ -103,6 +106,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     dataToSave: function () {
       const data = {
         accentHue: this.accentHue,
+        accentLightness: this.accentLightness,
         currentRepo: this.currentRepo,
         customScrollbars: this.customScrollbars,
         reposList: this.reposList,

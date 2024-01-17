@@ -43,12 +43,6 @@ export default {
   z-index: 800;
 }
 
-.global-alert-message {
-  max-height: 140px;
-  word-break: break-word;
-  overflow: auto;
-}
-
 /* Transitions */
 .global-alerts-enter {
   opacity: 0.0;

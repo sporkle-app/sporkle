@@ -8,7 +8,7 @@
       Reset all settings to defaults
     </button>
 
-    <a>
+    <a title="Secret Dev Stuff">
       <BaseIcon
         v-if="nw.process.versions['nw-flavor'] === 'sdk'"
         name="RiMagicLine"
@@ -51,6 +51,14 @@
 
     <RangeSlider v-model="accentHueRange">
       <strong>Accent color:</strong>
+    </RangeSlider>
+
+    <RangeSlider
+      v-model="accentLightnessRange"
+      min="0"
+      max="1000"
+    >
+      <strong>Accent Brightness:</strong>
     </RangeSlider>
 
     <RangeSlider
@@ -98,6 +106,7 @@ export default {
     ...mapActions(andSaveStore, [
       'resetSettingsAndSave',
       'setAccentHueAndSave',
+      'setAccentLightnessAndSave',
       'setCustomScrollbarsAndSave',
       'setThemeHueAndSave',
       'setThemeInvertedAndSave',
@@ -111,6 +120,14 @@ export default {
       },
       set: function (value) {
         this.setAccentHueAndSave(value);
+      }
+    },
+    accentLightnessRange: {
+      get: function () {
+        return this.accentLightness;
+      },
+      set: function (value) {
+        this.setAccentLightnessAndSave(value);
       }
     },
     themeHueRange: {
@@ -147,6 +164,7 @@ export default {
     },
     ...mapState(themeStore, [
       'accentHue',
+      'accentLightness',
       'customScrollbars',
       'themeHue',
       'themeInverted',

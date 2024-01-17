@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     emit: function ($event) {
-      this.$emit('update:modelValue', $event.target.value);
+      this.$emit('update:modelValue', parseInt($event.target.value));
     }
   },
   computed: {
