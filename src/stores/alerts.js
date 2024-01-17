@@ -39,14 +39,13 @@ export const alertsStore = defineStore('alerts', {
         delay,
         error,
         progressBar: 100,
-        hover: false,
-        visible: true
+        hover: false
       };
 
       this.alerts.push(alert);
 
       if (status !== 'error') {
-        this.countdownThenHideThenDeleteById(alert.id);
+        this.countdownThenDeleteById(alert.id);
       }
     },
     setHoverById: function (id, bool) {
@@ -57,7 +56,7 @@ export const alertsStore = defineStore('alerts', {
         this.alerts[index].hover = bool;
       }
     },
-    countdownThenHideThenDeleteById: function (id) {
+    countdownThenDeleteById: function (id) {
       this.intervals[id] = setInterval(() => {
         const index = this.alerts.findIndex((alert) => {
           return alert.id === id;
@@ -69,20 +68,11 @@ export const alertsStore = defineStore('alerts', {
           this.alerts[index].progressBar = value;
           if (value === 0) {
             setTimeout(() => {
-              this.hideThenDeleteById(id);
+              this.deleteById(id);
             }, 100);
           }
         }
       }, intervalDuration);
-    },
-    hideById: function (id) {
-      const index = this.alerts.findIndex((alert) => {
-        return alert.id === id;
-      });
-      if (index > -1) {
-        // Determines whether to show/hide the alert and triggers Vuetify animations
-        this.alerts[index].visible = false;
-      }
     },
     deleteById: function (id) {
       if (this.intervals[id]) {
@@ -95,14 +85,6 @@ export const alertsStore = defineStore('alerts', {
         this.alerts.splice(index, 1);
       }
       delete this.intervals[id];
-    },
-    hideThenDeleteById: function (id) {
-      this.hideById(id);
-      // Wait for the hide animation to finish before deleting the alert
-      setTimeout(() => {
-        // This actually removes the alert from the array of global alerts
-        this.deleteById(id);
-      }, 600);
     }
   }
 });

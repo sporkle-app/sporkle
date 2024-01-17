@@ -28,42 +28,25 @@
 <script>
 import _kebabCase from 'lodash-es/kebabCase.js';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
-import {
-  RiArrowDownSFill,
-  RiArrowGoBackLine,
-  RiCheckboxBlankLine,
-  RiCheckboxCircleLine,
-  RiCheckboxFill,
-  RiCheckLine,
-  RiCloseLine,
-  RiErrorWarningLine,
-  RiGitBranchLine,
-  RiGitMergeLine,
-  RiInformationLine,
-  RiLayoutColumnFill,
-  RiLayoutColumnLine,
-  RiLoader5Fill,
-  RiMagicLine,
-  RiSettings5Fill
-} from 'oh-vue-icons/icons/index.js';
+import * as icons from 'oh-vue-icons/icons/index.js';
 
 const allImportedIcons = [
-  RiArrowDownSFill,
-  RiArrowGoBackLine,
-  RiCheckboxBlankLine,
-  RiCheckboxCircleLine,
-  RiCheckboxFill,
-  RiCheckLine,
-  RiCloseLine,
-  RiErrorWarningLine,
-  RiGitBranchLine,
-  RiGitMergeLine,
-  RiInformationLine,
-  RiLayoutColumnFill,
-  RiLayoutColumnLine,
-  RiLoader5Fill,
-  RiMagicLine,
-  RiSettings5Fill
+  icons.RiArrowDownSFill,
+  icons.RiArrowGoBackLine,
+  icons.RiCheckboxBlankLine,
+  icons.RiCheckboxCircleLine,
+  icons.RiCheckboxFill,
+  icons.RiCheckLine,
+  icons.RiCloseLine,
+  icons.RiErrorWarningLine,
+  icons.RiGitBranchLine,
+  icons.RiGitMergeLine,
+  icons.RiInformationLine,
+  icons.RiLayoutColumnFill,
+  icons.RiLayoutColumnLine,
+  icons.RiLoader5Fill,
+  icons.RiMagicLine,
+  icons.RiSettings5Fill
 ];
 const customIcons = [
   'RiLoopRightLine'

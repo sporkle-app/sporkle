@@ -23,8 +23,6 @@
       />
       <CountdownCircle
         v-if="alert.delay"
-        data-test="CountdownCircle"
-        data-cy="CountdownCircle"
         :duration="alert.delay"
         :hover="alert.hover"
         @countdownFinished="deleteAlert"
@@ -133,6 +131,7 @@ export default {
   background: #0004;
   padding: 5px;
   font-family: monospace;
+  white-space: break-spaces;
 }
 .global-alert-title strong {
   font-size: 19px;
