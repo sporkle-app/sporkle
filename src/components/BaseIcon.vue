@@ -41,6 +41,7 @@ import {
   RiLayoutColumnFill,
   RiLayoutColumnLine,
   RiLoader5Fill,
+  RiMagicLine,
   RiSettings5Fill
 } from 'oh-vue-icons/icons/index.js';
 
@@ -57,6 +58,7 @@ const allImportedIcons = [
   RiLayoutColumnFill,
   RiLayoutColumnLine,
   RiLoader5Fill,
+  RiMagicLine,
   RiSettings5Fill
 ];
 const customIcons = [

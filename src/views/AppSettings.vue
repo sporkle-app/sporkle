@@ -8,6 +8,19 @@
       Reset all settings to defaults
     </button>
 
+    <a>
+      <BaseIcon
+        v-if="nw.process.versions['nw-flavor'] === 'sdk'"
+        name="RiMagicLine"
+        hover
+        animation="wrench"
+        scale="1.3"
+        class="magic"
+        @click="$router.push({ name: 'devTestingPage' })"
+      />
+      <span class="sr-only">Developer options</span>
+    </a>
+
     <template v-if="resetConfirmationVisible">
       <p>Are you sure? The below settings will be reset.</p>
       <button
@@ -58,12 +71,14 @@ import { themeStore } from '@/stores/theme.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import RangeSlider from '@/components/RangeSlider.vue';
+import BaseIcon from '@/components/BaseIcon.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 export default {
   name: 'AppSettings',
   components: {
     BaseCheckbox,
+    BaseIcon,
     RangeSlider,
     ViewWrapper
   },
@@ -142,6 +157,11 @@ export default {
 </script>
 
 <style scoped>
+.magic {
+  position: absolute;
+  top: calc(var(--timeline-height) + 12px);
+  right: 65px;
+}
 .confirm-reset-button {
   margin-bottom: 10px;
 }

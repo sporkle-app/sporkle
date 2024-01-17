@@ -7,6 +7,7 @@ import AppSettings from '@/views/AppSettings.vue';
 import CloneRepo from '@/views/CloneRepo.vue';
 import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
 import CreateNewRepo from '@/views/CreateNewRepo.vue';
+import DevTestingPage from '@/views/DevTestingPage.vue';
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -35,6 +36,11 @@ export const router = createRouter({
       path: '/clone-repo',
       name: 'cloneRepo',
       component: CloneRepo
+    },
+    {
+      path: '/dev-testing-page',
+      name: 'devTestingPage',
+      component: DevTestingPage
     },
     {
       path: '/',
