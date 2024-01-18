@@ -8,25 +8,36 @@
       @click="isCollapsed = !isCollapsed"
       @keyup.enter="isCollapsed = !isCollapsed"
     >
-      <span v-if="isCollapsed">▶️</span>
-      <span v-else>🔻</span>
+      <BaseIcon
+        name="RiArrowDownSFill"
+        class="one-file-caret"
+        :class="{ 'one-file-rotate-caret': isCollapsed }"
+        scale="1.25"
+      />
       {{ file.path }}
     </div>
-    <transition name="collapse">
-      <div v-if="!isCollapsed" class="file-diff-container">
+    <BaseAccordion :show="!isCollapsed">
+      <div class="file-diff-container">
         <pre
           v-for="(row, rowIndex) in diffRows"
           :class="rowClass(row)"
           :key="'row' + rowIndex"
         >{{ row }}</pre>
       </div>
-    </transition>
+    </BaseAccordion>
   </div>
 </template>
 
 <script>
+import BaseAccordion from '@/components/BaseAccordion.vue';
+import BaseIcon from '@/components/BaseIcon.vue';
+
 export default {
   name: 'OneFile',
+  components: {
+    BaseAccordion,
+    BaseIcon
+  },
   props: {
     file: {
       type: Object,
@@ -115,9 +126,16 @@ c\\sdfvs' }
 <style scoped>
 .file-header {
   width: 100%;
+  background: var(--white13);
 }
 .file-header.expanded {
   white-space: unset;
   word-break: break-all;
+}
+.one-file-caret {
+  transition: var(--sidebar-transition) ease transform;
+}
+.one-file-rotate-caret {
+  transform: rotate(-90deg);
 }
 </style>

@@ -46,7 +46,7 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  background: #FFF2;
+  background: var(--white13);
   padding: 10px;
   font-size: 20px;
   text-align: left;

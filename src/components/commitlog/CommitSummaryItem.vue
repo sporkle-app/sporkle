@@ -70,7 +70,7 @@ export default {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  border-bottom: 1px solid #FFF4;
+  border-bottom: 1px solid var(--white25);
 }
 .commit-summary-item-description {
   display: flex;
@@ -95,11 +95,11 @@ export default {
   align-items: center;
   justify-content: center;
   min-width: var(--file-count-width);
-  background: #FFF6;
+  background: var(--white40);
   border-radius: 4px;
   margin: 8px 5px;
   padding: 10px;
-  color: #223;
+  color: var(--inverse-text);
   font-size: 17px;
   font-weight: 400;
 }

@@ -100,10 +100,10 @@ export default {
   position: relative;
   display: block;
   background: var(--popout);
-  border-left: 35px solid #FFF4;
+  border-left: 35px solid var(--white25);
   margin: 16px 0px 16px 16px;
   padding: 16px;
-  color: #FFF;
+  color: var(--white);
   line-height: 1.5;
 }
 .global-alert-title-icon {
@@ -128,7 +128,7 @@ export default {
   display: inline-block;
 }
 .global-alert-error-message {
-  background: #0004;
+  background: var(--black25);
   padding: 5px;
   font-family: monospace;
   white-space: break-spaces;

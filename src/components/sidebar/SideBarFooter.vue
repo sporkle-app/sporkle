@@ -56,7 +56,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000A;
+  background: var(--black66);
   padding: 10px;
 }
 .icons-container > a {

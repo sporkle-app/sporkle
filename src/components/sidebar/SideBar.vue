@@ -42,7 +42,7 @@ export default {
   flex-direction: column;
   width: var(--sidebar-width);
   height: 100vh;
-  background: #0004;
+  background: var(--black25);
   overflow: auto;
   transition: var(--sidebar-transition) ease left;
 }
