@@ -1,5 +1,19 @@
 <template>
   <div class="timeline">
+    <div class="branch-dropdowns" style="width:20%;">
+      <select id="selectOption" name="selectOption">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+
+      <select id="selectOption" name="selectOption">
+        <option value="option1">Option 1</option>
+        <option value="option2">Option 2</option>
+        <option value="option3">Option 3</option>
+      </select>
+    </div>
+  
     <svg width="100" height="100" style="overflow: visible;">
       <path
         d="M100,20 L705,20"
@@ -111,4 +125,12 @@ export default {
 </script>
 
 <style scoped>
+.timeline {
+  display: flex;
+  flex-direction: row;
+}
+.branch-dropdowns {
+  display: flex;
+  flex-direction: column;
+}
 </style>
