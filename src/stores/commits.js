@@ -1,9 +1,10 @@
-import { defineStore, mapActions } from 'pinia';
+import { defineStore, mapActions, mapState } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { gitRemotesStore } from '@/stores/gitRemotes.js';
+import { gitStatusStore } from '@/stores/gitStatus.js';
 
-import { getAheadByCommits } from '@/helpers/gitCommands.js';
 import helpers from '@/helpers/index.js';
 
 const git2json = require('@fabien0102/git2json');
@@ -11,7 +12,6 @@ const git2json = require('@fabien0102/git2json');
 export const commitsStore = defineStore('commits', {
   state: function () {
     return {
-      aheadBy: 0,
       commits: []
     };
   },
@@ -22,24 +22,16 @@ export const commitsStore = defineStore('commits', {
     ...mapActions(appLoadingStore, [
       'setCommitsLoading'
     ]),
+    ...mapActions(gitStatusStore, [
+      'updateStatus'
+    ]),
     resetState: function () {
-      this.aheadBy = 0;
       this.commits = [];
-    },
-    // How many commits is the local ahead of the remote, is the amount that has not been pushed yet
-    getCommitsAhead: function (currentRepoPath) {
-      return getAheadByCommits(currentRepoPath)
-        .then((aheadBy) => {
-          this.aheadBy = aheadBy;
-        })
-        .catch((error) => {
-          this.addErrorAlert('Error checking repo status.', error);
-        });
     },
     getCommits: async function (currentRepoPath) {
       this.resetState();
       this.setCommitsLoading(true);
-      await this.getCommitsAhead(currentRepoPath);
+      await this.updateStatus(currentRepoPath);
       helpers.setCurrentWorkingDirectory(currentRepoPath);
 
       let response = [];
@@ -57,15 +49,27 @@ export const commitsStore = defineStore('commits', {
     }
   },
   getters: {
+    ...mapState(gitStatusStore, [
+      'ahead'
+    ]),
+    ...mapState(gitRemotesStore, [
+      'remotes'
+    ]),
     uncommitedFiles: function () {
       return [];
     },
     unsyncedCommits: function (state) {
+      if (!this.remotes.length) {
+        return state.commits;
+      }
       const startFrom = 0;
-      return state.commits.slice(startFrom, this.aheadBy);
+      return state.commits.slice(startFrom, this.ahead);
     },
     syncedCommits: function (state) {
-      return state.commits.slice(this.aheadBy);
+      if (!this.remotes.length) {
+        return [];
+      }
+      return state.commits.slice(this.ahead);
     }
   }
 });

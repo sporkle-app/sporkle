@@ -121,6 +121,6 @@ export default {
   align-items: center;
   justify-content: center;
   overlay: hidden;
-  z-index: 999;
+  z-index: 800;
 }
 </style>

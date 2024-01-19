@@ -1,41 +1,37 @@
+import _upperFirst from 'lodash-es/upperFirst.js';
 import { defineStore } from 'pinia';
+
+const LOADING_TYPES = [
+  'branches',
+  'commits',
+  'fileDiffs',
+  'gitStatus',
+  'gitRemotes',
+  'repos',
+  'routing',
+  'settings'
+];
+const LOADING_STATES = {};
+const LOADING_ACTIONS = {};
+
+LOADING_TYPES.forEach((type) => {
+  let Type = _upperFirst(type);
+  LOADING_STATES[type + 'Loading'] = false;
+  LOADING_ACTIONS['set' + Type + 'Loading'] = function (bool) {
+    this[type + 'Loading'] = bool;
+  };
+});
 
 export const appLoadingStore = defineStore('appLoading', {
   state: function () {
-    return {
-      branchesLoading: false,
-      commitsLoading: false,
-      reposLoading: false,
-      routingLoading: false,
-      settingsLoading: false
-    };
+    return LOADING_STATES;
   },
-  actions: {
-    setBranchesLoading: function (bool) {
-      this.branchesLoading = bool;
-    },
-    setCommitsLoading: function (bool) {
-      this.commitsLoading = bool;
-    },
-    setReposLoading: function (bool) {
-      this.reposLoading = bool;
-    },
-    setRoutingLoading: function (bool) {
-      this.routingLoading = bool;
-    },
-    setSettingsLoading: function (bool) {
-      this.settingsLoading = bool;
-    }
-  },
+  actions: LOADING_ACTIONS,
   getters: {
     appLoading: function (state) {
-      return (
-        state.branchesLoading ||
-        state.commitsLoading ||
-        state.reposLoading ||
-        state.routingLoading ||
-        state.settingsLoading
-      );
+      return LOADING_TYPES.some((type) => {
+        return state[type + 'Loading'];
+      });
     }
   }
 });

@@ -3,6 +3,7 @@ import { defineStore, mapActions } from 'pinia';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
+import { gitRemotesStore } from '@/stores/gitRemotes.js';
 
 const path = window.require('path');
 
@@ -18,11 +19,12 @@ export const reposStore = defineStore('repos', {
     setReposList: function (arr) {
       this.reposList = arr || [];
     },
-    setCurrentRepo: function (repoPath) {
+    setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
       this.currentRepo = repoPath;
-      this.updateBranches(repoPath);
-      this.getCommits();
+      await this.updateBranches(repoPath);
+      await this.updateRemotes(repoPath);
+      await this.getCommits(repoPath);
       this.setReposLoading(false);
     },
     setRepoFilter: function (value) {
@@ -67,6 +69,9 @@ export const reposStore = defineStore('repos', {
     ]),
     ...mapActions(commitsStore, [
       'getCommits'
+    ]),
+    ...mapActions(gitRemotesStore, [
+      'updateRemotes'
     ])
   },
   getters: {

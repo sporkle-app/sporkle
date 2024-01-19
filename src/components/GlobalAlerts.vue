@@ -40,7 +40,7 @@ export default {
   width: 100%;
   max-width: 570px;
   transition: 0.3s ease all;
-  z-index: 800;
+  z-index: 900;
 }
 
 /* Transitions */
