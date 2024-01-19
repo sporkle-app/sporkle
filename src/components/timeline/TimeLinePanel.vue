@@ -21,7 +21,6 @@ export default {
 <style scoped>
 .timeline-panel {
   height: var(--timeline-height);
-  background: var(--inverse-text);
   background: var(--dark60);
 }
 </style>
