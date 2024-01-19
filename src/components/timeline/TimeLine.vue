@@ -1,16 +1,16 @@
 <template>
   <div class="timeline">
     <div class="branch-dropdowns" style="width:20%;">
-      <select id="selectOption" name="selectOption">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+      <select id="selectOption" name="options">
+        <option v-for="branch in branches" :key="branch" :value="branch">
+          {{ branch }}
+        </option>
       </select>
 
-      <select id="selectOption" name="selectOption">
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-        <option value="option3">Option 3</option>
+      <select id="selectOption" name="options">
+        <option v-for="branch in branches" :key="branch" :value="branch">
+          {{ branch }}
+        </option>
       </select>
     </div>
   
@@ -69,57 +69,33 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+import { branchesStore } from '@/stores/branches.js';
+
 export default {
   name: 'TimeLine',
   data: function () {
     return {
+      selectedBranch: '',
       commitDataPoints: [
-        {
-          x: 520,
-          y: 20
-        },
-        {
-          x: 300,
-          y: 60
-        },
-        {
-          x: 340,
-          y: 60
-        },
-        {
-          x: 380,
-          y: 60
-        },
-        {
-          x: 420,
-          y: 60
-        },
-        {
-          x: 460,
-          y: 60
-        },
-        {
-          x: 500,
-          y: 60
-        },
-        {
-          x: 540,
-          y: 60
-        },
-        {
-          x: 580,
-          y: 60
-        },
-        {
-          x: 620,
-          y: 60
-        },
-        {
-          x: 660,
-          y: 60
-        }
+        { x: 520, y: 20 },
+        { x: 300, y: 60 },
+        { x: 340, y: 60 },
+        { x: 380, y: 60 },
+        { x: 420, y: 60 },
+        { x: 460, y: 60 },
+        { x: 500, y: 60 },
+        { x: 540, y: 60 },
+        { x: 580, y: 60 },
+        { x: 620, y: 60 },
+        { x: 660, y: 60 }
       ]
     };
+  },
+  computed: {
+    ...mapState(branchesStore, [
+      'branches'
+    ])
   }
 };
 </script>
