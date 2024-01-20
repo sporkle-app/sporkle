@@ -23,6 +23,8 @@
         />
         Clone
       </button>
+
+      <div class="sidebar-toggle-placehoder"></div>
     </div>
 
     <div>
@@ -108,6 +110,13 @@ export default {
   border-radius: 0px;
   margin: 0px;
   padding: 0px;
+}
+.sidebar-toggle-placehoder {
+  background: var(--button);
+  width: var(--top-button-height);
+  max-width: var(--top-button-height);
+  min-width: var(--top-button-height);
+  height: var(--top-button-height);
 }
 .repo-filter {
   position: relative;
