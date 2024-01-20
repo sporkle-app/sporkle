@@ -2,13 +2,21 @@
   <div class="timeline">
     <div class="branch-dropdowns" style="width:20%;">
       <select id="selectOption" name="options">
-        <option v-for="branch in branches" :key="branch" :value="branch">
+        <option
+          v-for="branch in branchNames"
+          :value="branch"
+          :key="branch"
+        >
           {{ branch }}
         </option>
       </select>
 
       <select id="selectOption" name="options">
-        <option v-for="branch in branches" :key="branch" :value="branch">
+        <option
+          v-for="branch in branchNames"
+          :value="branch"
+          :key="branch"
+        >
           {{ branch }}
         </option>
       </select>
@@ -70,6 +78,7 @@
 
 <script>
 import { mapState } from 'pinia';
+
 import { branchesStore } from '@/stores/branches.js';
 
 export default {
@@ -94,7 +103,7 @@ export default {
   },
   computed: {
     ...mapState(branchesStore, [
-      'branches'
+      'branchNames'
     ])
   }
 };
