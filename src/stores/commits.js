@@ -22,18 +22,13 @@ export const commitsStore = defineStore('commits', {
     ...mapActions(appLoadingStore, [
       'setCommitsLoading'
     ]),
-    ...mapActions(gitStatusStore, [
-      'updateStatus'
-    ]),
     resetState: function () {
       this.commits = [];
     },
     getCommits: async function (currentRepoPath) {
-      this.resetState();
       this.setCommitsLoading(true);
-      await this.updateStatus(currentRepoPath);
+      this.resetState();
       helpers.setCurrentWorkingDirectory(currentRepoPath);
-
       let response = [];
 
       try {

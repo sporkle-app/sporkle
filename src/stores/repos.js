@@ -4,6 +4,7 @@ import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
+import { gitStatusStore } from '@/stores/gitStatus.js';
 
 const path = window.require('path');
 
@@ -22,17 +23,25 @@ export const reposStore = defineStore('repos', {
     setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
       this.currentRepo = repoPath;
-      await this.updateRemotes(repoPath);
 
-      await this.updateBranches(repoPath);
-      await this.updateCurrentBranch(repoPath);
+      const parallelPromises = [
+        this.updateBranches(repoPath),
+        this.updateCurrentBranch(repoPath),
+        this.updateRemotes(repoPath),
+        this.updateStatus(repoPath)
+      ];
+      await Promise.all(parallelPromises);
+
+      // Needs updateStatus to finish before running
+      await this.getCommits(repoPath);
+
+      // Needs updateRemotes to finish before running
       if (this.hasRemotes) {
         await this.updateDefaultBranch(repoPath);
       } else {
         this.setDefaultBranch('');
       }
 
-      await this.getCommits(repoPath);
       this.setReposLoading(false);
     },
     setRepoFilter: function (value) {
@@ -83,6 +92,9 @@ export const reposStore = defineStore('repos', {
     ]),
     ...mapActions(gitRemotesStore, [
       'updateRemotes'
+    ]),
+    ...mapActions(gitStatusStore, [
+      'updateStatus'
     ])
   },
   getters: {
