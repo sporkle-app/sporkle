@@ -13,7 +13,11 @@
       :class="{ 'sidebar-hidden': sidebarCollapsed }"
     >
       <TimeLinePanel />
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <Component :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </main>
     <GlobalAlerts />
     <div v-show="appLoading" class="spinner-container">
