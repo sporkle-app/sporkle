@@ -117,7 +117,6 @@ export default {
   max-width: var(--top-button-height);
   min-width: var(--top-button-height);
   height: var(--top-button-height);
-
 }
 .repo-filter {
   position: relative;
