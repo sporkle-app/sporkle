@@ -66,7 +66,7 @@ import { mapActions } from 'pinia';
 import { alertsStore } from '@/stores/alerts.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
-import CountdownCircle from '@/components/CountdownCircle.vue';
+import CountdownCircle from '@/components/alerts/CountdownCircle.vue';
 
 export default {
   name: 'BaseAlert',
@@ -100,10 +100,11 @@ export default {
   position: relative;
   display: block;
   background: var(--popout);
-  border-left: 35px solid #FFF4;
-  margin: 16px 0px 16px 16px;
-  padding: 16px;
-  color: #FFF;
+  border-left: 35px solid var(--white25);
+  margin: var(--alert-spacing);
+  margin-right: 0px;
+  padding: var(--alert-spacing);
+  color: var(--white);
   line-height: 1.5;
 }
 .global-alert-title-icon {
@@ -128,7 +129,7 @@ export default {
   display: inline-block;
 }
 .global-alert-error-message {
-  background: #0004;
+  background: var(--black25);
   padding: 5px;
   font-family: monospace;
   white-space: break-spaces;
@@ -138,7 +139,7 @@ export default {
   line-height: 32px;
 }
 .global-alerts-leave-active.global-alert {
-  width: calc(100% - 16px);
+  width: calc(100% - var(--alert-spacing));
 }
 .error {
   background: var(--link);
