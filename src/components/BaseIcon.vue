@@ -31,6 +31,7 @@ import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import * as icons from 'oh-vue-icons/icons/index.js';
 
 const allImportedIcons = [
+  icons.RiAddCircleFill,
   icons.RiArrowDownSFill,
   icons.RiArrowGoBackLine,
   icons.RiCheckboxBlankLine,
@@ -39,6 +40,8 @@ const allImportedIcons = [
   icons.RiCheckLine,
   icons.RiCloseLine,
   icons.RiErrorWarningLine,
+  icons.RiFileCopyFill,
+  icons.RiFolderAddFill,
   icons.RiGitBranchLine,
   icons.RiGitMergeLine,
   icons.RiInformationLine,
