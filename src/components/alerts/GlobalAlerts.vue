@@ -17,7 +17,7 @@ import { mapState } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 
-import BaseAlert from '@/components/BaseAlert.vue';
+import BaseAlert from '@/components/alerts/BaseAlert.vue';
 
 export default {
   name: 'GlobalAlerts',
@@ -38,9 +38,13 @@ export default {
   right: 16px;
   bottom: 0px;
   width: 100%;
-  max-width: 570px;
-  transition: 0.3s ease all;
+  max-width: calc(100% - var(--sidebar-width) - var(--alert-spacing));
+  transition: 0.3s ease all, var(--sidebar-transition) ease max-width;
   z-index: 900;
+}
+
+.sidebar-hidden + .global-alerts {
+  max-width: calc(100% - var(--alert-spacing));
 }
 
 /* Transitions */

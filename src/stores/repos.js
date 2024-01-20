@@ -1,4 +1,4 @@
-import { defineStore, mapActions } from 'pinia';
+import { defineStore, mapActions, mapState } from 'pinia';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
@@ -22,8 +22,16 @@ export const reposStore = defineStore('repos', {
     setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
       this.currentRepo = repoPath;
-      await this.updateBranches(repoPath);
       await this.updateRemotes(repoPath);
+
+      await this.updateBranches(repoPath);
+      await this.updateCurrentBranch(repoPath);
+      if (this.hasRemotes) {
+        await this.updateDefaultBranch(repoPath);
+      } else {
+        this.setDefaultBranch('');
+      }
+
       await this.getCommits(repoPath);
       this.setReposLoading(false);
     },
@@ -65,7 +73,10 @@ export const reposStore = defineStore('repos', {
       'setReposLoading'
     ]),
     ...mapActions(branchesStore, [
-      'updateBranches'
+      'updateBranches',
+      'updateCurrentBranch',
+      'updateDefaultBranch',
+      'setDefaultBranch'
     ]),
     ...mapActions(commitsStore, [
       'getCommits'
@@ -75,6 +86,9 @@ export const reposStore = defineStore('repos', {
     ])
   },
   getters: {
+    ...mapState(gitRemotesStore, [
+      'hasRemotes'
+    ]),
     filteredReposList: function (state) {
       const filter = state.repoFilter.toLowerCase();
       return state.reposList

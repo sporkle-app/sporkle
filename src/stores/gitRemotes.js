@@ -44,5 +44,8 @@ export const gitRemotesStore = defineStore('gitRemotes', {
     }
   },
   getters: {
+    hasRemotes: function (state) {
+      return !!state.remotes.length;
+    }
   }
 });

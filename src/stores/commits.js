@@ -53,20 +53,20 @@ export const commitsStore = defineStore('commits', {
       'ahead'
     ]),
     ...mapState(gitRemotesStore, [
-      'remotes'
+      'hasRemotes'
     ]),
     uncommitedFiles: function () {
       return [];
     },
     unsyncedCommits: function (state) {
-      if (!this.remotes.length) {
+      if (!this.hasRemotes) {
         return state.commits;
       }
       const startFrom = 0;
       return state.commits.slice(startFrom, this.ahead);
     },
     syncedCommits: function (state) {
-      if (!this.remotes.length) {
+      if (!this.hasRemotes) {
         return [];
       }
       return state.commits.slice(this.ahead);

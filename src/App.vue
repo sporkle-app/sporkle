@@ -35,7 +35,7 @@ import { sidebarStore } from '@/stores/sidebar.js';
 import { themeStore } from '@/stores/theme.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
-import GlobalAlerts from '@/components/GlobalAlerts.vue';
+import GlobalAlerts from '@/components/alerts/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
 
