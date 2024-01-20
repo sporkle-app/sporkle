@@ -1,8 +1,10 @@
-import { defineStore, mapActions } from 'pinia';
+import { defineStore, mapActions, mapState } from 'pinia';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
+import { gitRemotesStore } from '@/stores/gitRemotes.js';
+import { gitStatusStore } from '@/stores/gitStatus.js';
 
 const path = window.require('path');
 
@@ -18,11 +20,28 @@ export const reposStore = defineStore('repos', {
     setReposList: function (arr) {
       this.reposList = arr || [];
     },
-    setCurrentRepo: function (repoPath) {
+    setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
       this.currentRepo = repoPath;
-      this.updateBranches(repoPath);
-      this.getCommits();
+
+      const parallelPromises = [
+        this.updateBranches(repoPath),
+        this.updateCurrentBranch(repoPath),
+        this.updateRemotes(repoPath),
+        this.updateStatus(repoPath)
+      ];
+      await Promise.all(parallelPromises);
+
+      // Needs updateStatus to finish before running
+      await this.getCommits(repoPath);
+
+      // Needs updateRemotes to finish before running
+      if (this.hasRemotes) {
+        await this.updateDefaultBranch(repoPath);
+      } else {
+        this.setDefaultBranch('');
+      }
+
       this.setReposLoading(false);
     },
     setRepoFilter: function (value) {
@@ -63,13 +82,25 @@ export const reposStore = defineStore('repos', {
       'setReposLoading'
     ]),
     ...mapActions(branchesStore, [
-      'updateBranches'
+      'updateBranches',
+      'updateCurrentBranch',
+      'updateDefaultBranch',
+      'setDefaultBranch'
     ]),
     ...mapActions(commitsStore, [
       'getCommits'
+    ]),
+    ...mapActions(gitRemotesStore, [
+      'updateRemotes'
+    ]),
+    ...mapActions(gitStatusStore, [
+      'updateStatus'
     ])
   },
   getters: {
+    ...mapState(gitRemotesStore, [
+      'hasRemotes'
+    ]),
     filteredReposList: function (state) {
       const filter = state.repoFilter.toLowerCase();
       return state.reposList

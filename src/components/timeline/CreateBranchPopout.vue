@@ -45,7 +45,7 @@
           class="base-branch-selection"
         >
           <option
-            v-for="(branch, branchIndex) in branches"
+            v-for="(branch, branchIndex) in branchNames"
             :key="'branch' + branchIndex"
           >
             {{ branch }}
@@ -102,11 +102,17 @@ export default {
   },
   computed: {
     ...mapState(branchesStore, [
-      'branches'
+      'branchNames',
+      'defaultBranch'
     ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
     ])
+  },
+  watch: {
+    defaultBranch: function (newValue) {
+      this.baseBranchForCreation = newValue;
+    }
   }
 };
 </script>

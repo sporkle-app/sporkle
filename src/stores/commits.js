@@ -1,19 +1,17 @@
-import { defineStore, mapActions } from 'pinia';
+import { defineStore, mapActions, mapState } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { gitRemotesStore } from '@/stores/gitRemotes.js';
+import { gitStatusStore } from '@/stores/gitStatus.js';
 
 import helpers from '@/helpers/index.js';
-
-const util = window.require('node:util');
-const exec = util.promisify(window.require('node:child_process').exec);
 
 const git2json = require('@fabien0102/git2json');
 
 export const commitsStore = defineStore('commits', {
   state: function () {
     return {
-      aheadBy: 0,
       commits: []
     };
   },
@@ -25,33 +23,12 @@ export const commitsStore = defineStore('commits', {
       'setCommitsLoading'
     ]),
     resetState: function () {
-      this.aheadBy = 0;
       this.commits = [];
     },
-    // How many commits is the local ahead of the remote, is the amount that has not been pushed yet
-    getCommitsAhead: async function () {
-      // The (.*) is a group, so it's value will be in the 1 index position of the match
-      const regexTest = /Your branch is ahead of .* by (.*) commit/;
-      const { error, stdout, stderr } = await exec('git status');
-
-      if (error || stderr) {
-        this.addErrorAlert('Error checking repo status.', (error || stderr));
-      }
-
-      let match = stdout.match(regexTest) || [];
-      let aheadBy = match[1] || '0';
-      // I don't actually know if large commits can contain delimeters, just doing this for safety
-      aheadBy = aheadBy.replaceAll(',', '');
-      aheadBy = aheadBy.replaceAll('.', '');
-      // Probably could use a safety check here
-      this.aheadBy = parseInt(aheadBy);
-    },
     getCommits: async function (currentRepoPath) {
-      this.resetState();
       this.setCommitsLoading(true);
-      await this.getCommitsAhead();
+      this.resetState();
       helpers.setCurrentWorkingDirectory(currentRepoPath);
-
       let response = [];
 
       try {
@@ -67,15 +44,27 @@ export const commitsStore = defineStore('commits', {
     }
   },
   getters: {
+    ...mapState(gitStatusStore, [
+      'ahead'
+    ]),
+    ...mapState(gitRemotesStore, [
+      'hasRemotes'
+    ]),
     uncommitedFiles: function () {
       return [];
     },
     unsyncedCommits: function (state) {
+      if (!this.hasRemotes) {
+        return state.commits;
+      }
       const startFrom = 0;
-      return state.commits.slice(startFrom, this.aheadBy);
+      return state.commits.slice(startFrom, this.ahead);
     },
     syncedCommits: function (state) {
-      return state.commits.slice(this.aheadBy);
+      if (!this.hasRemotes) {
+        return [];
+      }
+      return state.commits.slice(this.ahead);
     }
   }
 });

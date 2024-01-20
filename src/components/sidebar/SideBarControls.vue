@@ -71,7 +71,7 @@ export default {
 .repo-filter {
   position: relative;
   width: 100%;
-  background: #FFF2;
+  background: var(--white13);
   border-radius: 0px;
   margin: 0px;
   z-index: 1;

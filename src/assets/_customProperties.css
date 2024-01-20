@@ -7,12 +7,21 @@
   --file-count-width: 44px;
   --sidebar-width: 233px;
   --timeline-height: 135px;
+  --alert-spacing: 16px;
 
   --scrollbar-button: #9F9F9F;
   --scrollbar-thumb: #767676;
   --scrollbar-track: #5D5D5D;
   --scrollbar-track-piece: #555;
   --scrollbar-corner: #383838;
+
+  --black25: rgba(0, 0, 0, 0.25); /* #0004 */
+  --black66: rgba(0, 0, 0, 0.66); /* #000A */
+  --dark60: rgba(34, 34, 34, 0.60); /* #2229  */
+  --white13: rgba(255, 255, 255, 0.13); /* #FFF2 */
+  --white25: rgba(255, 255, 255, 0.25); /* #FFF4 */
+  --white40: rgba(255, 255, 255, 0.40); /* #FFF6 */
+  --white: #FFF;
 
   --bg: #1A222D;
   --button: #03080C;
@@ -21,6 +30,7 @@
   --button-active-hover: #ABF3;
   --input: #161F27;
   --text: #D1CDC7;
+  --inverse-text: #223;
   --link: hsl(264, 100%, 62.7%);
   --popout: hsl(264, 24.7%, 50%);
 }

@@ -44,7 +44,7 @@ export default {
   min-width: var(--commit-log-width);
   max-width: var(--commit-log-width);
   height: calc(100vh - var(--timeline-height));
-  background: #FFF2;
+  background: var(--white13);
   overflow: auto;
 }
 </style>
