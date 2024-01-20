@@ -119,6 +119,7 @@ export default {
 
 <style scoped>
 .toggle-branch-button {
+  height: var(--top-button-height);
   margin-right: 5px;
   transition: var(--sidebar-transition) ease all;
 }

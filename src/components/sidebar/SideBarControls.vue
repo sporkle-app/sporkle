@@ -2,9 +2,27 @@
   <div class="sidebar-controls">
 
     <div class="button-group">
-      <button @click="addRepo">Add</button>
-      <button @click="createRepo">Create</button>
-      <button @click="cloneRepo">Clone</button>
+      <button @click="addRepo">
+        <BaseIcon
+          name="RiFolderAddFill"
+          scale="0.8"
+        />
+        Add
+      </button>
+      <button @click="createRepo">
+        <BaseIcon
+          name="RiAddCircleFill"
+          scale="0.8"
+        />
+        Create
+      </button>
+      <button @click="cloneRepo">
+        <BaseIcon
+          name="RiFileCopyFill"
+          scale="0.8"
+        />
+        Clone
+      </button>
     </div>
 
     <div>
@@ -12,27 +30,32 @@
         Repo Filter:
       </label>
       <input
+        v-model="repoFilterInput"
         id="repo-filter"
         aria-labelledby="repo-filter"
         class="repo-filter"
         type="text"
         placeholder="Filter repos"
-        @input="($event) => setRepoFilter($event.target.value)"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
 import { reposStore } from '@/stores/repos.js';
+
+import BaseIcon from '@/components/BaseIcon.vue';
 
 const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
 export default {
   name: 'SideBarControls',
+  components: {
+    BaseIcon
+  },
   methods: {
     addRepo: function () {
       const title = 'Select your repo folder';
@@ -55,6 +78,19 @@ export default {
     ...mapActions(reposStore, [
       'setRepoFilter'
     ])
+  },
+  computed: {
+    repoFilterInput: {
+      get: function () {
+        return this.repoFilter;
+      },
+      set: function (value) {
+        this.setRepoFilter(value);
+      }
+    },
+    ...mapState(reposStore, [
+      'repoFilter'
+    ])
   }
 };
 </script>
@@ -64,9 +100,14 @@ export default {
   display: flex;
 }
 .button-group button {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
   flex-grow: 1;
+  height: var(--top-button-height);
   border-radius: 0px;
   margin: 0px;
+  padding: 0px;
 }
 .repo-filter {
   position: relative;

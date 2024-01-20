@@ -5,9 +5,10 @@
 
   --commit-log-width: 350px;
   --file-count-width: 44px;
-  --sidebar-width: 233px;
+  --sidebar-width: 245px;
   --timeline-height: 135px;
   --alert-spacing: 16px;
+  --top-button-height: 39px;
 
   --scrollbar-button: #9F9F9F;
   --scrollbar-thumb: #767676;
