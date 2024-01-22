@@ -1,5 +1,8 @@
 <template>
-  <div class="sidebar-controls">
+  <div
+    class="sidebar-controls"
+    :class="{ 'sidebar-hidden': sidebarCollapsed }"
+  >
 
     <div class="button-group">
       <button @click="addRepo">
@@ -48,6 +51,7 @@ import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
 import { reposStore } from '@/stores/repos.js';
+import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
 
@@ -92,6 +96,9 @@ export default {
     },
     ...mapState(reposStore, [
       'repoFilter'
+    ]),
+    ...mapState(sidebarStore, [
+      'sidebarCollapsed'
     ])
   }
 };
@@ -117,6 +124,12 @@ export default {
   max-width: var(--top-button-height);
   min-width: var(--top-button-height);
   height: var(--top-button-height);
+  transition: var(--sidebar-transition) ease all;
+}
+.sidebar-hidden .sidebar-toggle-placehoder {
+  width: 0px;
+  max-width: 0px;
+  min-width: 0px;
 }
 .repo-filter {
   position: relative;

@@ -25,7 +25,7 @@
         Update from main
       </button>
     </div>
-    <div>
+    <div class="right">
       <button
         v-if="hasUnsyncedCommits"
       >
@@ -81,6 +81,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.right {
+  height: var(--top-button-height);
 }
 .sidebar-toggle-button {
   position: absolute;
