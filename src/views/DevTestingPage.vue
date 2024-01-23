@@ -11,6 +11,7 @@
       <button @click="addSuccessAlert(BIG)">Big Success</button>
       <button @click="addErrorAlert(BIG, ERROR_BIG)">Big Error</button>
     </div>
+    <button @click="doStuff">Do stuff</button>
   </ViewWrapper>
 </template>
 
@@ -45,6 +46,13 @@ export default {
     ViewWrapper
   },
   methods: {
+    doStuff: function () {
+      const gitDiffParser = window.require('gitdiff-parser');
+      const exec = require('child_process').execSync;
+      const gitDiffText = String(exec('git diff'));
+      const result = gitDiffParser.parse(gitDiffText);
+      console.log({ result });
+    },
     ...mapActions(alertsStore, [
       'addErrorAlert',
       'addSuccessAlert'
