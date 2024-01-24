@@ -21,7 +21,7 @@
       />
     </button>
     <OneFile
-      v-for="(file, fileIndex) in files"
+      v-for="(file, fileIndex) in diffs"
       :file="file"
       :key="'file' + fileIndex"
     />
@@ -32,6 +32,8 @@
 import { mapActions, mapState } from 'pinia';
 
 import { commitLogStore } from '@/stores/commitLog.js';
+import { fileDiffsStore } from '@/stores/fileDiffs.js';
+import { reposStore } from '@/stores/repos.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
@@ -80,6 +82,12 @@ export default {
   computed: {
     ...mapState(commitLogStore, [
       'commitLogCollapsed'
+    ]),
+    ...mapState(fileDiffsStore, [
+      'diffs'
+    ]),
+    ...mapState(reposStore, [
+      'currentRepo'
     ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
