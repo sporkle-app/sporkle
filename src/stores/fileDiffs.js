@@ -1,6 +1,7 @@
 import { defineStore, mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
 
 import helpers from '@/helpers/index.js';
 
@@ -18,6 +19,9 @@ export const fileDiffsStore = defineStore('fileDiffs', {
   actions: {
     ...mapActions(alertsStore, [
       'addErrorAlert'
+    ]),
+    ...mapActions(appLoadingStore, [
+      'setFileDiffsLoading'
     ]),
     setDiffs: function (value) {
       this.diffs = value || [];
@@ -43,6 +47,7 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       });
     },
     getAndParseDiffs: async function (currentRepoPath) {
+      this.setFileDiffsLoading(true);
       this.setDiffs();
       let result;
       try {
@@ -54,6 +59,7 @@ export const fileDiffsStore = defineStore('fileDiffs', {
         this.addErrorAlert('Error reading or parsing file diffs.', error);
       }
       this.setDiffs(result);
+      this.setFileDiffsLoading(false);
     }
   }
 });

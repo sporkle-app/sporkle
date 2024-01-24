@@ -20,9 +20,6 @@
         name="RiLayoutColumnFill"
       />
     </button>
-    <button @click="getAndParseDiffs(currentRepo)">
-      git diff
-    </button>
     <OneFile
       v-for="(file, fileIndex) in diffs"
       :file="file"
@@ -78,9 +75,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions(fileDiffsStore, [
-      'getAndParseDiffs'
-    ]),
     ...mapActions(commitLogStore, [
       'toggleCommitLogCollapsed'
     ])

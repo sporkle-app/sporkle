@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .file-header {
   width: 100%;
-  background: var(--white13);
+  background: var(--white25);
 }
 .file-header.expanded {
   white-space: unset;
