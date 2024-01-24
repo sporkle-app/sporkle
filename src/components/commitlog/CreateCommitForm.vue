@@ -48,6 +48,10 @@
 </template>
 
 <script>
+import { mapState } from 'pinia';
+
+import { branchesStore } from '@/stores/branches.js';
+
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import CommitLogTitle from '@/components/commitlog/CommitLogTitle.vue';
@@ -89,9 +93,9 @@ export default {
     }
   },
   computed: {
-    currentBranch: function () {
-      return 'current-branch-name';
-    }
+    ...mapState(branchesStore, [
+      'currentBranch'
+    ])
   }
 };
 </script>

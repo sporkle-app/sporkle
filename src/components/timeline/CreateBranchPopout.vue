@@ -36,21 +36,11 @@
           placeholder="New branch name"
         />
 
-        <label class="label" for="create-branch-base-selection">
-          Base branch:
-        </label>
-        <select
+        <BaseSelect
           v-model="baseBranchForCreation"
-          id="create-branch-base-selection"
-          class="base-branch-selection"
-        >
-          <option
-            v-for="(branch, branchIndex) in branchNames"
-            :key="'branch' + branchIndex"
-          >
-            {{ branch }}
-          </option>
-        </select>
+          label="Base branch"
+          :options="branchNames"
+        />
 
         <button
           class="create-branch-button"
@@ -81,11 +71,13 @@ import { branchesStore } from '@/stores/branches.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
 
 export default {
   name: 'CreateBranchPopout',
   components: {
-    BaseIcon
+    BaseIcon,
+    BaseSelect
   },
   data: function () {
     return {
@@ -159,9 +151,6 @@ export default {
 .new-branch-name-input {
   width: 100%;
   margin-bottom: 5px;
-}
-.base-branch-selection {
-  width: 100%;
 }
 .create-branch-button {
   width:  100%;
