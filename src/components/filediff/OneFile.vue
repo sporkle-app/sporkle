@@ -17,7 +17,16 @@
       {{ file.newPath }}
     </div>
     <BaseAccordion :show="!isCollapsed">
-      <pre class="file-diff-container">{{ JSON.stringify(file, null, 2) }}</pre>
+      <div
+        v-for="(hunk, hunkIndex) in file.hunks"
+        :key="'hunk' + hunkIndex"
+      >
+        <OneLine
+          v-for="(line, lineIndex) in hunk.changes"
+          :line="line"
+          :key="'hunk' + hunkIndex + 'line' + lineIndex"
+        />
+      </div>
     </BaseAccordion>
   </div>
 </template>
@@ -25,12 +34,14 @@
 <script>
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
+import OneLine from '@/components/filediff/OneLine.vue';
 
 export default {
   name: 'OneFile',
   components: {
     BaseAccordion,
-    BaseIcon
+    BaseIcon,
+    OneLine
   },
   props: {
     file: {
@@ -42,26 +53,6 @@ export default {
     return {
       isCollapsed: true
     };
-  },
-  methods: {
-    rowClass: function (row) {
-      let color = '';
-
-      if (row.startsWith('+')) {
-        color = 'green-diff';
-      } else if (row.startsWith('-')) {
-        color = 'red-diff';
-      }
-
-      let classes = [
-        'row-diff',
-        color
-      ].join(' ').trim();
-
-      return classes.trim();
-    }
-  },
-  computed: {
   }
 };
 </script>

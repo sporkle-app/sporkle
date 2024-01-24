@@ -34,4 +34,6 @@
   --inverse-text: #223;
   --link: hsl(264, 100%, 62.7%);
   --popout: hsl(264, 24.7%, 50%);
+  --diff-plus: #435943;
+  --diff-minus: #594343;
 }
