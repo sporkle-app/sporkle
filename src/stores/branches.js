@@ -2,6 +2,7 @@ import { defineStore, mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { fileDiffsStore } from '@/stores/fileDiffs.js';
 
 import helpers from '@/helpers/index.js';
 
@@ -49,6 +50,9 @@ export const branchesStore = defineStore('branches', {
     ...mapActions(appLoadingStore, [
       'setBranchesLoading'
     ]),
+    ...mapActions(fileDiffsStore, [
+      'getAndParseDiffs'
+    ]),
     setBranches: function (branches) {
       this.branches = branches || [];
     },
@@ -69,6 +73,7 @@ export const branchesStore = defineStore('branches', {
       return getOneBranchName(command, currentRepoPath)
         .then((branch) => {
           this.setCurrentBranch(branch);
+          this.getAndParseDiffs(currentRepoPath);
         })
         .catch((error) => {
           this.addErrorAlert('Error checking current Git branch.', error);

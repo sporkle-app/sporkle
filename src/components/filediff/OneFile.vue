@@ -14,15 +14,25 @@
         :class="{ 'one-file-rotate-caret': isCollapsed }"
         scale="1.25"
       />
-      {{ file.path }}
+      {{ file.newPath }}
     </div>
     <BaseAccordion :show="!isCollapsed">
-      <div class="file-diff-container">
-        <pre
-          v-for="(row, rowIndex) in diffRows"
-          :class="rowClass(row)"
-          :key="'row' + rowIndex"
-        >{{ row }}</pre>
+      <div
+        v-for="(hunk, hunkIndex) in file.hunks"
+        :key="'hunk' + hunkIndex"
+      >
+        <OneLine
+          v-for="(line, lineIndex) in hunk.changes"
+          :line="line"
+          :key="'hunk' + hunkIndex + 'line' + lineIndex"
+        />
+        <OneLine
+          v-if="hunkIndex < (file.hunks.length - 1)"
+          :line="{
+            isNormal: true,
+            lineNumber: '...'
+          }"
+        />
       </div>
     </BaseAccordion>
   </div>
@@ -31,94 +41,25 @@
 <script>
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
+import OneLine from '@/components/filediff/OneLine.vue';
 
 export default {
   name: 'OneFile',
   components: {
     BaseAccordion,
-    BaseIcon
+    BaseIcon,
+    OneLine
   },
   props: {
     file: {
       type: Object,
-      required: true,
-      validator: function (val) {
-        let validity = true;
-        if (!val || !val.path || typeof(val.path) !== 'string') {
-          validity = false;
-        }
-        return validity;
-      }
+      required: true
     }
   },
   data: function () {
     return {
-      isCollapsed: true,
-      rawDiff: `diff --git a/src/views/FileDiff.vue b/src/views/FileDiff.vue
-index 2f9a826..213c167 100644
---- a/src/views/FileDiff.vue
-+++ b/src/views/FileDiff.vue
-@@ -19,12 +19,28 @@ export default {
-   data: function () {
-     return {
-       files: [
--        {
--          path: 'C:\\Folder'
--        },
--        {
--          path: 'C:\\Users\\Bob\\GitHub\\Reponame'
--        }
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-+        { path: 'C:\\Folder' },
-+        { path: 'C:\\Users\\Bob\\GitHub\\Reponame\\asdf\\qwer\\dfg\\rttryuqrewv
-ca\\qwer\\asdfqwerfzxv\\qwer\\asvasvr\\ascaweawe\\cwacawsdca\\acwecawecasd\\qweq
-c\\sdfvs' }
-       ]
-     };
-   }`
+      isCollapsed: false
     };
-  },
-  methods: {
-    rowClass: function (row) {
-      let color = '';
-
-      if (row.startsWith('+')) {
-        color = 'green-diff';
-      } else if (row.startsWith('-')) {
-        color = 'red-diff';
-      }
-
-      let classes = [
-        'row-diff',
-        color
-      ].join(' ').trim();
-
-      return classes.trim();
-    }
-  },
-  computed: {
-    diffRows: function () {
-      return this.rawDiff.split('\n');
-    }
   }
 };
 </script>
@@ -126,7 +67,7 @@ c\\sdfvs' }
 <style scoped>
 .file-header {
   width: 100%;
-  background: var(--white13);
+  background: var(--white25);
 }
 .file-header.expanded {
   white-space: unset;

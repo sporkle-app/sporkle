@@ -2,6 +2,7 @@
   --sidebar-transition: 750ms;
 
   --sans-serif: 'Work Sans', sans-serif;
+  --monospace: 'Red Hat Mono', monospace;
 
   --commit-log-width: 350px;
   --file-count-width: 44px;
@@ -34,4 +35,6 @@
   --inverse-text: #223;
   --link: hsl(264, 100%, 62.7%);
   --popout: hsl(264, 24.7%, 50%);
+  --diff-plus: #435943;
+  --diff-minus: #594343;
 }
