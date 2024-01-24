@@ -1,7 +1,7 @@
 <template>
   <div class="timeline">
-    <div class="branch-dropdowns" style="width:20%;">
-      <select id="selectOption" name="options">
+    <div class="branch-dropdowns">
+      <select id="base-branch" name="options">
         <option
           v-for="branch in branchNames"
           :value="branch"
@@ -11,7 +11,7 @@
         </option>
       </select>
 
-      <select id="selectOption" name="options">
+      <select id="current-branch" name="options">
         <option
           v-for="branch in branchNames"
           :value="branch"
@@ -24,18 +24,28 @@
   
     <svg width="100" height="100" style="overflow: visible;">
       <path
-        d="M100,20 L705,20"
+        d="M150,20 L750,20"
         fill="none"
-        stroke="white"
+        stroke="#FFF"
         stroke-width="5"
-        transform="translate(50,0)"
       />
       <path
-        d="M100,20 Q130,20 160,45 T685,60"
+        d="M252,60 L750,60"
+        fill="none"
+        stroke="#FFF"
+        stroke-width="5"
+      />
+      <path
+        d="M150,60 L250,60"
+        fill="none"
+        stroke="#FFF3"
+        stroke-width="5"
+      />
+      <path
+        d="M170,20c42,0,27,40,82,40"
         fill="none"
         stroke="white"
         stroke-width="5"
-        transform="translate(50,0)"
       />
       <circle
         v-for="(circle, index) in commitDataPoints"
