@@ -64,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+.label {
+  display: block;
+  margin: 5px 0px;
+}
 .base-select {
   width: 100%;
 }
