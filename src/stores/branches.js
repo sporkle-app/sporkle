@@ -58,6 +58,7 @@ export const branchesStore = defineStore('branches', {
     },
     setCurrentBranch: function (branch) {
       this.currentBranch = branch || '';
+      this.getAndParseDiffs();
     },
     setDefaultBranch: function (branch) {
       this.defaultBranch = (
@@ -73,7 +74,6 @@ export const branchesStore = defineStore('branches', {
       return getOneBranchName(command, currentRepoPath)
         .then((branch) => {
           this.setCurrentBranch(branch);
-          this.getAndParseDiffs(currentRepoPath);
         })
         .catch((error) => {
           this.addErrorAlert('Error checking current Git branch.', error);
@@ -110,6 +110,14 @@ export const branchesStore = defineStore('branches', {
         .finally(() => {
           this.setBranchesLoading(false);
         });
+    },
+    changeCurrentBranch: function (branch) {
+      // Stubbing this in so dropdown value looks correct,
+      // but we'll need to replace it with the uncommented code below later
+      this.setCurrentBranch(branch);
+
+      // console.log('git checkout ' + branch);
+      // this.updateCurrentBranch();
     }
   },
   getters: {

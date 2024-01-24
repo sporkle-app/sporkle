@@ -1,25 +1,18 @@
 <template>
   <div class="timeline">
     <div class="branch-dropdowns">
-      <select id="base-branch" name="options">
-        <option
-          v-for="branch in branchNames"
-          :value="branch"
-          :key="branch"
-        >
-          {{ branch }}
-        </option>
-      </select>
-
-      <select id="current-branch" name="options">
-        <option
-          v-for="branch in branchNames"
-          :value="branch"
-          :key="branch"
-        >
-          {{ branch }}
-        </option>
-      </select>
+      <BaseSelect
+        v-model="baseBranch"
+        label="Base Branch"
+        :showLabel="false"
+        :options="branchNames"
+      />
+      <BaseSelect
+        v-model="currentBranchSelect"
+        label="Current Branch"
+        :showLabel="false"
+        :options="branchNames"
+      />
     </div>
   
     <svg width="100" height="100" style="overflow: visible;">
@@ -87,15 +80,20 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
 import { branchesStore } from '@/stores/branches.js';
 
+import BaseSelect from '@/components/BaseSelect.vue';
+
 export default {
   name: 'TimeLine',
+  components: {
+    BaseSelect
+  },
   data: function () {
     return {
-      selectedBranch: '',
+      baseBranch: '',
       commitDataPoints: [
         { x: 520, y: 20 },
         { x: 300, y: 60 },
@@ -111,10 +109,39 @@ export default {
       ]
     };
   },
+  methods: {
+    ...mapActions(branchesStore, [
+      'changeCurrentBranch'
+    ]),
+    resetBaseBranch: function () {
+      this.baseBranch = this.defaultBranch;
+    }
+  },
   computed: {
     ...mapState(branchesStore, [
-      'branchNames'
-    ])
+      'branchNames',
+      'currentBranch',
+      'defaultBranch'
+    ]),
+    currentBranchSelect: {
+      get: function () {
+        return this.currentBranch;
+      },
+      set: function (branchName) {
+        this.changeCurrentBranch(branchName);
+      }
+    }
+  },
+  watch: {
+    currentBranch: function () {
+      this.resetBaseBranch();
+    },
+    defaultBranch: function () {
+      this.resetBaseBranch();
+    }
+  },
+  created: function () {
+    this.resetBaseBranch();
   }
 };
 </script>
