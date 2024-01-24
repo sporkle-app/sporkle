@@ -53,8 +53,8 @@ These features are the core value that this project offers and is what is mostly
 * [x] Switch between repos
 * [x] Store settings locally in a JSON file
 * [x] Filter Sidebar
-* [ ] Have swappable themes including: Light (professional), Dark (Low contrast), and High Contrast (WCAG 2.0 AAA compliant)
-* [ ] See a history of all commits on the current branch listed in the middle pane
+* [x] Have swappable themes including: Light (professional), Dark (Low contrast)
+* [x] See a history of all commits on the current branch listed in the middle pane
 * [ ] Switch branches
 * [ ] Visually compare against 1 other branch
 * [ ] Pull and push commits
@@ -64,10 +64,11 @@ These features are the core value that this project offers and is what is mostly
 * [ ] Clone a remote repo to a local destination
 * [ ] Create repos in the app
 * [ ] Merge in latest from other branch
+* [ ] Undo most recent commit (only if it was not pushed)
+* [ ] Have High Contrast theme (WCAG 2.0 AAA compliant)
 * [ ] Internationalize the app so it can be translated
 * [ ] Check for updates
 * [ ] Organize Repos in sidebar
-* [ ] Undo most recent commit (only if it was not pushed)
 
 
 * * *

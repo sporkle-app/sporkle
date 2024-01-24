@@ -3,14 +3,31 @@
     v-if="nw.process.versions['nw-flavor'] === 'sdk'"
     title="Dev Testing Page"
   >
-    <div>
-      <button @click="addSuccessAlert(SMALL)">Success</button>
-      <button @click="addErrorAlert(SMALL, ERROR)">Error</button>
-    </div>
-    <div>
-      <button @click="addSuccessAlert(BIG)">Big Success</button>
-      <button @click="addErrorAlert(BIG, ERROR_BIG)">Big Error</button>
-    </div>
+    <section>
+      <div>
+        <button @click="addSuccessAlert(SMALL)">Success</button>
+        <button @click="addErrorAlert(SMALL, ERROR)">Error</button>
+      </div>
+      <div>
+        <button @click="addSuccessAlert(BIG)">Big Success</button>
+        <button @click="addErrorAlert(BIG, ERROR_BIG)">Big Error</button>
+      </div>
+    </section>
+
+    <section>
+      <BaseCheckbox v-model="showSelectLabel">
+        Show label
+      </BaseCheckbox>
+      <BaseSelect
+        v-model="example"
+        label="Example"
+        :showLabel="showSelectLabel"
+        :options="['Item 1', 'Item 2', 'Item 3']"
+        class="parent-class"
+      />
+      {{ example }}
+    </section>
+
   </ViewWrapper>
 </template>
 
@@ -19,6 +36,8 @@ import { mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 
+import BaseCheckbox from '@/components/BaseCheckbox.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 const SMALL = 'Lorem ipsum dolor sit amet.';
@@ -42,7 +61,15 @@ export default {
     SMALL
   },
   components: {
+    BaseCheckbox,
+    BaseSelect,
     ViewWrapper
+  },
+  data: function () {
+    return {
+      example: undefined,
+      showSelectLabel: true
+    };
   },
   methods: {
     ...mapActions(alertsStore, [
@@ -54,4 +81,11 @@ export default {
 </script>
 
 <style scoped>
+section {
+  margin-bottom: 20px;
+}
+.parent-class {
+  display: block;
+  width: 50%;
+}
 </style>
