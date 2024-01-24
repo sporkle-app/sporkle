@@ -26,6 +26,13 @@
           :line="line"
           :key="'hunk' + hunkIndex + 'line' + lineIndex"
         />
+        <OneLine
+          v-if="hunkIndex < (file.hunks.length - 1)"
+          :line="{
+            isNormal: true,
+            lineNumber: '...'
+          }"
+        />
       </div>
     </BaseAccordion>
   </div>
@@ -51,7 +58,7 @@ export default {
   },
   data: function () {
     return {
-      isCollapsed: true
+      isCollapsed: false
     };
   }
 };

@@ -7,13 +7,13 @@
     }"
   >
     <div class="line-number line-number-old">
-      <template v-if="line.isDelete">
-        {{ line.lineNumber }}
+      <template v-if="line.isDelete || line.isNormal">
+        {{ line.oldLineNumber || line.lineNumber }}
       </template>
     </div>
     <div class="line-number line-number-new">
-      <template v-if="line.isInsert">
-        {{ line.lineNumber }}
+      <template v-if="line.isInsert || line.isNormal">
+        {{ line.newLineNumber || line.lineNumber }}
       </template>
     </div>
     <div class="line-content">
@@ -56,5 +56,10 @@ export default {
 }
 .line-number-new {
   background: var(--white13);
+}
+.line-content {
+  font-family: var(--monospace);
+  font-size: 15px;
+  white-space: pre-wrap;
 }
 </style>
