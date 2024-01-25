@@ -1,25 +1,27 @@
 <template>
   <ViewWrapper title="Settings">
     <button
-      v-if="!resetConfirmationVisible"
-      class="confirm-reset-button"
-      @click="resetConfirmationVisible = true"
+      class="magic"
+      title="Secret Dev Stuff"
+      @click="$router.push({ name: 'devTestingPage' })"
     >
-      Reset all settings to defaults
-    </button>
-
-    <a title="Secret Dev Stuff">
       <BaseIcon
         v-if="nw.process.versions['nw-flavor'] === 'sdk'"
         name="RiMagicLine"
         hover
         animation="wrench"
         scale="1.3"
-        class="magic"
-        @click="$router.push({ name: 'devTestingPage' })"
       />
       <span class="sr-only">Developer options</span>
-    </a>
+    </button>
+
+    <button
+      v-if="!resetConfirmationVisible"
+      class="confirm-reset-button"
+      @click="resetConfirmationVisible = true"
+    >
+      Reset all settings to defaults
+    </button>
 
     <template v-if="resetConfirmationVisible">
       <p>Are you sure? The below settings will be reset.</p>
@@ -179,6 +181,9 @@ export default {
   position: absolute;
   top: calc(var(--timeline-height) + 12px);
   right: 65px;
+  background: transparent;
+  padding: 0px;
+  color: var(--link);
 }
 .confirm-reset-button {
   margin-bottom: 10px;
