@@ -127,8 +127,8 @@ export default {
       get: function () {
         return this.currentBranch;
       },
-      set: function (branchName) {
-        this.changeCurrentBranch(branchName);
+      set: async function (branchName) {
+        await this.changeCurrentBranch(branchName);
       }
     }
   },
