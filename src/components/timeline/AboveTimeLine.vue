@@ -93,7 +93,7 @@ export default {
   height: var(--top-button-height);
   margin: 0px;
   transition: var(--sidebar-transition) ease all;
-  z-index: 999;
+  z-index: 9;
 }
 .sidebar-toggle-placeholder {
   display: inline-block;
