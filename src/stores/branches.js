@@ -58,6 +58,7 @@ export const branchesStore = defineStore('branches', {
     },
     setCurrentBranch: function (branch) {
       this.currentBranch = branch || '';
+      this.getAndParseDiffs();
     },
     setDefaultBranch: function (branch) {
       this.defaultBranch = (
@@ -73,7 +74,6 @@ export const branchesStore = defineStore('branches', {
       return getOneBranchName(command, currentRepoPath)
         .then((branch) => {
           this.setCurrentBranch(branch);
-          this.getAndParseDiffs(currentRepoPath);
         })
         .catch((error) => {
           this.addErrorAlert('Error checking current Git branch.', error);
@@ -108,6 +108,19 @@ export const branchesStore = defineStore('branches', {
           this.addErrorAlert('Error checking Git branches.', error);
         })
         .finally(() => {
+          this.setBranchesLoading(false);
+        });
+    },
+    changeBranch: async function (branch) {
+      this.setBranchesLoading(true);
+
+      return simpleGit()
+        .checkout(branch)
+        .catch((error) => {
+          this.addErrorAlert('Error changing Git branches.', error);
+        })
+        .finally(async () => {
+          await this.updateCurrentBranch();
           this.setBranchesLoading(false);
         });
     }

@@ -27,7 +27,9 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       this.diffs = value || [];
     },
     getDiffs: async function (currentRepoPath) {
-      helpers.setCurrentWorkingDirectory(currentRepoPath);
+      if (currentRepoPath) {
+        helpers.setCurrentWorkingDirectory(currentRepoPath);
+      }
       const command = 'git diff';
       let error;
       let diff;
