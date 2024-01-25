@@ -111,13 +111,18 @@ export const branchesStore = defineStore('branches', {
           this.setBranchesLoading(false);
         });
     },
-    changeCurrentBranch: function (branch) {
-      // Stubbing this in so dropdown value looks correct,
-      // but we'll need to replace it with the uncommented code below later
-      this.setCurrentBranch(branch);
+    changeCurrentBranch: async function (branch) {
+      this.setBranchesLoading(true);
 
-      // console.log('git checkout ' + branch);
-      // this.updateCurrentBranch();
+      return simpleGit()
+        .checkout(branch)
+        .catch((error) => {
+          this.addErrorAlert('Error changing Git branches.', error);
+        })
+        .finally(async () => {
+          await this.updateCurrentBranch();
+          this.setBranchesLoading(false);
+        });
     }
   },
   getters: {
