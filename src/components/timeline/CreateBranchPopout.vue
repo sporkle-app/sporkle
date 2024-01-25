@@ -17,12 +17,15 @@
           shift: sidebarCollapsed
         }"
       >
-        <BaseIcon
+        <button
           class="x-icon"
-          name="RiCloseLine"
-          scale="1.2"
           @click="branchPopoutVisible = false"
-        />
+        >
+          <BaseIcon
+            name="RiCloseLine"
+            scale="1.2"
+          />
+        </button>
 
         <h3 class="popout-title">Create a new branch</h3>
 

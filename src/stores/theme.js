@@ -19,6 +19,7 @@ export const themeStore = defineStore('theme', {
   actions: {
     resetSettings: function () {
       this.setAccentHue();
+      this.setAccentLightness();
       this.setCustomScrollbars(true);
       this.setThemeHue(0);
       this.setThemeInverted(false);
@@ -35,7 +36,7 @@ export const themeStore = defineStore('theme', {
       if (value === 0 || value) {
         this.accentLightness = value;
       } else {
-        this.accentLightness = DEFAULT_ACCENT_HUE;
+        this.accentLightness = DEFAULT_ACCENT_LIGHTNESS;
       }
     },
     setCustomScrollbars: function (bool) {
