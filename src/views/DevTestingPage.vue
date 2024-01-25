@@ -4,6 +4,22 @@
     title="Dev Testing Page"
   >
     <section>
+      <button
+        v-if="!confirmDelete"
+        @click="confirmDelete = true"
+      >
+        Delete app settings file
+      </button>
+      <template v-else>
+        <div>
+          Are you sure?
+        </div>
+        <button @click="deleteSettings">Yes, delete settings file</button>
+        <button @click="confirmDelete = false">No, keep settings file</button>
+      </template>
+    </section>
+
+    <section>
       <div>
         <button @click="addSuccessAlert(SMALL)">Success</button>
         <button @click="addErrorAlert(SMALL, ERROR)">Error</button>
@@ -35,6 +51,7 @@
 import { mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
+import { saveLoadDataStore } from '@/stores/saveLoadData.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
@@ -67,6 +84,7 @@ export default {
   },
   data: function () {
     return {
+      confirmDelete: false,
       example: undefined,
       showSelectLabel: true
     };
@@ -75,6 +93,9 @@ export default {
     ...mapActions(alertsStore, [
       'addErrorAlert',
       'addSuccessAlert'
+    ]),
+    ...mapActions(saveLoadDataStore, [
+      'deleteSettings'
     ])
   }
 };
