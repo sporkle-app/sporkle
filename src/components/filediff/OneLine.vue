@@ -55,9 +55,10 @@ export default {
   background: var(--black25);
 }
 .line-number-new {
-  background: var(--white13);
+  background: var(--white08);
 }
 .line-content {
+  padding-left: 5px;
   font-family: var(--monospace);
   font-size: 15px;
   white-space: pre-wrap;
