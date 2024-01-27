@@ -3,12 +3,10 @@
     <h3>Style Preview</h3>
     <OneFile :file="file" />
     <BaseAlert
+      v-for="alert in alerts"
+      :alert="alert"
       class="demo-alert"
-      :alert="successAlert"
-    />
-    <BaseAlert
-      class="demo-alert"
-      :alert="errorAlert"
+      :key="alert.id"
     />
   </div>
 </template>
@@ -18,22 +16,24 @@ import BaseAlert from '@/components/alerts/BaseAlert.vue';
 import OneFile from '@/components/filediff/OneFile.vue';
 
 export default {
-  name: 'StyleDemos',
+  name: 'StylePreview',
   components: {
     BaseAlert,
     OneFile
   },
   constants: {
-    successAlert: {
-      id: 'dummy_success',
-      status: 'success',
-      message: 'Example success alert.'
-    },
-    errorAlert: {
-      id: 'dummy_error',
-      status: 'error',
-      message: 'Example error alert.'
-    },
+    alerts: [
+      {
+        id: 'dummy_success',
+        status: 'success',
+        message: 'Example success alert.'
+      },
+      {
+        id: 'dummy_error',
+        status: 'error',
+        message: 'Example error alert.'
+      }
+    ],
     file: {
       newPath: 'Example diff',
       hunks: [

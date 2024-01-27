@@ -14,7 +14,12 @@
         :class="{ 'one-file-rotate-caret': isCollapsed }"
         scale="1.25"
       />
-      {{ file.newPath }}
+      <template v-if="file.newPath === '/dev/null'">
+        {{ file.oldPath }} <em>(deleted)</em>
+      </template>
+      <template v-else>
+        {{ file.newPath }}
+      </template>
     </div>
     <BaseAccordion :show="!isCollapsed">
       <div
@@ -66,9 +71,14 @@ export default {
 
 <style scoped>
 .file-header {
+  position: sticky;
+  top: 0px;
   width: 100%;
-  background: var(--white25);
+  background-image: linear-gradient(to right, var(--white25), var(--white25)), linear-gradient(to right, var(--bg), var(--bg));
+  border-top: 1px solid var(--white13);
+  padding: 2px 2px 5px 2px;
 }
+
 .file-header.expanded {
   white-space: unset;
   word-break: break-all;

@@ -46,7 +46,7 @@ export default {
 }
 .line-number {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: end;
   min-width: 40px;
   padding-right: 4px;
