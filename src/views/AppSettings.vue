@@ -15,63 +15,64 @@
       <span class="sr-only">Developer options</span>
     </button>
 
-    <button
-      v-if="!resetConfirmationVisible"
-      class="confirm-reset-button"
-      @click="resetConfirmationVisible = true"
-    >
-      Reset all settings to defaults
-    </button>
-
-    <template v-if="resetConfirmationVisible">
-      <p>Are you sure? The below settings will be reset.</p>
+    <div class="half">
       <button
-        class="reset-button"
-        @click="confirmReset"
-      >Yes, reset</button>
-      <button
-        class="cancel-reset-button"
-        @click="resetConfirmationVisible = false"
-      >No, don't reset</button>
-    </template>
+        v-if="!resetConfirmationVisible"
+        class="confirm-reset-button"
+        @click="resetConfirmationVisible = true"
+      >
+        Reset all settings to defaults
+      </button>
 
-    <div>
-      <BaseCheckbox v-model="useCustomScrollbars">
-        <strong>Use styled scrollbars</strong>
-      </BaseCheckbox>
+      <template v-if="resetConfirmationVisible">
+        <p>Are you sure? The below settings will be reset.</p>
+        <button
+          class="reset-button"
+          @click="confirmReset"
+        >Yes, reset</button>
+        <button
+          class="cancel-reset-button"
+          @click="resetConfirmationVisible = false"
+        >No, don't reset</button>
+      </template>
+
+      <div>
+        <BaseCheckbox v-model="useCustomScrollbars">
+          <strong>Use styled scrollbars</strong>
+        </BaseCheckbox>
+      </div>
+
+      <div>
+        <BaseCheckbox v-model="themeIsInverted">
+          <strong>Light/Dark Mode</strong>
+        </BaseCheckbox>
+      </div>
+
+      <RangeSlider v-model="themeHueRange">
+        <strong>App color:</strong>
+      </RangeSlider>
+
+      <RangeSlider v-model="accentHueRange">
+        <strong>Accent color:</strong>
+      </RangeSlider>
+
+      <RangeSlider
+        v-model="accentLightnessRange"
+        min="0"
+        max="1000"
+      >
+        <strong>Accent Brightness:</strong>
+      </RangeSlider>
+
+      <RangeSlider
+        v-model="zoomPercentRange"
+        min="25"
+        max="300"
+      >
+        <strong>Zoom level:</strong>
+      </RangeSlider>
     </div>
-
-    <div>
-      <BaseCheckbox v-model="themeIsInverted">
-        <strong>Light/Dark Mode</strong>
-      </BaseCheckbox>
-    </div>
-
-    <RangeSlider v-model="themeHueRange">
-      <strong>App color:</strong>
-    </RangeSlider>
-
-    <RangeSlider v-model="accentHueRange">
-      <strong>Accent color:</strong>
-    </RangeSlider>
-
-    <RangeSlider
-      v-model="accentLightnessRange"
-      min="0"
-      max="1000"
-    >
-      <strong>Accent Brightness:</strong>
-    </RangeSlider>
-
-    <RangeSlider
-      v-model="zoomPercentRange"
-      min="25"
-      max="300"
-    >
-      <strong>Zoom level:</strong>
-    </RangeSlider>
-
-    <StyleDemos />
+    <StyleDemos class="half" />
   </ViewWrapper>
 </template>
 
@@ -181,9 +182,23 @@ export default {
 </script>
 
 <style scoped>
+.half {
+  display: inline-block;
+  vertical-align: top;
+}
+@container (width < 700px) {
+  .half {
+    width: 100%;
+  }
+}
+@container (width > 700px) {
+  .half {
+    width: 50%;
+  }
+}
 .magic {
   position: absolute;
-  top: calc(var(--timeline-height) + 12px);
+  top: 27px;
   right: 65px;
   background: transparent;
   padding: 0px;
