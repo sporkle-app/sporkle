@@ -70,6 +70,8 @@
     >
       <strong>Zoom level:</strong>
     </RangeSlider>
+
+    <StyleDemos />
   </ViewWrapper>
 </template>
 
@@ -82,6 +84,7 @@ import { themeStore } from '@/stores/theme.js';
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import RangeSlider from '@/components/RangeSlider.vue';
+import StyleDemos from '@/components/appsettings/StyleDemos.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 export default {
@@ -90,6 +93,7 @@ export default {
     BaseCheckbox,
     BaseIcon,
     RangeSlider,
+    StyleDemos,
     ViewWrapper
   },
   data: function () {
