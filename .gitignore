@@ -58,6 +58,7 @@ typings/
 .env
 
 dist/
+dist-vue/
 package-lock.json
 
 Start dev.lnk
