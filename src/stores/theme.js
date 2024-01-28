@@ -4,6 +4,8 @@ const win = window.nw.Window.get();
 
 const DEFAULT_ACCENT_HUE = 264;
 const DEFAULT_ACCENT_LIGHTNESS = 500;
+const DEFAULT_MINUS_HUE = 0;
+const DEFAULT_PLUS_HUE = 120;
 
 export const themeStore = defineStore('theme', {
   state: function () {
@@ -11,6 +13,8 @@ export const themeStore = defineStore('theme', {
       accentHue: DEFAULT_ACCENT_HUE,
       accentLightness: DEFAULT_ACCENT_LIGHTNESS,
       customScrollbars: true,
+      minusHue: DEFAULT_MINUS_HUE,
+      plusHue: DEFAULT_PLUS_HUE,
       themeHue: 0,
       themeInverted: false,
       zoomPercent: 100
@@ -21,6 +25,8 @@ export const themeStore = defineStore('theme', {
       this.setAccentHue();
       this.setAccentLightness();
       this.setCustomScrollbars(true);
+      this.setMinusHue();
+      this.setPlusHue();
       this.setThemeHue(0);
       this.setThemeInverted(false);
       this.setZoomPercent(100);
@@ -41,6 +47,20 @@ export const themeStore = defineStore('theme', {
     },
     setCustomScrollbars: function (bool) {
       this.customScrollbars = bool;
+    },
+    setMinusHue: function (value) {
+      if (value === 0 || value) {
+        this.minusHue = value;
+      } else {
+        this.minusHue = DEFAULT_MINUS_HUE;
+      }
+    },
+    setPlusHue: function (value) {
+      if (value === 0 || value) {
+        this.plusHue = value;
+      } else {
+        this.plusHue = DEFAULT_PLUS_HUE;
+      }
     },
     setThemeHue: function (value) {
       this.themeHue = value || 0;

@@ -68,10 +68,11 @@ input[type="range"]::-webkit-slider-thumb {
   border: none;
   height: 14px;
   width: 14px;
-  background: var(--link);
+  background: var(--accent);
   margin-top: -5px;
 }
 input[type="range"]:focus {
+  background: var(--white08);
   outline: none;
 }
 

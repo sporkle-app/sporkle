@@ -111,7 +111,7 @@ export const branchesStore = defineStore('branches', {
           this.setBranchesLoading(false);
         });
     },
-    changeBranch: async function (branch) {
+    changeCurrentBranch: async function (branch) {
       this.setBranchesLoading(true);
 
       return simpleGit()
