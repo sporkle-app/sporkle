@@ -17,7 +17,8 @@
       :id="forId"
       :value="modelValue"
       class="sr-only"
-      @input="emit"
+      tabindex="-1"
+      @input.stop="emit"
     />
     <slot></slot>
   </label>
