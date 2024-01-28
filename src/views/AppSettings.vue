@@ -230,7 +230,7 @@ export default {
   right: 65px;
   background: transparent;
   padding: 0px;
-  color: var(--link);
+  color: var(--accent);
 }
 .confirm-reset-button {
   margin-bottom: 10px;

@@ -17,6 +17,12 @@
   --scrollbar-track-piece: #555;
   --scrollbar-corner: #383838;
 
+  --primary: #1A222D;
+  --accent: hsl(264, 100%, 59%);
+  --muted-accent: hsl(264, 24.7%, 50%);
+  --diff-plus: #435943;
+  --diff-minus: #594343;
+
   --black25: rgba(0, 0, 0, 0.25); /* #0004 */
   --black66: rgba(0, 0, 0, 0.66); /* #000A */
   --dark60: rgba(34, 34, 34, 0.60); /* #2229  */
@@ -26,7 +32,7 @@
   --white40: rgba(255, 255, 255, 0.40); /* #FFF6 */
   --white: #FFF;
 
-  --bg: #1A222D;
+  --bg: var(--primary);
   --button: #03080C;
   --button-hover: #1B1F2C;
   --button-active: #ABF2;
@@ -34,8 +40,6 @@
   --input: #161F27;
   --text: #D1CDC7;
   --inverse-text: #223;
-  --link: hsl(264, 100%, 59%);
-  --popout: hsl(264, 24.7%, 50%);
-  --diff-plus: #435943;
-  --diff-minus: #594343;
+  --link: var(--accent);
+  --popout: var(--muted-accent);
 }

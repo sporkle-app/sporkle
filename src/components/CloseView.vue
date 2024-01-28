@@ -41,7 +41,7 @@ export default {
   position: absolute;
   top: 20px;
   right: 23px;
-  color: var(--link);
+  color: var(--accent);
   font-size: 27px;
   text-decoration: none;
 }

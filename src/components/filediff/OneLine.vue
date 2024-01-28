@@ -38,6 +38,9 @@ export default {
 .line {
   display: flex;
 }
+.line:hover {
+  background: var(--accent);
+}
 .delete-line {
   background: var(--diff-minus);
 }
