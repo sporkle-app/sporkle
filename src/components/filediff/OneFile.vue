@@ -1,12 +1,15 @@
 <template>
-  <div class="one-file">
+  <div
+    class="one-file"
+    ref="oneFile"
+  >
     <div
       class="file-header truncate"
       :class="{ expanded: !isCollapsed }"
       role="button"
       tabindex="0"
-      @click="isCollapsed = !isCollapsed"
-      @keyup.enter="isCollapsed = !isCollapsed"
+      @click="toggleCollapsed"
+      @keyup.enter="toggleCollapsed"
     >
       <BaseIcon
         name="RiArrowDownSFill"
@@ -65,6 +68,29 @@ export default {
     return {
       isCollapsed: false
     };
+  },
+  methods: {
+    scrollIntoView: function () {
+      const scrollSettings = {
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start'
+      };
+      this.$refs.oneFile.scrollIntoView(scrollSettings);
+    },
+    toggleCollapsed: function () {
+      this.isCollapsed = !this.isCollapsed;
+
+      let delay = window.getComputedStyle(document.body).getPropertyValue('--sidebar-transition');
+      delay = delay.replace('ms', '');
+      delay = parseInt(delay);
+
+      // This is still a little stilted/robotic, but good enough for now.
+      // May want to pull in a smooth scroll library in the future.
+      for (let i = 0; i < delay; i = i + 500) {
+        setTimeout(this.scrollIntoView, i);
+      }
+    }
   }
 };
 </script>
