@@ -39,7 +39,7 @@ export default {
   display: flex;
 }
 .line:hover {
-  background: var(--accent);
+  background: var(--muted-accent);
 }
 .delete-line {
   background: var(--diff-minus);

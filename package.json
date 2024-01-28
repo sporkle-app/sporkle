@@ -68,7 +68,7 @@
     "rimraf": "^5.0.5",
     "timesago": "^1.0.1",
     "vite": "^5.0.12",
-    "vue": "3.4.5",
+    "vue": "3.4.15",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
