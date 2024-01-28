@@ -46,7 +46,7 @@
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.3",
+    "@babel/eslint-parser": "^7.23.9",
     "@vitejs/plugin-vue": "^5.0.3",
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
@@ -67,7 +67,7 @@
     "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
     "timesago": "^1.0.1",
-    "vite": "^5.0.11",
+    "vite": "^5.0.12",
     "vue": "3.4.5",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
