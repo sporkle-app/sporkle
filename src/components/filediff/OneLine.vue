@@ -38,6 +38,9 @@ export default {
 .line {
   display: flex;
 }
+.line:hover {
+  background: var(--accent);
+}
 .delete-line {
   background: var(--diff-minus);
 }
@@ -46,7 +49,7 @@ export default {
 }
 .line-number {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: end;
   min-width: 40px;
   padding-right: 4px;
