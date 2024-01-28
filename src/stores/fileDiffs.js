@@ -30,7 +30,7 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       if (currentRepoPath) {
         helpers.setCurrentWorkingDirectory(currentRepoPath);
       }
-      const command = 'git diff';
+      const command = 'git diff -M --find-copies-harder --histogram';
       let error;
       let diff;
       try {

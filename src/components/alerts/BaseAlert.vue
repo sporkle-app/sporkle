@@ -99,7 +99,7 @@ export default {
 .global-alert {
   position: relative;
   display: block;
-  background: var(--popout);
+  background: var(--muted-accent);
   border-left: 35px solid var(--white25);
   margin: var(--alert-spacing);
   margin-right: 0px;
@@ -115,10 +115,10 @@ export default {
   opacity: 1;
 }
 .error .global-alert-title-icon {
-  color: var(--link);
+  color: var(--accent);
 }
 .success .global-alert-title-icon {
-  color: var(--popout);
+  color: var(--muted-accent);
 }
 .global-alert-overflow {
   max-height: 140px;
@@ -142,7 +142,7 @@ export default {
   width: calc(100% - var(--alert-spacing));
 }
 .error {
-  background: var(--link);
+  background: var(--accent);
 }
 .float-right {
   float: right;

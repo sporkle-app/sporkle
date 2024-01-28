@@ -1,12 +1,15 @@
 <template>
-  <div class="one-file">
+  <div
+    class="one-file"
+    ref="oneFile"
+  >
     <div
       class="file-header truncate"
       :class="{ expanded: !isCollapsed }"
       role="button"
       tabindex="0"
-      @click="isCollapsed = !isCollapsed"
-      @keyup.enter="isCollapsed = !isCollapsed"
+      @click="toggleCollapsed"
+      @keyup.enter="toggleCollapsed"
     >
       <BaseIcon
         name="RiArrowDownSFill"
@@ -14,7 +17,12 @@
         :class="{ 'one-file-rotate-caret': isCollapsed }"
         scale="1.25"
       />
-      {{ file.newPath }}
+      <template v-if="file.newPath === '/dev/null'">
+        {{ file.oldPath }} <em>(deleted)</em>
+      </template>
+      <template v-else>
+        {{ file.newPath }}
+      </template>
     </div>
     <BaseAccordion :show="!isCollapsed">
       <div
@@ -60,15 +68,43 @@ export default {
     return {
       isCollapsed: false
     };
+  },
+  methods: {
+    scrollIntoView: function () {
+      const scrollSettings = {
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'start'
+      };
+      this.$refs.oneFile.scrollIntoView(scrollSettings);
+    },
+    toggleCollapsed: function () {
+      this.isCollapsed = !this.isCollapsed;
+
+      let delay = window.getComputedStyle(document.body).getPropertyValue('--sidebar-transition');
+      delay = delay.replace('ms', '');
+      delay = parseInt(delay);
+
+      // This is still a little stilted/robotic, but good enough for now.
+      // May want to pull in a smooth scroll library in the future.
+      for (let i = 0; i < delay; i = i + 500) {
+        setTimeout(this.scrollIntoView, i);
+      }
+    }
   }
 };
 </script>
 
 <style scoped>
 .file-header {
+  position: sticky;
+  top: 0px;
   width: 100%;
-  background: var(--white25);
+  background-image: linear-gradient(to right, var(--white25), var(--white25)), linear-gradient(to right, var(--bg), var(--bg));
+  border-top: 1px solid var(--white13);
+  padding: 2px 2px 5px 2px;
 }
+
 .file-header.expanded {
   white-space: unset;
   word-break: break-all;

@@ -47,31 +47,7 @@ export default {
   },
   data: function () {
     return {
-      animateTransition: false,
-      files: [
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame' },
-        { path: 'C:\\Folder' },
-        { path: 'C:\\Users\\Bob\\GitHub\\Reponame\\asdf\\qwer\\dfg\\rttryuqrewvca\\qwer\\asdfqwerfzxv\\qwer\\asvasvr\\ascaweawe\\cwacawsdca\\acwecawecasd\\qweqc\\sdfvs' }
-      ]
+      animateTransition: false
     };
   },
   methods: {

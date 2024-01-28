@@ -39,9 +39,9 @@ export default {
 <style scoped>
 .close-view {
   position: absolute;
-  top: calc(var(--timeline-height) + 5px);
+  top: 20px;
   right: 23px;
-  color: var(--link);
+  color: var(--accent);
   font-size: 27px;
   text-decoration: none;
 }

@@ -26,6 +26,8 @@ export const andSaveStore = defineStore('andSave', {
       'setAccentHue',
       'setAccentLightness',
       'setCustomScrollbars',
+      'setMinusHue',
+      'setPlusHue',
       'setThemeHue',
       'setThemeInverted',
       'setZoomPercent'
@@ -44,6 +46,14 @@ export const andSaveStore = defineStore('andSave', {
     },
     setCustomScrollbarsAndSave: function (bool) {
       this.setCustomScrollbars(bool);
+      this.saveSettings();
+    },
+    setMinusHueAndSave: function (value) {
+      this.setMinusHue(value);
+      this.saveSettings();
+    },
+    setPlusHueAndSave: function (value) {
+      this.setPlusHue(value);
       this.saveSettings();
     },
     setThemeHueAndSave: function (value) {

@@ -1,3 +1,4 @@
+import _debounce from 'lodash-es/debounce.js';
 import { defineStore, mapActions, mapState } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
@@ -25,6 +26,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setAccentHue',
       'setAccentLightness',
       'setCustomScrollbars',
+      'setMinusHue',
+      'setPlusHue',
       'setThemeHue',
       'setThemeInverted',
       'setZoomPercent'
@@ -35,6 +38,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setAccentLightness(settings.accentLightness);
       this.setCurrentRepo(settings.currentRepo);
       this.setCustomScrollbars(settings.customScrollbars);
+      this.setMinusHue(settings.minusHue);
+      this.setPlusHue(settings.plusHue);
       this.setReposList(settings.reposList);
       this.setThemeHue(settings.themeHue);
       this.setThemeInverted(settings.themeInverted);
@@ -81,14 +86,14 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         this.applySettings(settings);
       }
     },
-    saveSettings: function () {
+    saveSettings: _debounce(function () {
       console.log(this.dataToSave);
       fs.writeFile(settingsFile, this.dataToSave, function (error) {
         if (error) {
           this.addErrorAlert('There was an error saving your settings.', error);
         }
       });
-    }
+    }, 400)
   },
   getters: {
     ...mapState(reposStore, [
@@ -99,6 +104,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'accentHue',
       'accentLightness',
       'customScrollbars',
+      'plusHue',
+      'minusHue',
       'themeHue',
       'themeInverted',
       'zoomPercent'
@@ -109,6 +116,8 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         accentLightness: this.accentLightness,
         currentRepo: this.currentRepo,
         customScrollbars: this.customScrollbars,
+        minusHue: this.minusHue,
+        plusHue: this.plusHue,
         reposList: this.reposList,
         themeHue: this.themeHue,
         themeInverted: this.themeInverted,
