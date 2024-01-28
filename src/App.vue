@@ -59,11 +59,15 @@ export default {
   computed: {
     appWideCustomProperties: function () {
       const customProperties = [];
-      const hue = this.accentHue;
+      const accentHue = this.accentHue;
+      const plusHue = this.plusHue;
+      const minusHue = this.minusHue;
       const lightnessLink = (this.accentLightness + 127) / 10;
       const lightnesPopout = (this.accentLightness / 10);
-      customProperties.push('--link: hsl(' + hue + ', 100%, ' + lightnessLink + '%)');
-      customProperties.push('--popout: hsl(' + hue + ', 24.7%, ' + lightnesPopout + '%)');
+      customProperties.push('--link: hsl(' + accentHue + ', 100%, ' + lightnessLink + '%)');
+      customProperties.push('--popout: hsl(' + accentHue + ', 24.7%, ' + lightnesPopout + '%)');
+      customProperties.push('--diff-plus: hsl(' + plusHue + 'deg, 14.1%, 30.59%)');
+      customProperties.push('--diff-minus: hsl(' + minusHue + 'deg, 14.1%, 30.59%)');
       return customProperties.join(';');
     },
     styleFilters: function () {
@@ -80,6 +84,8 @@ export default {
       'accentHue',
       'accentLightness',
       'customScrollbars',
+      'minusHue',
+      'plusHue',
       'themeHue',
       'themeInverted'
     ]),

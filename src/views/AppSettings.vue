@@ -64,6 +64,14 @@
         <strong>Accent Brightness:</strong>
       </RangeSlider>
 
+      <RangeSlider v-model="plusHueRange">
+        <strong>Diff Insert color:</strong>
+      </RangeSlider>
+
+      <RangeSlider v-model="minusHueRange">
+        <strong>Diff Remove color:</strong>
+      </RangeSlider>
+
       <RangeSlider
         v-model="zoomPercentRange"
         min="25"
@@ -115,6 +123,8 @@ export default {
       'setAccentHueAndSave',
       'setAccentLightnessAndSave',
       'setCustomScrollbarsAndSave',
+      'setMinusHueAndSave',
+      'setPlusHueAndSave',
       'setThemeHueAndSave',
       'setThemeInvertedAndSave',
       'setZoomPercentAndSave'
@@ -135,6 +145,22 @@ export default {
       },
       set: function (value) {
         this.setAccentLightnessAndSave(value);
+      }
+    },
+    minusHueRange: {
+      get: function () {
+        return this.minusHue;
+      },
+      set: function (value) {
+        this.setMinusHueAndSave(value);
+      }
+    },
+    plusHueRange: {
+      get: function () {
+        return this.plusHue;
+      },
+      set: function (value) {
+        this.setPlusHueAndSave(value);
       }
     },
     themeHueRange: {
@@ -173,6 +199,8 @@ export default {
       'accentHue',
       'accentLightness',
       'customScrollbars',
+      'minusHue',
+      'plusHue',
       'themeHue',
       'themeInverted',
       'zoomPercent'
