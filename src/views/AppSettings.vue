@@ -79,6 +79,14 @@
       >
         <strong>Zoom level:</strong>
       </RangeSlider>
+
+      <div>
+        <button @click="guessReposFolder">Guess</button>
+        <label>
+          <input
+          />
+        </label>
+      </div>
     </div>
     <StylePreview class="half" />
   </ViewWrapper>
@@ -88,6 +96,7 @@
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
+import { reposStore } from '@/stores/repos.js';
 import { themeStore } from '@/stores/theme.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
@@ -95,6 +104,8 @@ import BaseIcon from '@/components/BaseIcon.vue';
 import RangeSlider from '@/components/RangeSlider.vue';
 import StylePreview from '@/components/appsettings/StylePreview.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
+
+const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
 export default {
   name: 'AppSettings',
@@ -118,6 +129,19 @@ export default {
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
+    manuallySelectReposFolder: function () {
+      /*
+      const title = 'Select the folder that contains all of your repos';
+      openFolderExplorer(window, { title }, async (repoPath) => {
+        if (repoPath) {
+          await this.addRepoToListAndSave(repoPath);
+        }
+      });
+      */
+    },
+    ...mapActions(reposStore, [
+      'guessReposFolder'
+    ]),
     ...mapActions(andSaveStore, [
       'resetSettingsAndSave',
       'setAccentHueAndSave',
