@@ -73,12 +73,14 @@ export default {
 <style>
 .repo-list-item {
   width: 100%;
+  border: var(--unfocus-ring);
   border-radius: 0px;
   margin: 0px;
   text-align: left;
 }
 .repo-list-item:focus-visible {
   background: var(--button-hover);
+  border: var(--focus-ring);
   outline: none;
 }
 .is-current-repo,

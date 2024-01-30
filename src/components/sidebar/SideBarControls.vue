@@ -108,6 +108,7 @@ export default {
 .button-group {
   display: flex;
 }
+
 .button-group button {
   display: flex;
   align-items: center;
@@ -132,11 +133,18 @@ export default {
   min-width: 0px;
 }
 .repo-filter {
-  position: relative;
   width: 100%;
   background: var(--white13);
+  border: 1px solid transparent;
   border-radius: 0px;
   margin: 0px;
-  z-index: 1;
+}
+
+.repo-filter {
+  border: var(--unfocus-ring);
+}
+.repo-filter:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 </style>

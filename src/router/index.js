@@ -8,6 +8,7 @@ import CloneRepo from '@/views/CloneRepo.vue';
 import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
 import CreateNewRepo from '@/views/CreateNewRepo.vue';
 import DevTestingPage from '@/views/DevTestingPage.vue';
+import ScanForRepos from '@/views/ScanForRepos.vue';
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -42,6 +43,13 @@ export const router = createRouter({
       name: 'devTestingPage',
       component: DevTestingPage
     },
+    {
+      path: '/scan-for-repos',
+      name: 'scanForRepos',
+      component: ScanForRepos
+    },
+
+    // Redirects
     {
       path: '/',
       name: 'home',

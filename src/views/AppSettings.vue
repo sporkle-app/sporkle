@@ -15,6 +15,24 @@
       <span class="sr-only">Developer options</span>
     </button>
 
+    <div>
+      <button @click="guessReposFolder">Guess</button>
+      <label>
+        <input
+        />
+      </label>
+    </div>
+
+    <button
+      class="scan-for-repos-button"
+      @click="$router.push({ name: 'scanForRepos' })"
+    >
+      <BaseIcon
+        name="RiScanForRepos"
+      />
+      Scan for Repos
+    </button>
+
     <div class="half">
       <button
         v-if="!resetConfirmationVisible"
@@ -79,14 +97,6 @@
       >
         <strong>Zoom level:</strong>
       </RangeSlider>
-
-      <div>
-        <button @click="guessReposFolder">Guess</button>
-        <label>
-          <input
-          />
-        </label>
-      </div>
     </div>
     <StylePreview class="half" />
   </ViewWrapper>
@@ -264,6 +274,11 @@ export default {
 }
 .cancel-reset-button {
   margin: 0px 0px 20px 0px;
+}
+.scan-for-repos-button {
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
 }
 input[type="range"] {
   display: block;

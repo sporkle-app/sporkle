@@ -41,8 +41,12 @@ export default {
   position: absolute;
   top: 20px;
   right: 23px;
+  border: var(--unfocus-ring);
   color: var(--accent);
   font-size: 27px;
   text-decoration: none;
+}
+.close-view:focus {
+  border: var(--focus-ring);
 }
 </style>
