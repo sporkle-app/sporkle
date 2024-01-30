@@ -19,8 +19,10 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setSettingsLoading'
     ]),
     ...mapActions(reposStore, [
+      'guessReposFolder',
       'setCurrentRepo',
-      'setReposList'
+      'setReposList',
+      'setReposFolder'
     ]),
     ...mapActions(themeStore, [
       'setAccentHue',
@@ -32,7 +34,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setThemeInverted',
       'setZoomPercent'
     ]),
-    applySettings: function (settings) {
+    applySettings: async function (settings) {
       settings = settings || {};
       this.setAccentHue(settings.accentHue);
       this.setAccentLightness(settings.accentLightness);
@@ -43,8 +45,16 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setReposList(settings.reposList);
       this.setThemeHue(settings.themeHue);
       this.setThemeInverted(settings.themeInverted);
-      this.setSettingsLoading(false);
       this.setZoomPercent(settings.zoomPercent);
+
+      this.setSettingsLoading(false);
+
+      if (settings.reposFolder) {
+        this.setReposFolder(settings.reposFolder);
+      } else {
+        await this.guessReposFolder();
+        this.saveSettings();
+      }
     },
     deleteSettings: function () {
       try {
@@ -88,7 +98,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
     },
     saveSettings: _debounce(function () {
       console.log(this.dataToSave);
-      fs.writeFile(settingsFile, this.dataToSave, function (error) {
+      fs.writeFile(settingsFile, this.dataToSave, (error) => {
         if (error) {
           this.addErrorAlert('There was an error saving your settings.', error);
         }
@@ -98,6 +108,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
   getters: {
     ...mapState(reposStore, [
       'currentRepo',
+      'reposFolder',
       'reposList'
     ]),
     ...mapState(themeStore, [
@@ -118,6 +129,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         customScrollbars: this.customScrollbars,
         minusHue: this.minusHue,
         plusHue: this.plusHue,
+        reposFolder: this.reposFolder,
         reposList: this.reposList,
         themeHue: this.themeHue,
         themeInverted: this.themeInverted,

@@ -16,11 +16,30 @@
     </button>
 
     <div>
-      <button @click="guessReposFolder">Guess</button>
-      <label>
-        <input
-        />
+      <label for="repos-folder-input">
+        <strong>Where to store/find repos:</strong>
       </label>
+      <div class="repos-folder-select">
+        <input
+          id="repos-folder-input"
+          class="repos-folder-input"
+          disabled
+          :title="reposFolder"
+          :value="reposFolder"
+        />
+        <button @click="selectReposFolder">
+          <BaseIcon
+            name="RiFolderOpenFill"
+            scale="0.85"
+          />
+          <template v-if="reposFolder">
+            Change
+          </template>
+          <template v-else>
+            Pick
+          </template>
+        </button>
+      </div>
     </div>
 
     <button
@@ -139,15 +158,13 @@ export default {
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
-    manuallySelectReposFolder: function () {
-      /*
+    selectReposFolder: async function () {
       const title = 'Select the folder that contains all of your repos';
       openFolderExplorer(window, { title }, async (repoPath) => {
         if (repoPath) {
-          await this.addRepoToListAndSave(repoPath);
+          this.setReposFolderAndSave(repoPath);
         }
       });
-      */
     },
     ...mapActions(reposStore, [
       'guessReposFolder'
@@ -159,6 +176,7 @@ export default {
       'setCustomScrollbarsAndSave',
       'setMinusHueAndSave',
       'setPlusHueAndSave',
+      'setReposFolderAndSave',
       'setThemeHueAndSave',
       'setThemeInvertedAndSave',
       'setZoomPercentAndSave'
@@ -229,6 +247,9 @@ export default {
         this.setZoomPercentAndSave(percent);
       }
     },
+    ...mapState(reposStore, [
+      'reposFolder'
+    ]),
     ...mapState(themeStore, [
       'accentHue',
       'accentLightness',
@@ -244,6 +265,12 @@ export default {
 </script>
 
 <style scoped>
+.repos-folder-select {
+  display: flex;
+}
+.repos-folder-input {
+  flex-grow: 1;
+}
 .half {
   display: inline-block;
   vertical-align: top;

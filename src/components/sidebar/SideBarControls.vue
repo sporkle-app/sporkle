@@ -64,8 +64,11 @@ export default {
   },
   methods: {
     addRepo: function () {
-      const title = 'Select your repo folder';
-      openFolderExplorer(window, { title }, async (repoPath) => {
+      const options = {
+        title: 'Select your repo folder',
+        directory: (this.reposFolder || undefined)
+      };
+      openFolderExplorer(window, options, async (repoPath) => {
         if (repoPath) {
           await this.addRepoToListAndSave(repoPath);
           this.$router.push({ name: 'commits' });
@@ -95,7 +98,8 @@ export default {
       }
     },
     ...mapState(reposStore, [
-      'repoFilter'
+      'repoFilter',
+      'reposFolder'
     ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'

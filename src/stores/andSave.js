@@ -73,7 +73,8 @@ export const andSaveStore = defineStore('andSave', {
     ...mapActions(reposStore, [
       'addRepoToList',
       'removeRepoFromList',
-      'setCurrentRepo'
+      'setCurrentRepo',
+      'setReposFolder'
     ]),
     addRepoToListAndSave: function (repoPath) {
       if (helpers.validateRepoPath(repoPath)) {
@@ -89,6 +90,10 @@ export const andSaveStore = defineStore('andSave', {
     },
     setCurrentRepoAndSave: function (repoPath) {
       this.setCurrentRepo(repoPath);
+      this.saveSettings();
+    },
+    setReposFolderAndSave: function (repoPath) {
+      this.setReposFolder(repoPath);
       this.saveSettings();
     }
   }
