@@ -1,6 +1,5 @@
 <template>
-  <ViewWrapper title="Scan for repos">
-  </ViewWrapper>
+  <ViewWrapper title="Scan for repos" />
 </template>
 
 <script>
