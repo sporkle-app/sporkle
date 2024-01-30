@@ -58,7 +58,14 @@ export default {
   },
   computed: {
     appWideCustomProperties: function () {
-      const customProperties = [];
+      const aliases = [
+        '--bg: var(--primary)',
+        '--link: var(--accent)',
+        '--popout: var(--muted-accent)'
+      ];
+      const customProperties = [
+        ...aliases
+      ];
       const accentHue = this.accentHue;
       const plusHue = this.plusHue;
       const minusHue = this.minusHue;
