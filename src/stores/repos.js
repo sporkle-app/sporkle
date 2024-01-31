@@ -1,11 +1,14 @@
 import { defineStore, mapActions, mapState } from 'pinia';
 
+import helpers from '@/helpers/index.js';
+
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
 import { gitStatusStore } from '@/stores/gitStatus.js';
 
+const execSync = window.require('node:child_process').execSync;
 const fs = window.require('fs');
 const path = window.require('path');
 const os = window.require('os');
@@ -14,6 +17,7 @@ export const reposStore = defineStore('repos', {
   state: function () {
     return {
       reposList: [],
+      potentialRepoFolders: [],
       repoFilter: '',
       currentRepo: null,
       reposFolder: null
@@ -84,6 +88,54 @@ export const reposStore = defineStore('repos', {
     setReposFolder: function (repoPath) {
       this.reposFolder = repoPath || null;
     },
+    scanForRepos: async function () {
+      if (!this.reposFolder) {
+        return;
+      }
+      this.potentialRepoFolders = [];
+      await fs.promises.readdir(this.reposFolder)
+        .then((files) => {
+          this.potentialRepoFolders = files
+            .toSorted((a, b) => {
+              return a.localeCompare(b, undefined, { sensitivity: 'base' });
+            })
+            .filter((file) => {
+              const filePath = path.join(this.reposFolder, file);
+              const gitPath = path.join(filePath, '.git');
+              return (
+                fs.lstatSync(filePath).isDirectory() &&
+                fs.existsSync(gitPath) &&
+                fs.lstatSync(gitPath).isDirectory()
+              );
+            })
+            .map((folder) => {
+              return {
+                selected: false,
+                name: folder,
+                path: path.join(this.reposFolder, folder),
+                lastCommit: null
+              };
+            }) || [];
+        })
+        .catch((error) => {
+          console.log({ error });
+        });
+
+      for (let i = 0; i < this.potentialRepoFolders.length; i++) {
+        const repo = this.potentialRepoFolders[i];
+        try {
+          helpers.setCurrentWorkingDirectory(repo.path);
+          const command = 'git log -1 --format=%ct';
+          const stdout = execSync(command);
+          const epoch = String(stdout || '').trim();
+          if (epoch) {
+            this.potentialRepoFolders[i].lastCommit = epoch * 1000;
+          }
+        } catch (error) {
+          console.log({ error });
+        }
+      }
+    },
     // This could be improved in many ways
     guessReposFolder: function () {
       if (this.reposFolder) {
@@ -135,13 +187,13 @@ export const reposStore = defineStore('repos', {
         }
       };
 
-      const potentialRepoFolders = [
+      const potentialReposFolders = [
         ...scanFolder(documents),
         ...scanFolder(home),
         ...scanFolder(desktop)
       ];
-      console.log({ potentialRepoFolders });
-      this.setReposFolder(potentialRepoFolders[0]);
+      console.log({ potentialReposFolders });
+      this.setReposFolder(potentialReposFolders[0]);
     },
     ...mapActions(appLoadingStore, [
       'setReposLoading'

@@ -15,32 +15,7 @@
       <span class="sr-only">Developer options</span>
     </button>
 
-    <div>
-      <label for="repos-folder-input">
-        <strong>Where to store/find repos:</strong>
-      </label>
-      <div class="repos-folder-select">
-        <input
-          id="repos-folder-input"
-          class="repos-folder-input"
-          disabled
-          :title="reposFolder"
-          :value="reposFolder"
-        />
-        <button @click="selectReposFolder">
-          <BaseIcon
-            name="RiFolderOpenFill"
-            scale="0.85"
-          />
-          <template v-if="reposFolder">
-            Change
-          </template>
-          <template v-else>
-            Pick
-          </template>
-        </button>
-      </div>
-    </div>
+    <ReposFolderPicker />
 
     <button
       class="scan-for-repos-button"
@@ -125,16 +100,14 @@
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
-import { reposStore } from '@/stores/repos.js';
 import { themeStore } from '@/stores/theme.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import RangeSlider from '@/components/RangeSlider.vue';
+import ReposFolderPicker from '@/components/appsettings/ReposFolderPicker.vue';
 import StylePreview from '@/components/appsettings/StylePreview.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
-
-const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
 export default {
   name: 'AppSettings',
@@ -142,6 +115,7 @@ export default {
     BaseCheckbox,
     BaseIcon,
     RangeSlider,
+    ReposFolderPicker,
     StylePreview,
     ViewWrapper
   },
@@ -158,17 +132,6 @@ export default {
     setTheme: function ($event) {
       this.setThemeAndSave($event.target.value);
     },
-    selectReposFolder: async function () {
-      const title = 'Select the folder that contains all of your repos';
-      openFolderExplorer(window, { title }, async (repoPath) => {
-        if (repoPath) {
-          this.setReposFolderAndSave(repoPath);
-        }
-      });
-    },
-    ...mapActions(reposStore, [
-      'guessReposFolder'
-    ]),
     ...mapActions(andSaveStore, [
       'resetSettingsAndSave',
       'setAccentHueAndSave',
@@ -176,7 +139,6 @@ export default {
       'setCustomScrollbarsAndSave',
       'setMinusHueAndSave',
       'setPlusHueAndSave',
-      'setReposFolderAndSave',
       'setThemeHueAndSave',
       'setThemeInvertedAndSave',
       'setZoomPercentAndSave'
@@ -247,9 +209,6 @@ export default {
         this.setZoomPercentAndSave(percent);
       }
     },
-    ...mapState(reposStore, [
-      'reposFolder'
-    ]),
     ...mapState(themeStore, [
       'accentHue',
       'accentLightness',
@@ -265,12 +224,6 @@ export default {
 </script>
 
 <style scoped>
-.repos-folder-select {
-  display: flex;
-}
-.repos-folder-input {
-  flex-grow: 1;
-}
 .half {
   display: inline-block;
   vertical-align: top;

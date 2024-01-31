@@ -50,10 +50,10 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setSettingsLoading(false);
 
       if (settings.reposFolder) {
-        this.setReposFolder(settings.reposFolder);
+        await this.setReposFolder(settings.reposFolder);
       } else {
         await this.guessReposFolder();
-        this.saveSettings();
+        await this.saveSettings();
       }
     },
     deleteSettings: function () {
@@ -71,29 +71,31 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         console.log('Error deleting settings file', error);
       }
     },
-    loadSettings: function () {
+    loadSettings: async function () {
       this.setSettingsLoading(true);
 
       let settings = {};
 
       if (fs.existsSync(settingsFile)) {
-        fs.readFile(settingsFile, (err, data) => {
-          if (err) {
-            this.addErrorAlert('Unable to load settings.', err);
-          }
-
-          if (data) {
-            try {
-              settings = JSON.parse(data);
-            } catch (error) {
-              this.addErrorAlert('Error attempting to load settings.', error);
+        return fs.promises.readFile(settingsFile)
+          .then(async (data) => {
+            if (data) {
+              try {
+                settings = JSON.parse(data);
+              } catch (error) {
+                this.addErrorAlert('Error attempting to load settings.', error);
+              }
             }
-          }
 
-          this.applySettings(settings);
-        });
+            await this.applySettings(settings);
+          })
+          .catch((error) => {
+            if (error) {
+              this.addErrorAlert('Unable to load settings.', error);
+            }
+          });
       } else {
-        this.applySettings(settings);
+        await this.applySettings(settings);
       }
     },
     saveSettings: _debounce(function () {
