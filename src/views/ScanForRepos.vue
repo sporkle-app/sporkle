@@ -13,8 +13,9 @@
       </thead>
       <tbody>
         <tr
-          v-for="folder in potentialRepoFolders"
+          v-for="(folder, folderIndex) in potentialRepoFolders"
           @click="folder.selected = !folder.selected"
+          :key="'folder' + folderIndex"
         >
           <td>
             <BaseCheckbox v-model="folder.selected" />
@@ -52,7 +53,7 @@ export default {
   },
   methods: {
     ...mapActions(reposStore, [
-      'scanForRepos',
+      'scanForRepos'
     ]),
     formatDate: function (date) {
       if (!date) {

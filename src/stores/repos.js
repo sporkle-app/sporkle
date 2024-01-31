@@ -1,12 +1,12 @@
 import { defineStore, mapActions, mapState } from 'pinia';
 
-import helpers from '@/helpers/index.js';
-
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
 import { gitStatusStore } from '@/stores/gitStatus.js';
+
+import helpers from '@/helpers/index.js';
 
 const execSync = window.require('node:child_process').execSync;
 const fs = window.require('fs');
