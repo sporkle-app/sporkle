@@ -2,10 +2,10 @@
   <div>
     <label for="repos-folder-input">
       <strong v-if="!reposFolder">
-        Where do you store your repos?
+        Where do you store your repositories?
       </strong>
       <strong v-else>
-        Where to store/find repos:
+        Where to store/find repositories:
       </strong>
     </label>
     <div class="repos-folder-select">
