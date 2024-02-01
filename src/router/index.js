@@ -86,7 +86,7 @@ router.beforeEach(async (to) => {
   }
   if (
     initialLoadComplete &&
-    ['commits'].includes(to.name) &&
+    to.name === 'commits' &&
     (
       !currentRepo ||
       !sortedRepoPaths.length ||
