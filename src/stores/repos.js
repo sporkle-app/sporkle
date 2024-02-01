@@ -173,7 +173,6 @@ export const reposStore = defineStore('repos', {
       }
       this.setScanForReposLoading(false);
     },
-    // This could be improved in many ways
     guessReposFolder: function () {
       if (this.reposFolder) {
         return;
@@ -181,55 +180,64 @@ export const reposStore = defineStore('repos', {
       const home = os.homedir();
       const desktop = path.join(home, 'Desktop');
       const documents = path.join(home, 'Documents');
+
+      const parents = [
+        home,
+        desktop,
+        documents
+      ];
       const folderNames = [
-        'github',
+        // common
+        'GitHub',
         'repos',
-        'repositories'
+        // less common
+        'github',
+        'Github',
+        'Repos',
+        // uncommon
+        'repositories',
+        'Repositories'
       ];
 
-      // parent = home || desktop || documents
-      const scanFolder = (parent) => {
-        try {
-          // folder = GitHub || Repos || anything
-          const validMatches = fs.readdirSync(parent).filter((folder) => {
-            const nameMatches = folderNames.includes(folder.toLowerCase());
-            if (!nameMatches) {
-              return false;
-            }
-            // child = C:\Users\Bob\Documents\Github || C:\Users\Bob\Repos || etc
-            const child = path.join(parent, folder);
-            const isFolder = fs.lstatSync(child).isDirectory();
-            if (!isFolder) {
-              return false;
-            }
-            const grandchildren = fs.readdirSync(child);
-            const containsAtLeastOneRepo = grandchildren.some((grandchild) => {
-              // grandchildPath = C:\Users\Bob\Repos\my-project
-              const grandchildPath = path.join(child, grandchild);
-              // gitFolder = C:\Users\Bob\Repos\my-project\.git
-              const gitFolder = path.join(grandchildPath, '.git');
-              return (
-                fs.lstatSync(grandchildPath).isDirectory() &&
-                fs.existsSync(gitFolder) &&
-                fs.lstatSync(gitFolder).isDirectory()
-              );
-            });
-            return containsAtLeastOneRepo;
-          });
-          return validMatches.map((validMatch) => {
-            return path.join(parent, validMatch);
-          });
-        } catch (error) {
-          console.info('Error when guessing reposFolder', error);
+      const allPathsToCheck = [];
+      folderNames.forEach((folderName) => {
+        parents.forEach((parent) => {
+          const fullPath = path.join(parent, folderName);
+          allPathsToCheck.push(fullPath);
+        });
+      });
+
+      for (const filePath of allPathsToCheck) {
+        const exists = fs.existsSync(filePath);
+        if (!exists) {
+          continue;
         }
-      };
+        const isFolder = fs.lstatSync(filePath).isDirectory();
+        if (!isFolder) {
+          continue;
+        }
+        try {
+          const children = fs.readdirSync(filePath);
+          const containsAtLeastOneRepo = children.some((child) => {
+            // childPath = C:\Users\Bob\Repos\my-project
+            const childPath = path.join(filePath, child);
+            // gitFolder = C:\Users\Bob\Repos\my-project\.git
+            const gitFolder = path.join(childPath, '.git');
+            return (
+              fs.lstatSync(childPath).isDirectory() &&
+              fs.existsSync(gitFolder) &&
+              fs.lstatSync(gitFolder).isDirectory()
+            );
+          });
 
-      const potentialReposFolders = [
-        ...scanFolder(documents),
-        ...scanFolder(home),
-        ...scanFolder(desktop)
-      ];
-      this.setReposFolder(potentialReposFolders[0]);
+          if (containsAtLeastOneRepo) {
+            this.setReposFolder(filePath);
+            break;
+          }
+        } catch (error) {
+          console.info({ error });
+        }
+      }
     },
     ...mapActions(appLoadingStore, [
       'setReposLoading',
