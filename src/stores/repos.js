@@ -3,6 +3,7 @@ import { defineStore, mapActions, mapState } from 'pinia';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
 import { commitsStore } from '@/stores/commits.js';
+import { fileDiffsStore } from '@/stores/fileDiffs.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
 import { gitStatusStore } from '@/stores/gitStatus.js';
 
@@ -31,7 +32,11 @@ export const reposStore = defineStore('repos', {
     },
     setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
+      if (this.currentRepo !== repoPath) {
+        await this.setDiffs();
+      }
       this.currentRepo = repoPath;
+      helpers.setCurrentWorkingDirectory(repoPath)
 
       const parallelPromises = [
         this.updateBranches(repoPath),
@@ -149,7 +154,7 @@ export const reposStore = defineStore('repos', {
             }) || [];
         })
         .catch((error) => {
-          console.log({ error });
+          console.info({ error });
         });
 
       for (let i = 0; i < this.potentialRepoFolders.length; i++) {
@@ -163,7 +168,7 @@ export const reposStore = defineStore('repos', {
             this.potentialRepoFolders[i].lastCommit = epoch * 1000;
           }
         } catch (error) {
-          console.log({ error });
+          console.info({ error });
         }
       }
       this.setScanForReposLoading(false);
@@ -215,7 +220,7 @@ export const reposStore = defineStore('repos', {
             return path.join(parent, validMatch);
           });
         } catch (error) {
-          console.log('Error when guessing reposFolder', error);
+          console.info('Error when guessing reposFolder', error);
         }
       };
 
@@ -238,6 +243,9 @@ export const reposStore = defineStore('repos', {
     ]),
     ...mapActions(commitsStore, [
       'getCommits'
+    ]),
+    ...mapActions(fileDiffsStore, [
+      'setDiffs'
     ]),
     ...mapActions(gitRemotesStore, [
       'updateRemotes'

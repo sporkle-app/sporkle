@@ -66,6 +66,9 @@ export const router = createRouter({
 
 router.beforeEach(async (to) => {
   const {
+    initialLoadComplete
+  } = appLoadingStore();
+  const {
     currentRepo,
     setCurrentRepo,
     sortedRepoPaths
@@ -82,6 +85,7 @@ router.beforeEach(async (to) => {
     setCurrentRepo(sortedRepoPaths[0]);
   }
   if (
+    initialLoadComplete &&
     ['commits'].includes(to.name) &&
     (
       !currentRepo ||

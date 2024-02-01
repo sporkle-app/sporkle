@@ -93,7 +93,7 @@ export default {
       validator: function (value) {
         const valid = allIconNames.includes(_kebabCase(value));
         if (!valid) {
-          console.log('Your icon, ' + value + ', is not imported and/or registered. Do so in BaseIcon.vue');
+          console.info('Your icon, ' + value + ', is not imported and/or registered. Do so in BaseIcon.vue');
         }
         return valid;
       }

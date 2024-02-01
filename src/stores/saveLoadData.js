@@ -11,6 +11,11 @@ const path = window.require('path');
 const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 
 export const saveLoadDataStore = defineStore('saveLoadData', {
+  state: function () {
+    return {
+      initialLoadComplete: false
+    };
+  },
   actions: {
     ...mapActions(alertsStore, [
       'addErrorAlert'
@@ -55,18 +60,19 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         await this.guessReposFolder();
         await this.saveSettings();
       }
+      this.initialLoadComplete = true;
     },
     deleteSettings: function () {
       try {
         if (fs.existsSync(settingsFile)) {
           fs.unlinkSync(settingsFile);
           this.setReposList();
-          console.log('Successfully deleted settings');
+          console.info('Successfully deleted settings');
         } else {
-          console.log('Settings file did not exist');
+          console.info('Settings file did not exist');
         }
       } catch (error) {
-        console.log('Error deleting settings file', error);
+        console.info('Error deleting settings file', error);
       }
     },
     loadSettings: async function () {
@@ -97,7 +103,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       }
     },
     saveSettings: _debounce(function () {
-      console.log(JSON.parse(this.dataToSave));
+      console.info(JSON.parse(this.dataToSave));
       fs.writeFile(settingsFile, this.dataToSave, (error) => {
         if (error) {
           this.addErrorAlert('There was an error saving your settings.', error);

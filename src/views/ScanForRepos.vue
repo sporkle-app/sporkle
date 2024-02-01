@@ -8,15 +8,16 @@
       No new repositories found.
     </p>
     <template v-else>
-      <button
-        class="add-button"
-        :disabled="!selectedPotentialRepos.length"
-        @click="bulkAddReposAndSave(selectedPotentialRepos)"
-      >
-        Add
-        <strong>{{ selectedPotentialRepos.length }}</strong>
-        repositories
-      </button>
+      <div class="button-container">
+        <button
+          :disabled="!selectedPotentialRepos.length"
+          @click="bulkAddReposAndSave(selectedPotentialRepos)"
+        >
+          Add
+          <strong>{{ selectedPotentialRepos.length }}</strong>
+          repositories
+        </button>
+      </div>
       <table>
         <thead>
           <tr>
@@ -144,9 +145,11 @@ export default {
   color: var(--white40);
   font-style: italic;
 }
-.add-button {
-  float: right;
-  margin: 10px 0px;
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
 }
 table {
   width: 100%;
