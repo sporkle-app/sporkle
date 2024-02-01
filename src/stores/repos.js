@@ -36,7 +36,7 @@ export const reposStore = defineStore('repos', {
         await this.setDiffs();
       }
       this.currentRepo = repoPath;
-      helpers.setCurrentWorkingDirectory(repoPath)
+      helpers.setCurrentWorkingDirectory(repoPath);
 
       const parallelPromises = [
         this.updateBranches(repoPath),
