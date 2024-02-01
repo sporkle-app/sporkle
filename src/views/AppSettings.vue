@@ -24,7 +24,7 @@
       <BaseIcon
         name="RiScanForRepos"
       />
-      Scan for Repos
+      Bulk Add Repositories
     </button>
 
     <div class="half">

@@ -1,12 +1,21 @@
 <template>
-  <ViewWrapper title="Scan for repositories">
+  <ViewWrapper title="Bulk add repositories">
     <ReposFolderPicker />
-    <p v-if="!potentialRepoFolders.length">
-      No repositories found.
+    <p
+      v-if="!potentialRepoFolders.length"
+      class="no-repos"
+    >
+      No new repositories found.
     </p>
     <template v-else>
-      <button :disabled="!selectedPotentialRepos.length">
-        Add {{ selectedPotentialRepos.length }} repositories
+      <button
+        class="add-button"
+        :disabled="!selectedPotentialRepos.length"
+        @click="bulkAddReposAndSave(selectedPotentialRepos)"
+      >
+        Add
+        <strong>{{ selectedPotentialRepos.length }}</strong>
+        repositories
       </button>
       <table>
         <thead>
@@ -14,11 +23,15 @@
             <th>
               <BaseCheckbox
                 v-model="selectAll"
-                @click="setAllCheckboxes(this.selectAll)"
+                @click="setAllCheckboxes(selectAll)"
               />
             </th>
-            <th>Folder</th>
-            <th colspan="2">Last commit</th>
+            <th class="left">
+              Folder
+            </th>
+            <th colspan="2">
+              Last commit
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +45,7 @@
               <BaseCheckbox v-model="repo.selected" />
             </td>
             <td>
-              {{ repo.name }}
+              {{ repo.title }}
             </td>
             <td class="right">
               {{ formatDate(repo.lastCommit) }}
@@ -50,6 +63,7 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
+import { andSaveStore } from '@/stores/andSave.js';
 import { reposStore } from '@/stores/repos.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
@@ -69,18 +83,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions(andSaveStore, [
+      'bulkAddReposAndSave'
+    ]),
     ...mapActions(reposStore, [
       'scanForRepos'
     ]),
     formatDate: function (date) {
       if (!date) {
-        return null;
+        return;
       }
       return (new Date(date)).toLocaleDateString();
     },
     formatTime: function (date) {
       if (!date) {
-        return null;
+        return;
       }
       return (new Date(date)).toLocaleTimeString();
     },
@@ -93,20 +110,25 @@ export default {
   computed: {
     ...mapState(reposStore, [
       'potentialRepoFolders',
-      'reposFolder'
+      'reposFolder',
+      'reposList'
     ]),
     selectedPotentialRepos: function () {
-      return this.potentialRepoFolders.filter((repo) => {
-        return repo.selected;
-      });
+      return this.potentialRepoFolders
+        .filter((repo) => {
+          return repo.selected;
+        });
     }
   },
   watch: {
+    reposList: function () {
+      this.scanForRepos();
+    },
     reposFolder: function () {
       this.scanForRepos();
     },
     selectedPotentialRepos: function (newValue) {
-      if (newValue === 0) {
+      if (newValue.length === 0) {
         this.selectAll = false;
       }
     }
@@ -118,6 +140,14 @@ export default {
 </script>
 
 <style scoped>
+.no-repos {
+  color: var(--white40);
+  font-style: italic;
+}
+.add-button {
+  float: right;
+  margin: 10px 0px;
+}
 table {
   width: 100%;
 }
@@ -132,5 +162,8 @@ tr:hover {
 }
 .right {
   text-align: right;
+}
+.left {
+  text-align: left;
 }
 </style>

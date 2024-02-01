@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { reposStore } from '@/stores/repos.js';
 
 import AboutApp from '@/views/AboutApp.vue';
 import AppSettings from '@/views/AppSettings.vue';
@@ -61,6 +62,35 @@ export const router = createRouter({
       redirect: '/'
     }
   ]
+});
+
+router.beforeEach(async (to) => {
+  const {
+    currentRepo,
+    setCurrentRepo,
+    sortedRepoPaths
+  } = reposStore();
+  const currentRepoIsInSidebar = sortedRepoPaths.includes(currentRepo);
+
+  if (
+    (
+      !currentRepo ||
+      !currentRepoIsInSidebar
+    ) &&
+    sortedRepoPaths[0]
+  ) {
+    setCurrentRepo(sortedRepoPaths[0]);
+  }
+  if (
+    ['commits'].includes(to.name) &&
+    (
+      !currentRepo ||
+      !sortedRepoPaths.length ||
+      !currentRepoIsInSidebar
+    )
+  ) {
+    return { name: 'scanForRepos' };
+  }
 });
 
 router.afterEach(() => {

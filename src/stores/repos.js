@@ -13,6 +13,8 @@ const fs = window.require('fs');
 const path = window.require('path');
 const os = window.require('os');
 
+const diacriticLess = window.require('diacriticless');
+
 export const reposStore = defineStore('repos', {
   state: function () {
     return {
@@ -64,55 +66,84 @@ export const reposStore = defineStore('repos', {
       const match = this.reposList.find((repo) => {
         return repo.filePath === repoPath;
       });
-      if (match) {
-        this.setCurrentRepo(repoPath);
-        this.setReposLoading(false);
-        return;
+      if (!match) {
+        const repo = {
+          filePath: repoPath,
+          title: path.basename(repoPath)
+        };
+        this.reposList.push(repo);
       }
-
-      const repo = {
-        filePath: repoPath,
-        title: path.basename(repoPath)
-      };
-      this.reposList.push(repo);
       this.setCurrentRepo(repoPath);
       this.setReposLoading(false);
+    },
+    bulkAddRepos: function (newRepos) {
+      this.setReposLoading(true);
+      for (let i = 0; i < newRepos.length; i++) {
+        const newRepo = newRepos[i];
+        const match = this.reposList.find((repo) => {
+          return repo.filePath === newRepo.filePath;
+        });
+        if (!match) {
+          this.reposList.push({
+            filePath: newRepo.filePath,
+            title: newRepo.title
+          });
+        }
+      }
+      this.scanForRepos();
+      this.resetCurrentRepo();
+      this.setReposLoading(false);
+    },
+    resetCurrentRepo: function () {
+      if (
+        (
+          !this.currentRepo ||
+          !this.sortedRepoPaths.includes(this.currentRepo)
+        ) &&
+        this.sortedRepoPaths[0]
+      ) {
+        this.setCurrentRepo(this.sortedRepoPaths[0]);
+      }
     },
     removeRepoFromList: function (repoPath) {
       this.setReposLoading(true);
       this.setReposList(this.reposList.filter(function (repo) {
         return repo.filePath !== repoPath;
       }));
+      this.resetCurrentRepo();
       this.setReposLoading(false);
     },
     setReposFolder: function (repoPath) {
       this.reposFolder = repoPath || null;
     },
     scanForRepos: async function () {
-      if (!this.reposFolder) {
+      if (!this.reposFolder || this.scanForReposLoading) {
         return;
       }
-      this.potentialRepoFolders = [];
+
+      this.setScanForReposLoading(true);
       await fs.promises.readdir(this.reposFolder)
         .then((files) => {
           this.potentialRepoFolders = files
-            .toSorted((a, b) => {
-              return a.localeCompare(b, undefined, { sensitivity: 'base' });
-            })
+            .toSorted(helpers.lowerCaseSort)
             .filter((file) => {
               const filePath = path.join(this.reposFolder, file);
               const gitPath = path.join(filePath, '.git');
+              const alreadyAddedToSidebar = this.sortedRepoPaths.includes(filePath);
+
               return (
+                !alreadyAddedToSidebar &&
                 fs.lstatSync(filePath).isDirectory() &&
                 fs.existsSync(gitPath) &&
                 fs.lstatSync(gitPath).isDirectory()
               );
             })
             .map((folder) => {
+              const filePath = path.join(this.reposFolder, folder);
               return {
                 selected: false,
-                name: folder,
-                path: path.join(this.reposFolder, folder),
+                title: folder,
+                filePath,
                 lastCommit: null
               };
             }) || [];
@@ -124,7 +155,7 @@ export const reposStore = defineStore('repos', {
       for (let i = 0; i < this.potentialRepoFolders.length; i++) {
         const repo = this.potentialRepoFolders[i];
         try {
-          helpers.setCurrentWorkingDirectory(repo.path);
+          helpers.setCurrentWorkingDirectory(repo.filePath);
           const command = 'git log -1 --format=%ct';
           const stdout = execSync(command);
           const epoch = String(stdout || '').trim();
@@ -135,6 +166,7 @@ export const reposStore = defineStore('repos', {
           console.log({ error });
         }
       }
+      this.setScanForReposLoading(false);
     },
     // This could be improved in many ways
     guessReposFolder: function () {
@@ -192,11 +224,11 @@ export const reposStore = defineStore('repos', {
         ...scanFolder(home),
         ...scanFolder(desktop)
       ];
-      console.log({ potentialReposFolders });
       this.setReposFolder(potentialReposFolders[0]);
     },
     ...mapActions(appLoadingStore, [
-      'setReposLoading'
+      'setReposLoading',
+      'setScanForReposLoading'
     ]),
     ...mapActions(branchesStore, [
       'updateBranches',
@@ -215,21 +247,29 @@ export const reposStore = defineStore('repos', {
     ])
   },
   getters: {
+    ...mapState(appLoadingStore, [
+      'scanForReposLoading'
+    ]),
     ...mapState(gitRemotesStore, [
       'hasRemotes'
     ]),
     filteredReposList: function (state) {
-      const filter = state.repoFilter.toLowerCase();
+      const filter = diacriticLess(state.repoFilter).toLowerCase();
       return state.reposList
-        .toSorted(function (a, b) {
-          a = a.title.toLowerCase();
-          b = b.title.toLowerCase();
-          return (a > b) ? 1 : (a < b) ? -1 : 0;
-        })
-        .filter(function (repo) {
-          const title = repo.title.toLowerCase();
+        .filter((repo) => {
+          const title = diacriticLess(repo.title).toLowerCase();
           return title.includes(filter);
+        })
+        .toSorted((a, b) => {
+          return helpers.lowerCaseSort(a.title, b.title);
         });
+    },
+    sortedRepoPaths: function (state) {
+      return state.reposList
+        .map((repo) => {
+          return repo.filePath;
+        })
+        .toSorted(helpers.lowerCaseSort);
     }
   }
 });

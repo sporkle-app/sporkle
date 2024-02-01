@@ -60,14 +60,12 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       try {
         if (fs.existsSync(settingsFile)) {
           fs.unlinkSync(settingsFile);
-          // eslint-disable-next-line no-console
+          this.setReposList();
           console.log('Successfully deleted settings');
         } else {
-          // eslint-disable-next-line no-console
           console.log('Settings file did not exist');
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
         console.log('Error deleting settings file', error);
       }
     },
@@ -99,7 +97,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       }
     },
     saveSettings: _debounce(function () {
-      console.log(this.dataToSave);
+      console.log(JSON.parse(this.dataToSave));
       fs.writeFile(settingsFile, this.dataToSave, (error) => {
         if (error) {
           this.addErrorAlert('There was an error saving your settings.', error);

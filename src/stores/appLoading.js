@@ -9,15 +9,21 @@ const LOADING_TYPES = [
   'gitRemotes',
   'repos',
   'routing',
-  'settings'
+  'settings',
+  'scanForRepos',
+  'sidebar'
 ];
 const LOADING_STATES = {};
 const LOADING_ACTIONS = {};
 
 LOADING_TYPES.forEach((type) => {
+  // 'gitRemotes' => 'GitRemotes'
   let Type = _upperFirst(type);
+  // gitRepmotesLoading: false
   LOADING_STATES[type + 'Loading'] = false;
+  // setGitRemotesLoading = () => {}
   LOADING_ACTIONS['set' + Type + 'Loading'] = function (bool) {
+    // this.gitRemotesLoading = bool;
     this[type + 'Loading'] = bool;
   };
 });
