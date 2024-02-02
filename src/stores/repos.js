@@ -33,6 +33,7 @@ export const reposStore = defineStore('repos', {
     setCurrentRepo: async function (repoPath) {
       this.setReposLoading(true);
       if (this.currentRepo !== repoPath) {
+        // Clear out old file diffs when switching repos
         await this.setDiffs();
       }
       this.currentRepo = repoPath;
@@ -143,11 +144,11 @@ export const reposStore = defineStore('repos', {
                 fs.lstatSync(gitPath).isDirectory()
               );
             })
-            .map((folder) => {
-              const filePath = path.join(this.reposFolder, folder);
+            .map((folderName) => {
+              const filePath = path.join(this.reposFolder, folderName);
               return {
                 selected: false,
-                title: folder,
+                title: folderName,
                 filePath,
                 lastCommit: null
               };
