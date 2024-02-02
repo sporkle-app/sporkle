@@ -1,7 +1,7 @@
 :root {
   --sidebar-transition: 750ms;
 
-  --sans-serif: 'Work Sans', sans-serif;
+  --sans-serif: 'Work Sans', serif, sans-serif;
   --monospace: 'Red Hat Mono', monospace;
 
   --commit-log-width: 350px;
