@@ -19,11 +19,16 @@ const diacriticLess = window.require('diacriticless');
 export const reposStore = defineStore('repos', {
   state: function () {
     return {
-      reposList: [],
-      potentialRepoFolders: [],
-      repoFilter: '',
+      // The repos selected in the sidebar
       currentRepo: null,
-      reposFolder: null
+      // Repos displayed on the Bulk Add screen
+      potentialRepoFolders: [],
+      // Text to filter the sidebar by
+      repoFilter: '',
+      // The main folder where repos are store
+      reposFolder: null,
+      // The unfiltered list of all added repos
+      reposList: []
     };
   },
   actions: {
