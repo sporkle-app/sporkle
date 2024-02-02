@@ -21,9 +21,7 @@
       class="scan-for-repos-button"
       @click="$router.push({ name: 'scanForRepos' })"
     >
-      <BaseIcon
-        name="RiScanForRepos"
-      />
+      <BaseIcon name="RiScanForRepos" />
       Bulk Add Repositories
     </button>
 
