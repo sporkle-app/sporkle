@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Red Hat Mono';
+  src: url('red-hat-mono.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Red Hat Mono';
+  src: url('red-hat-mono-italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: italic;
+}
