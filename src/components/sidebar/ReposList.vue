@@ -1,16 +1,18 @@
 <template>
   <div class="repos-list">
-    <TransitionGroup name="list">
-      <div
-        v-for="(repo, repoIndex) in filteredReposList"
-        class="accordion-container"
-        :key="'repo' + (repo.filePath || repoIndex)"
-      >
-        <div class="accordion-inner">
-          <RepoListItem :repo="repo" />
-        </div>
-      </div>
-    </TransitionGroup>
+    <RepoListItem
+      v-for="(repo, repoIndex) in filteredReposList"
+      :repo="repo"
+      :key="'repo' + (repo.filePath || repoIndex)"
+    />
+    <div
+      v-if="!reposList.length && $route.name !== 'scanForRepos'"
+      class="empty-state"
+    >
+      <RouterLink :to="{ name: 'scanForRepos' }">
+        Click to add repositories
+      </RouterLink>
+    </div>
   </div>
 </template>
 
@@ -28,7 +30,8 @@ export default {
   },
   computed: {
     ...mapState(reposStore, [
-      'filteredReposList'
+      'filteredReposList',
+      'reposList'
     ])
   }
 };
@@ -39,23 +42,10 @@ export default {
   height: 100%;
   overflow: auto;
 }
-.accordion-container {
-  display: grid;
-  grid-template-rows: 1fr;
-}
-.accordion-inner {
-  grid-row: 1 / span 2;
-  overflow: hidden;
-}
-
-.list-enter-active,
-.list-leave-active {
-  grid-template-rows: 1fr;
-  transition: 1200ms ease all;
-}
-
-.list-enter-from,
-.list-leave-to {
-  grid-template-rows: 0fr;
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 </style>
