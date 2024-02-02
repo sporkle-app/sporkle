@@ -1,12 +1,16 @@
 <template>
   <div class="view-wrapper">
-    <CloseView />
+    <CloseView v-if="reposList.length" />
     <h2>{{ title }}</h2>
     <slot></slot>
   </div>
 </template>
 
 <script>
+import { mapState } from 'pinia';
+
+import { reposStore } from '@/stores/repos.js';
+
 import CloseView from '@/components/CloseView.vue';
 
 export default {
@@ -19,6 +23,11 @@ export default {
       type: String,
       required: true
     }
+  },
+  computed: {
+    ...mapState(reposStore, [
+      'reposList'
+    ])
   }
 };
 </script>

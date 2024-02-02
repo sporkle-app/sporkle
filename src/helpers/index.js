@@ -2,6 +2,10 @@ const fs = window.require('fs');
 const path = window.require('path');
 
 const helpers = {
+  // sort array of strings ignoring case
+  lowerCaseSort: function (a, b) {
+    return a.localeCompare(b, undefined, { sensitivity: 'base' });
+  },
   /**
    * Creates a unique ID based on time stamp and Math.random.
    *

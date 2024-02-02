@@ -11,6 +11,11 @@ const path = window.require('path');
 const settingsFile = path.join(window.nw.App.dataPath, 'settings.json');
 
 export const saveLoadDataStore = defineStore('saveLoadData', {
+  state: function () {
+    return {
+      initialLoadComplete: false
+    };
+  },
   actions: {
     ...mapActions(alertsStore, [
       'addErrorAlert'
@@ -19,8 +24,10 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setSettingsLoading'
     ]),
     ...mapActions(reposStore, [
+      'guessReposFolder',
       'setCurrentRepo',
-      'setReposList'
+      'setReposList',
+      'setReposFolder'
     ]),
     ...mapActions(themeStore, [
       'setAccentHue',
@@ -32,7 +39,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       'setThemeInverted',
       'setZoomPercent'
     ]),
-    applySettings: function (settings) {
+    applySettings: async function (settings) {
       settings = settings || {};
       this.setAccentHue(settings.accentHue);
       this.setAccentLightness(settings.accentLightness);
@@ -43,52 +50,61 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
       this.setReposList(settings.reposList);
       this.setThemeHue(settings.themeHue);
       this.setThemeInverted(settings.themeInverted);
-      this.setSettingsLoading(false);
       this.setZoomPercent(settings.zoomPercent);
+
+      this.setSettingsLoading(false);
+
+      if (settings.reposFolder) {
+        await this.setReposFolder(settings.reposFolder);
+      } else {
+        await this.guessReposFolder();
+        await this.saveSettings();
+      }
+      this.initialLoadComplete = true;
     },
     deleteSettings: function () {
       try {
         if (fs.existsSync(settingsFile)) {
           fs.unlinkSync(settingsFile);
-          // eslint-disable-next-line no-console
-          console.log('Successfully deleted settings');
+          this.setReposList();
+          console.info('Successfully deleted settings');
         } else {
-          // eslint-disable-next-line no-console
-          console.log('Settings file did not exist');
+          console.info('Settings file did not exist');
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log('Error deleting settings file', error);
+        console.info('Error deleting settings file', error);
       }
     },
-    loadSettings: function () {
+    loadSettings: async function () {
       this.setSettingsLoading(true);
 
       let settings = {};
 
       if (fs.existsSync(settingsFile)) {
-        fs.readFile(settingsFile, (err, data) => {
-          if (err) {
-            this.addErrorAlert('Unable to load settings.', err);
-          }
-
-          if (data) {
-            try {
-              settings = JSON.parse(data);
-            } catch (error) {
-              this.addErrorAlert('Error attempting to load settings.', error);
+        return fs.promises.readFile(settingsFile)
+          .then(async (data) => {
+            if (data) {
+              try {
+                settings = JSON.parse(data);
+              } catch (error) {
+                this.addErrorAlert('Error attempting to load settings.', error);
+              }
             }
-          }
 
-          this.applySettings(settings);
-        });
+            await this.applySettings(settings);
+          })
+          .catch((error) => {
+            if (error) {
+              this.addErrorAlert('Unable to load settings.', error);
+            }
+          });
       } else {
-        this.applySettings(settings);
+        await this.applySettings(settings);
       }
     },
     saveSettings: _debounce(function () {
-      console.log(this.dataToSave);
-      fs.writeFile(settingsFile, this.dataToSave, function (error) {
+      console.info(JSON.parse(this.dataToSave));
+      fs.writeFile(settingsFile, this.dataToSave, (error) => {
         if (error) {
           this.addErrorAlert('There was an error saving your settings.', error);
         }
@@ -98,6 +114,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
   getters: {
     ...mapState(reposStore, [
       'currentRepo',
+      'reposFolder',
       'reposList'
     ]),
     ...mapState(themeStore, [
@@ -118,6 +135,7 @@ export const saveLoadDataStore = defineStore('saveLoadData', {
         customScrollbars: this.customScrollbars,
         minusHue: this.minusHue,
         plusHue: this.plusHue,
+        reposFolder: this.reposFolder,
         reposList: this.reposList,
         themeHue: this.themeHue,
         themeInverted: this.themeInverted,
