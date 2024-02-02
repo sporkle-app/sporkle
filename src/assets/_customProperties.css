@@ -42,4 +42,7 @@
   --inverse-text: #223;
   --link: var(--accent);
   --popout: var(--muted-accent);
+
+  --unfocus-ring: 1px solid transparent;
+  --focus-ring: 1px solid var(--white40);
 }

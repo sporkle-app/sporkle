@@ -28,7 +28,7 @@ body {
 
 button {
   background-color: var(--button);
-  border: 0px;
+  border: var(--unfocus-ring);
   padding: 10px;
   color: var(--text);
   font-family: var(--sans-serif);
@@ -41,6 +41,11 @@ button:focus {
 button[disabled] {
   opacity: 0.5;
 }
+button:focus {
+  border: var(--focus-ring);
+  outline: none;
+}
+
 
 input,
 select,

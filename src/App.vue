@@ -34,6 +34,7 @@
 import { mapActions, mapState } from 'pinia';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { reposStore } from '@/stores/repos.js';
 import { saveLoadDataStore } from '@/stores/saveLoadData.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 import { themeStore } from '@/stores/theme.js';
@@ -58,7 +59,14 @@ export default {
   },
   computed: {
     appWideCustomProperties: function () {
-      const customProperties = [];
+      const aliases = [
+        '--bg: var(--primary)',
+        '--link: var(--accent)',
+        '--popout: var(--muted-accent)'
+      ];
+      const customProperties = [
+        ...aliases
+      ];
       const accentHue = this.accentHue;
       const plusHue = this.plusHue;
       const minusHue = this.minusHue;
@@ -80,6 +88,15 @@ export default {
       }
       return filters.join(' ');
     },
+    ...mapState(appLoadingStore, [
+      'appLoading'
+    ]),
+    ...mapState(reposStore, [
+      'reposList'
+    ]),
+    ...mapState(sidebarStore, [
+      'sidebarCollapsed'
+    ]),
     ...mapState(themeStore, [
       'accentHue',
       'accentLightness',
@@ -88,16 +105,13 @@ export default {
       'plusHue',
       'themeHue',
       'themeInverted'
-    ]),
-    ...mapState(appLoadingStore, [
-      'appLoading'
-    ]),
-    ...mapState(sidebarStore, [
-      'sidebarCollapsed'
     ])
   },
-  created: function () {
-    this.loadSettings();
+  created: async function () {
+    await this.loadSettings();
+    if (!this.reposList.length) {
+      this.$router.push({ name: 'scanForRepos' });
+    }
   }
 };
 </script>

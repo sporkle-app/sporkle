@@ -116,14 +116,14 @@ export default {
 .toggle-branch-button {
   height: var(--top-button-height);
   margin-right: 5px;
-  transition: var(--sidebar-transition) ease all;
+  transition: var(--sidebar-transition) ease all, 0s ease border;
 }
 .active {
   background: var(--popout);
 }
 .create-branch-popout {
   position: absolute;
-  top: 27px;
+  top: 26px;
   left: -108px;
   width: 260px;
   background: var(--popout);

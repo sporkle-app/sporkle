@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { reposStore } from '@/stores/repos.js';
 
 import AboutApp from '@/views/AboutApp.vue';
 import AppSettings from '@/views/AppSettings.vue';
@@ -8,6 +9,7 @@ import CloneRepo from '@/views/CloneRepo.vue';
 import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
 import CreateNewRepo from '@/views/CreateNewRepo.vue';
 import DevTestingPage from '@/views/DevTestingPage.vue';
+import ScanForRepos from '@/views/ScanForRepos.vue';
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -43,6 +45,13 @@ export const router = createRouter({
       component: DevTestingPage
     },
     {
+      path: '/scan-for-repos',
+      name: 'scanForRepos',
+      component: ScanForRepos
+    },
+
+    // Redirects
+    {
       path: '/',
       name: 'home',
       redirect: '/commits'
@@ -53,6 +62,39 @@ export const router = createRouter({
       redirect: '/'
     }
   ]
+});
+
+router.beforeEach(async (to) => {
+  const {
+    initialLoadComplete
+  } = appLoadingStore();
+  const {
+    currentRepo,
+    setCurrentRepo,
+    sortedRepoPaths
+  } = reposStore();
+  const currentRepoIsInSidebar = sortedRepoPaths.includes(currentRepo);
+
+  if (
+    (
+      !currentRepo ||
+      !currentRepoIsInSidebar
+    ) &&
+    sortedRepoPaths[0]
+  ) {
+    setCurrentRepo(sortedRepoPaths[0]);
+  }
+  if (
+    initialLoadComplete &&
+    to.name === 'commits' &&
+    (
+      !currentRepo ||
+      !sortedRepoPaths.length ||
+      !currentRepoIsInSidebar
+    )
+  ) {
+    return { name: 'scanForRepos' };
+  }
 });
 
 router.afterEach(() => {

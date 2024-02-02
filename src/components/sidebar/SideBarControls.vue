@@ -64,8 +64,11 @@ export default {
   },
   methods: {
     addRepo: function () {
-      const title = 'Select your repo folder';
-      openFolderExplorer(window, { title }, async (repoPath) => {
+      const options = {
+        title: 'Select your repo folder',
+        directory: (this.reposFolder || undefined)
+      };
+      openFolderExplorer(window, options, async (repoPath) => {
         if (repoPath) {
           await this.addRepoToListAndSave(repoPath);
           this.$router.push({ name: 'commits' });
@@ -95,7 +98,8 @@ export default {
       }
     },
     ...mapState(reposStore, [
-      'repoFilter'
+      'repoFilter',
+      'reposFolder'
     ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
@@ -108,6 +112,7 @@ export default {
 .button-group {
   display: flex;
 }
+
 .button-group button {
   display: flex;
   align-items: center;
@@ -132,11 +137,18 @@ export default {
   min-width: 0px;
 }
 .repo-filter {
-  position: relative;
   width: 100%;
   background: var(--white13);
+  border: 1px solid transparent;
   border-radius: 0px;
   margin: 0px;
-  z-index: 1;
+}
+
+.repo-filter {
+  border: var(--unfocus-ring);
+}
+.repo-filter:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 </style>

@@ -49,7 +49,7 @@ These features are the core value that this project offers and is what is mostly
 
 ## Features in Priority order
 
-* [x] Be able to add a local repo to the sidebar
+* [x] Be able to add/remove a local repo to the sidebar
 * [x] Switch between repos
 * [x] Store settings locally in a JSON file
 * [x] Filter Sidebar
@@ -57,10 +57,13 @@ These features are the core value that this project offers and is what is mostly
 * [x] See a history of all commits on the current branch listed in the middle pane
 * [ ] Switch branches
 * [ ] Visually compare against 1 other branch
-* [ ] Pull and push commits
-* [ ] Create commits
 * [ ] See a diff of files (inlcuding per-char diffs)
-* [ ] Discard changes that have not been commited yet (`git checkout HEAD -- path/to/file.js` - resets file to last commit)
+* [ ] Pull and push commits
+* [ ] Select files for commits
+* [ ] Create commits
+* [ ] Select lines for commits
+* [ ] Discard all changes that have not been commited yet (`git checkout HEAD -- path/to/file.js` - resets file to last commit)
+* [ ] Discard all changes in one just one file
 * [ ] Clone a remote repo to a local destination
 * [ ] Create repos in the app
 * [ ] Merge in latest from other branch

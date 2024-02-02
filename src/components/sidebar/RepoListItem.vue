@@ -14,6 +14,7 @@
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
 
 export default {
@@ -30,11 +31,14 @@ export default {
     }
   },
   methods: {
-    loadRepo: function () {
-      this.setCurrentRepoAndSave(this.repo.filePath);
-      this.$router.push({
-        name: 'commits'
-      });
+    loadRepo: async function () {
+      this.setSidebarLoading(true);
+      // show spinner before navigating
+      this.$forceUpdate();
+
+      await this.setCurrentRepoAndSave(this.repo.filePath);
+      await this.$router.push({ name: 'commits' });
+      this.setSidebarLoading(false);
     },
     showContextMenu: function ($event) {
       let menu = new window.nw.Menu();
@@ -42,8 +46,11 @@ export default {
       const items = [
         {
           label: 'Remove repo from list',
-          click: () => {
-            this.removeRepoFromListAndSave(this.repo.filePath);
+          click: async () => {
+            await this.removeRepoFromListAndSave(this.repo.filePath);
+            if (!this.reposList.length) {
+              this.$router.push({ name: 'scanForRepos' });
+            }
           }
         }
       ];
@@ -57,6 +64,9 @@ export default {
     ...mapActions(andSaveStore, [
       'removeRepoFromListAndSave',
       'setCurrentRepoAndSave'
+    ]),
+    ...mapActions(appLoadingStore, [
+      'setSidebarLoading'
     ])
   },
   computed: {
@@ -64,7 +74,8 @@ export default {
       return this.repo.filePath === this.currentRepo;
     },
     ...mapState(reposStore, [
-      'currentRepo'
+      'currentRepo',
+      'reposList'
     ])
   }
 };
@@ -73,12 +84,14 @@ export default {
 <style>
 .repo-list-item {
   width: 100%;
+  border: var(--unfocus-ring);
   border-radius: 0px;
   margin: 0px;
   text-align: left;
 }
 .repo-list-item:focus-visible {
   background: var(--button-hover);
+  border: var(--focus-ring);
   outline: none;
 }
 .is-current-repo,
