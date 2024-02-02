@@ -92,7 +92,7 @@ export default {
   width: var(--top-button-height);
   height: var(--top-button-height);
   margin: 0px;
-  transition: var(--sidebar-transition) ease all;
+  transition: var(--sidebar-transition) ease all, 0s ease border;
   z-index: 9;
 }
 .sidebar-toggle-placeholder {

@@ -91,7 +91,7 @@ export const branchesStore = defineStore('branches', {
             this.setDefaultBranch();
           } else {
             // Not worth showing a UI alert to users for this
-            console.log('Error checking default Git branch.');
+            console.info('Error checking default Git branch.');
             console.warn(error);
           }
         });

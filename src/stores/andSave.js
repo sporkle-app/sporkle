@@ -72,8 +72,10 @@ export const andSaveStore = defineStore('andSave', {
     // Repo
     ...mapActions(reposStore, [
       'addRepoToList',
+      'bulkAddRepos',
       'removeRepoFromList',
-      'setCurrentRepo'
+      'setCurrentRepo',
+      'setReposFolder'
     ]),
     addRepoToListAndSave: function (repoPath) {
       if (helpers.validateRepoPath(repoPath)) {
@@ -83,12 +85,20 @@ export const andSaveStore = defineStore('andSave', {
         this.addErrorAlert('Path is not a valid Git repository.', repoPath);
       }
     },
+    bulkAddReposAndSave: function (repos) {
+      this.bulkAddRepos(repos);
+      this.saveSettings();
+    },
     removeRepoFromListAndSave: function (repoPath) {
       this.removeRepoFromList(repoPath);
       this.saveSettings();
     },
     setCurrentRepoAndSave: function (repoPath) {
       this.setCurrentRepo(repoPath);
+      this.saveSettings();
+    },
+    setReposFolderAndSave: function (repoPath) {
+      this.setReposFolder(repoPath);
       this.saveSettings();
     }
   }

@@ -27,7 +27,7 @@ export const alertsStore = defineStore('alerts', {
       const error = payload.error;
       let delay = payload.delay || 15000;
 
-      if (error) {
+      if (error || status === 'error') {
         delay = undefined;
         status = 'error';
       }
