@@ -1,5 +1,5 @@
 <template>
-  <ViewWrapper title="Clone down a repo">
+  <ViewWrapper title="Clone down a repository">
     <div>
     </div>
   </ViewWrapper>

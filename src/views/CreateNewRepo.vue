@@ -1,5 +1,5 @@
 <template>
-  <ViewWrapper title="Create a new repo">
+  <ViewWrapper title="Create a new repository">
     <div>
     </div>
   </ViewWrapper>
