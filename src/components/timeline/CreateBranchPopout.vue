@@ -38,6 +38,15 @@
           class="new-branch-name-input"
           placeholder="New branch name"
         />
+        <p v-if="safeName && (safeName !== newBranchName)">
+          <strong>Will use this branch name:</strong><br />
+          <code>{{ safeName }}</code>
+        </p>
+        <p v-if="branchNames.includes(safeName)">
+          <strong><em>
+            That branch name already exists.
+          </em></strong>
+        </p>
 
         <BaseSelect
           v-model="baseBranchForCreation"
@@ -47,7 +56,7 @@
 
         <button
           class="create-branch-button"
-          :disabled="!newBranchName || !baseBranchForCreation"
+          :disabled="createBranchButtonDisabled"
           @focusin="hoverCreate = true"
           @focusout="hoverCreate = false"
           @mouseover="hoverCreate = true"
@@ -76,6 +85,8 @@ import { sidebarStore } from '@/stores/sidebar.js';
 import BaseIcon from '@/components/BaseIcon.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
 
+const diacriticLess = window.require('diacriticless');
+
 export default {
   name: 'CreateBranchPopout',
   components: {
@@ -92,7 +103,7 @@ export default {
   },
   methods: {
     createBranch: function () {
-      console.log('git checkout -b ' + this.newBranchName + ' ' + this.baseBranchForCreation);
+      console.log('git checkout -b ' + this.safeName + ' ' + this.baseBranchForCreation);
     }
   },
   computed: {
@@ -102,7 +113,43 @@ export default {
     ]),
     ...mapState(sidebarStore, [
       'sidebarCollapsed'
-    ])
+    ]),
+    safeName: function () {
+      let branchName = this.newBranchName || '';
+      // 'Pokémon' => 'Pokemon'
+      branchName = diacriticLess(branchName);
+      // convert all non-alphanumeric to hyphens
+      branchName = branchName.replace(/[^a-zA-Z0-9]+/g, '-');
+      // remove consecutive hyphens
+      branchName = branchName.replace(/-+/g, '-');
+      if (branchName.endsWith('-')) {
+        // '-abc-' => '-abc'
+        branchName = branchName.slice(0, -1);
+      }
+      if (branchName.startsWith('-')) {
+        // '-abc' => 'abc'
+        branchName = branchName.slice(1, branchName.length);
+      }
+      if (!branchName) {
+        return '';
+      }
+      // 'My-CoolBranch' => 'my-coolBranch'
+      branchName = branchName
+        .split('-')
+        .map((str) => {
+          return str[0].toLowerCase() + str.slice(1, branchName.length);
+        })
+        .join('-');
+
+      return branchName;
+    },
+    createBranchButtonDisabled: function () {
+      return (
+        !this.safeName ||
+        !this.baseBranchForCreation ||
+        this.branchNames.includes(this.safeName)
+      );
+    }
   },
   watch: {
     defaultBranch: function (newValue) {
