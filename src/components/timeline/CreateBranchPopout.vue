@@ -82,10 +82,10 @@ import { mapState } from 'pinia';
 import { branchesStore } from '@/stores/branches.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
+import helpers from '@/helpers/index.js';
+
 import BaseIcon from '@/components/BaseIcon.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
-
-const diacriticLess = window.require('diacriticless');
 
 export default {
   name: 'CreateBranchPopout',
@@ -115,33 +115,7 @@ export default {
       'sidebarCollapsed'
     ]),
     safeName: function () {
-      let branchName = this.newBranchName || '';
-      // 'Pokémon' => 'Pokemon'
-      branchName = diacriticLess(branchName);
-      // convert all non-alphanumeric to hyphens
-      branchName = branchName.replace(/[^a-zA-Z0-9]+/g, '-');
-      // remove consecutive hyphens
-      branchName = branchName.replace(/-+/g, '-');
-      if (branchName.endsWith('-')) {
-        // '-abc-' => '-abc'
-        branchName = branchName.slice(0, -1);
-      }
-      if (branchName.startsWith('-')) {
-        // '-abc' => 'abc'
-        branchName = branchName.slice(1, branchName.length);
-      }
-      if (!branchName) {
-        return '';
-      }
-      // 'My-CoolBranch' => 'my-coolBranch'
-      branchName = branchName
-        .split('-')
-        .map((str) => {
-          return str[0].toLowerCase() + str.slice(1, branchName.length);
-        })
-        .join('-');
-
-      return branchName;
+      return helpers.fileSystemSafeString(this.newBranchName);
     },
     createBranchButtonDisabled: function () {
       return (
