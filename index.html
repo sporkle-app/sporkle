@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/icon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sporkle!</title>
     <script>require('nw-dev-keybindings')(window);</script>
@@ -24,23 +24,39 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        flex-direction: column;
         width: 100%;
         height: 100%;
       }
+      .logo {
+        max-width: 150px;
+        filter: invert(1);
+      }
+      .preload-webfonts { font-size: 0px; }
+      .work-sans { font-family: 'Work Sans'; }
+      .red-hat-mono { font-family: 'Red Hat Mono'; }
+      .bold { font-weight: bold; }
+      .italic { font-style: italic; }
     </style>
   </head>
   <body>
     <div id="app" class="pre-app-load">
+      <img
+        alt="Sporkle! Logo"
+        class="logo"
+        src="icon.png"
+      />
       <h2>Loading...</h2>
-      <!-- preload webfonts -->
-      <span style="font-size: 0px; font-family: 'Work Sans';                                          ">.</span>
-      <span style="font-size: 0px; font-family: 'Work Sans';                       font-style: italic;">.</span>
-      <span style="font-size: 0px; font-family: 'Work Sans';    font-weight: bold; font-style: italic;">.</span>
-      <span style="font-size: 0px; font-family: 'Work Sans';    font-weight: bold;                    ">.</span>
-      <span style="font-size: 0px; font-family: 'Red Hat Mono';                                       ">.</span>
-      <span style="font-size: 0px; font-family: 'Red Hat Mono';                    font-style: italic;">.</span>
-      <span style="font-size: 0px; font-family: 'Red Hat Mono'; font-weight: bold; font-style: italic;">.</span>
-      <span style="font-size: 0px; font-family: 'Red Hat Mono'; font-weight: bold;                    ">.</span>
+      <span class="preload-webfonts">
+        <span class="work-sans">.</span>
+        <span class="work-sans bold">.</span>
+        <span class="work-sans italic">.</span>
+        <span class="work-sans bold italic">.</span>
+        <span class="red-hat-mono">.</span>
+        <span class="red-hat-mono bold">.</span>
+        <span class="red-hat-mono italic">.</span>
+        <span class="red-hat-mono bold italic">.</span>
+      </span>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
