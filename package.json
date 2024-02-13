@@ -3,7 +3,7 @@
     "Only add dependencies that you want shipped to the end user, for everything else, use devDependencies, including things that will be bundled by Vite.",
     "The build section is used by nwjs-builder-phoenix, see its documentation for more info"
   ],
-  "name": "karngdarbo",
+  "name": "sporkle",
   "version": "0.1.0",
   "main": "http://localhost:4175",
   "node-remote": "http://localhost:4175",
@@ -27,14 +27,14 @@
     "build:nw": "build --concurrent --tasks win-x86,linux-x86,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ .",
     "build:win": "npm run build:win:clean && npm run build:vue && build --tasks win-x86 --mirror https://dl.nwjs.io/ .",
     "build:lin": "npm run build:lin:clean && npm run build:vue && build --tasks linux-x64 --mirror https://dl.nwjs.io/ .",
-    "build:win:clean": "rimraf ./dist-vue ./dist/karngdarbo-1.0.4-win-x86 ./dist/karngdarbo-1.0.4-win-x86.zip ./dist/karngdarbo-1.0.4-win-x86.7z ./dist/karngdarbo-1.0.4-win-x86-Setup.exe",
-    "build:lin:clean": "rimraf ./dist-vue ./dist/karngdarbo-1.0.4-linux-x64 ./dist/karngdarbo-1.0.4-linux-x64.zip",
-    "run:win": "dist\\karngdarbo-1.0.4-win-x86\\karngdarbo.exe",
-    "run:lin": "./dist/karngdarbo-1.0.4-linux-x64/karngdarbo",
+    "build:win:clean": "rimraf ./dist-vue ./dist/sporkle-1.0.4-win-x86 ./dist/sporkle-1.0.4-win-x86.zip ./dist/sporkle-1.0.4-win-x86.7z ./dist/sporkle-1.0.4-win-x86-Setup.exe",
+    "build:lin:clean": "rimraf ./dist-vue ./dist/sporkle-1.0.4-linux-x64 ./dist/sporkle-1.0.4-linux-x64.zip",
+    "run:win": "dist\\sporkle-1.0.4-win-x86\\sporkle.exe",
+    "run:lin": "./dist/sporkle-1.0.4-linux-x64/sporkle",
     "regression": "rd /s /q node_modules & rd /s /q node_modules & rd /s /q node_modules & npm install && npm run lint && npm run build:win && npm run run:win",
     "lint": "eslint --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
     "fix": "eslint --fix --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
-    "update:vue-devtools": "rimraf ./node_modules/karngdarbo-devtools-prebuilt && npm install"
+    "update:vue-devtools": "rimraf ./node_modules/sporkle-devtools-prebuilt && npm install"
   },
   "dependencies": {
     "@fabien0102/git2json": "^1.4.0",
@@ -46,8 +46,8 @@
     "simple-git": "^3.22.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.9",
-    "@vitejs/plugin-vue": "^5.0.3",
+    "@babel/eslint-parser": "^7.23.10",
+    "@vitejs/plugin-vue": "^5.0.4",
     "concurrently": "^8.2.2",
     "eslint": "^8.56.0",
     "eslint-config-tjw-base": "^2.0.0",
@@ -57,7 +57,7 @@
     "eslint-import-resolver-webpack": "^0.13.8",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jest": "^27.6.3",
-    "eslint-plugin-vue": "^9.20.1",
+    "eslint-plugin-vue": "^9.21.1",
     "eslint-plugin-vuejs-accessibility": "^2.2.1",
     "lodash-es": "^4.17.21",
     "nw": "0.83.0-sdk",
@@ -67,8 +67,8 @@
     "pinia": "^2.1.7",
     "rimraf": "^5.0.5",
     "timesago": "^1.0.1",
-    "vite": "^5.0.12",
-    "vue": "3.4.15",
+    "vite": "^5.1.1",
+    "vue": "^3.4.18",
     "vue-options-api-constants-plugin": "^1.0.1",
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
