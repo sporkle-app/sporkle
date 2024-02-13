@@ -1,4 +1,4 @@
-# Karng Darbo
+# Sporkle!
 
 
 ## A cross-platform git GUI for Windows, Linux, and OSX.
@@ -6,16 +6,9 @@
 
 ### Made with [NW.js](https://nwjs.io) and [Vue.js](https://vuejs.org)
 
-[![Build Status](https://travis-ci.org/TheJaredWilcurt/karngdarbo.svg?branch=master)](https://travis-ci.org/TheJaredWilcurt/karngdarbo)
-
 This is the first pass at a lo-fi mockup for the design of the app.
 
-![Karng Darbo mockup](assets/karng-darbo.png)
-
-Karng Darbo will always be:
-
-* Open Source
-* Cross-Platform
+![Sporkle! mockup](assets/sporkle.png)
 
 
 * * *

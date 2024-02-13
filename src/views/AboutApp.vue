@@ -3,7 +3,18 @@
     <div class="about-app">
       <p><em>{{ APP_NAME }}</em> (<strong>v{{ versions.app }}</strong>) is a Cross-Platform Git client.</p>
 
-      <h3>Authors:</h3>
+      <h3>Created by:</h3>
+
+      <p>
+        <a
+          v-text="'The Jared Wilcurt'"
+          href="#"
+          title="https://TheJaredWilcurt.com"
+          @click.prevent="openExternal"
+        ></a>
+      </p>
+
+      <h3>With help from:</h3>
       <ul>
         <li>
           <a
@@ -59,8 +70,8 @@ export default {
     return {
       authors: [
         {
-          name: 'The Jared Wilcurt',
-          url: 'https://TheJaredWilcurt.com'
+          name: 'J. Lewis',
+          url: 'https://github.com/lewxdev'
         }
       ],
       versions: {
