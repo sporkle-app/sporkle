@@ -1,8 +1,11 @@
 <template>
   <div>
     <label for="repos-folder-input">
-      <strong>
-        {{ labelText }}
+      <strong v-if="!reposFolder">
+        Where do you store your repositories?
+      </strong>
+      <strong v-else>
+        Where to store/find repositories:
       </strong>
     </label>
     <div class="repos-folder-select">
@@ -44,12 +47,6 @@ export default {
   components: {
     BaseIcon
   },
-  props: {
-    label: {
-      type: String,
-      default: ''
-    }
-  },
   methods: {
     ...mapActions(andSaveStore, [
       'setReposFolderAndSave'
@@ -64,13 +61,6 @@ export default {
     }
   },
   computed: {
-    labelText: function () {
-      if (this.label) {
-        return this.label;
-      } else {
-        return !this.reposFolder ? 'Where do you store your repositories' : 'Where to store/find repositories:';
-      }
-    },
     ...mapState(reposStore, [
       'reposFolder'
     ])

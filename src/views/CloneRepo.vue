@@ -6,16 +6,22 @@
       </strong>
     </label>
     <div class="repo-url-select">
-      <input v-model="url" class="repo-url-input" placeholder="Enter url" />
+      <input
+        v-model="url"
+        id="repo-url-input"
+        class="repo-url-input"
+        placeholder="Enter url"
+      />
       <button @click="clone">Clone</button>
     </div>
-    <ReposFolderPicker label="Enter location:" />
+    <ReposFolderPicker />
   </ViewWrapper>
 </template>
 
 <script>
 import { mapActions, mapState } from 'pinia';
 
+import { alertsStore } from '@/stores/alerts.js';
 import { gitCloneStore } from '@/stores/gitClone.js';
 import { reposStore } from '@/stores/repos.js';
 
@@ -45,9 +51,24 @@ export default {
 
       const repoName = this.url.split('/').pop().replace('.git', '');
       const repoPath = this.reposFolder + '/' + repoName;
-      await this.cloneRepo(this.url, repoPath);
+
+      try {
+        await this.cloneRepo(this.url, repoPath);
+        this.addRepoToList(repoPath);
+        this.$router.push({ name: 'commits' });
+      } catch (error) {
+        this.addErrorAlert('Error cloning repository.', error);
+      }
     },
-    ...mapActions(gitCloneStore, ['cloneRepo'])
+    ...mapActions(alertsStore, [
+      'addErrorAlert'
+    ]),
+    ...mapActions(reposStore, [
+      'addRepoToList'
+    ]),
+    ...mapActions(gitCloneStore, [
+      'cloneRepo'
+    ])
   },
   computed: {
     ...mapState(reposStore, ['reposFolder'])
