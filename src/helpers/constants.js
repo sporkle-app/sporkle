@@ -1,1 +1,1 @@
-export const APP_NAME = 'Karng Darbo';
+export const APP_NAME = 'Sporkle!';
