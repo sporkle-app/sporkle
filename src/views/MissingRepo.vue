@@ -35,6 +35,8 @@ import { APP_NAME } from '@/helpers/constants.js';
 import { andSaveStore } from '@/stores/andSave.js';
 import { reposStore } from '@/stores/repos.js';
 
+const fs = window.require('fs');
+
 export default {
   name: 'MissingRepo',
   components: {
@@ -45,6 +47,11 @@ export default {
     APP_NAME
   },
   methods: {
+    navigateIfNotMissing: function () {
+      if (fs.existsSync(this.currentRepo)) {
+        this.$router.push({ name: 'commits' });
+      }
+    },
     replaceRepo: async function () {
       const repoPath = await helpers.openFileExplorerToSelectRepo(this.reposFolder);
       if (repoPath) {
@@ -79,6 +86,14 @@ export default {
       'reposFolder',
       'sortedRepoPaths'
     ])
+  },
+  watch: {
+    currentRepo: function () {
+      this.navigateIfNotMissing();
+    }
+  },
+  created: function () {
+    this.navigateIfNotMissing();
   }
 };
 </script>
