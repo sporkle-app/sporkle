@@ -34,6 +34,10 @@ import ReposFolderPicker from '@/components/appsettings/ReposFolderPicker.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 import { reposStore } from '@/stores/repos.js';
 
+import helpers from '@/helpers/index.js';
+
+const path = window.require('path');
+
 export default {
   name: 'CreateNewRepo',
   components: {
@@ -47,9 +51,9 @@ export default {
   },
   computed: {
     repoPath: function () {
-      const fileName = this.fileName.trim().toLowerCase().replace(/\s+/g, '-');
-
-      return `${ this.reposFolder }/${ fileName }`;
+      const fileName = helpers.fileSystemSafeString(this.fileName);
+      if 
+      return path.join( this.reposFolder, fileName );
     },
     ...mapState(reposStore, [
       'reposFolder'
