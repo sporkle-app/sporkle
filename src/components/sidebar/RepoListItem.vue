@@ -17,6 +17,8 @@ import { andSaveStore } from '@/stores/andSave.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
 
+const fs = window.require('fs');
+
 export default {
   name: 'RepoListItem',
   props: {
@@ -36,8 +38,14 @@ export default {
       // show spinner before navigating
       this.$forceUpdate();
 
-      await this.setCurrentRepoAndSave(this.repo.filePath);
-      await this.$router.push({ name: 'commits' });
+      const repoPath = this.repo.filePath;
+
+      await this.setCurrentRepoAndSave(repoPath);
+      if (repoPath && !fs.existsSync(repoPath)) {
+        await this.$router.push({ name: 'missingRepo' });
+      } else {
+        await this.$router.push({ name: 'commits' });
+      }
       this.setSidebarLoading(false);
     },
     showContextMenu: function ($event) {

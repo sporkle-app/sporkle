@@ -42,6 +42,10 @@ export const reposStore = defineStore('repos', {
         await this.setDiffs();
       }
       this.currentRepo = repoPath;
+      if (!window.require('fs').existsSync(repoPath)) {
+        this.setReposLoading(false);
+        return;
+      }
       helpers.setCurrentWorkingDirectory(repoPath);
 
       const parallelPromises = [
