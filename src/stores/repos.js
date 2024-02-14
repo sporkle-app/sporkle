@@ -110,15 +110,20 @@ export const reposStore = defineStore('repos', {
       this.setReposLoading(false);
     },
     resetCurrentRepo: function () {
+      // Load the first repo in the list that exists
       if (
-        (
-          !this.currentRepo ||
-          !this.sortedRepoPaths.includes(this.currentRepo)
-        ) &&
-        this.sortedRepoPaths[0]
+        !this.currentRepo ||
+        !this.sortedRepoPaths.includes(this.currentRepo)
       ) {
-        this.setCurrentRepo(this.sortedRepoPaths[0]);
+        for (let sortedRepoPath of this.sortedRepoPaths) {
+          if (fs.existsSync(sortedRepoPath)) {
+            this.setCurrentRepo(sortedRepoPath);
+            return;
+          }
+        }
       }
+      // unset the current repo if none exist
+      this.setCurrentRepo(null);
     },
     removeRepoFromList: function (repoPath) {
       this.setReposLoading(true);

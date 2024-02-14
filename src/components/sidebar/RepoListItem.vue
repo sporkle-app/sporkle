@@ -13,6 +13,8 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
+import helpers from '@/helpers/index.js';
+
 import { andSaveStore } from '@/stores/andSave.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
@@ -53,18 +55,20 @@ export default {
 
       const items = [
         {
-          label: 'Remove repo from list',
-          click: async () => {
-            await this.removeRepoFromListAndSave(this.repo.filePath);
-            if (!this.reposList.length) {
-              this.$router.push({ name: 'scanForRepos' });
-            }
-          }
-        },
-        {
           label: 'Open in file explorer',
           click: () => {
             window.nw.Shell.openItem(this.repo.filePath);
+          }
+        },
+        {
+          label: 'Remove repo from list',
+          click: () => {
+            helpers.removeRepoFromApp(
+              this.removeRepoFromListAndSave,
+              this.repo.filePath,
+              this.sortedRepoPaths,
+              this.$router
+            );
           }
         }
       ];
@@ -89,7 +93,7 @@ export default {
     },
     ...mapState(reposStore, [
       'currentRepo',
-      'reposList'
+      'sortedRepoPaths'
     ])
   }
 };
