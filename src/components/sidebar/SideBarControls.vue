@@ -66,8 +66,8 @@ export default {
     addRepo: async function () {
       const repoPath = await helpers.openFileExplorerToSelectRepo(this.reposFolder);
       if (repoPath) {
-        await addRepoToListAndSave(repoPath);
-        await $router.push({ name: 'commits' });
+        await this.addRepoToListAndSave(repoPath);
+        await this.$router.push({ name: 'commits' });
       }
     },
     cloneRepo: function () {

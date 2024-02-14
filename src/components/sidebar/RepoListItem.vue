@@ -13,11 +13,11 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
-import helpers from '@/helpers/index.js';
-
 import { andSaveStore } from '@/stores/andSave.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
+
+import helpers from '@/helpers/index.js';
 
 const fs = window.require('fs');
 

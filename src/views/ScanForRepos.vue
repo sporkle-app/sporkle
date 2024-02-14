@@ -64,8 +64,8 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
-import { appLoadingStore } from '@/stores/appLoading.js';
 import { andSaveStore } from '@/stores/andSave.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';

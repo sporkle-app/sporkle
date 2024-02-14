@@ -94,7 +94,7 @@ export default {
       hover: true,
       scale: 10,
       speed: undefined
-    }
+    };
   }
 };
 </script>

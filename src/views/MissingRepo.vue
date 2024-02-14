@@ -25,15 +25,14 @@
 <script>
 import { mapActions, mapState } from 'pinia';
 
+import { andSaveStore } from '@/stores/andSave.js';
+import { reposStore } from '@/stores/repos.js';
+
+import { APP_NAME } from '@/helpers/constants.js';
 import helpers from '@/helpers/index.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
-
-import { APP_NAME } from '@/helpers/constants.js';
-
-import { andSaveStore } from '@/stores/andSave.js';
-import { reposStore } from '@/stores/repos.js';
 
 const fs = window.require('fs');
 
