@@ -3,6 +3,8 @@
     v-if="nw.process.versions['nw-flavor'] === 'sdk'"
     title="Dev Testing Page"
   >
+    <IconsGallery />
+
     <section>
       <button
         v-if="!confirmDelete"
@@ -20,6 +22,7 @@
     </section>
 
     <section>
+      <h3>Test Alerts</h3>
       <div>
         <button @click="addSuccessAlert(SMALL)">Success</button>
         <button @click="addErrorAlert(SMALL, ERROR)">Error</button>
@@ -43,7 +46,6 @@
       />
       {{ example }}
     </section>
-
   </ViewWrapper>
 </template>
 
@@ -55,6 +57,7 @@ import { saveLoadDataStore } from '@/stores/saveLoadData.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
+import IconsGallery from '@/components/devtesting/IconsGallery.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 const SMALL = 'Lorem ipsum dolor sit amet.';
@@ -80,6 +83,7 @@ export default {
   components: {
     BaseCheckbox,
     BaseSelect,
+    IconsGallery,
     ViewWrapper
   },
   data: function () {

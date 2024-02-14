@@ -25,7 +25,7 @@ export const reposStore = defineStore('repos', {
       potentialRepoFolders: [],
       // Text to filter the sidebar by
       repoFilter: '',
-      // The main folder where repos are store
+      // The main folder where repos are stored
       reposFolder: null,
       // The unfiltered list of all added repos
       reposList: []
