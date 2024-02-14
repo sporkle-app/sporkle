@@ -52,6 +52,12 @@ export default {
               this.$router.push({ name: 'scanForRepos' });
             }
           }
+        },
+        {
+          label: 'Open in file explorer',
+          click: () => {
+            window.nw.Shell.openItem(this.repo.filePath);
+          }
         }
       ];
 
