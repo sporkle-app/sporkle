@@ -35,6 +35,7 @@ import BaseIcon from '@/components/BaseIcon.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
 
 const fs = window.require('fs');
+const path = window.require('path');
 
 export default {
   name: 'MissingRepo',
@@ -75,7 +76,6 @@ export default {
   computed: {
     repoName: function () {
       if (this.currentRepo) {
-        const path = window.require('path');
         return path.basename(this.currentRepo);
       }
       return 'repository';
