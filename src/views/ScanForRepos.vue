@@ -11,7 +11,7 @@
       <div class="button-container">
         <button
           :disabled="!selectedPotentialRepos.length"
-          @click="bulkAddReposAndSave(selectedPotentialRepos)"
+          @click="addRepos"
         >
           Add
           <strong>{{ selectedPotentialRepos.length }}</strong>
@@ -65,6 +65,7 @@
 import { mapActions, mapState } from 'pinia';
 
 import { andSaveStore } from '@/stores/andSave.js';
+import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
 
 import BaseCheckbox from '@/components/BaseCheckbox.vue';
@@ -87,9 +88,26 @@ export default {
     ...mapActions(andSaveStore, [
       'bulkAddReposAndSave'
     ]),
-    ...mapActions(reposStore, [
-      'scanForRepos'
+    ...mapActions(appLoadingStore, [
+      'setRoutingLoading'
     ]),
+    ...mapActions(reposStore, [
+      'scanForRepos',
+      'setCurrentRepo'
+    ]),
+    addRepos: async function () {
+      if (this.selectedPotentialRepos.length === 1) {
+        await this.setRoutingLoading(true);
+        // Show spinner before navigating
+        await this.$forceUpdate();
+
+        await this.bulkAddReposAndSave(this.selectedPotentialRepos);
+        await this.setCurrentRepo(this.selectedPotentialRepos[0].filePath);
+        await this.$router.push({ name: 'commits' });
+      } else {
+        this.bulkAddReposAndSave(this.selectedPotentialRepos);
+      }
+    },
     formatDate: function (date) {
       if (!date) {
         return;

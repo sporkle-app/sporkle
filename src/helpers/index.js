@@ -2,6 +2,7 @@ const fs = window.require('fs');
 const path = window.require('path');
 
 const diacriticLess = window.require('diacriticless');
+const openFolderExplorer = window.require('nw-programmatic-folder-select');
 
 const helpers = {
   // sort array of strings ignoring case
@@ -59,6 +60,27 @@ const helpers = {
       .join('-');
 
     return string;
+  },
+  openFileExplorerToSelectRepo: function (reposFolder) {
+    return new Promise((resolve) => {
+      const options = {
+        title: 'Select your repo folder',
+        directory: (reposFolder || undefined)
+      };
+      openFolderExplorer(window, options, resolve);
+    });
+  },
+  removeRepoFromApp: async function (removeRepoFromListAndSave, repoPath, reposList, $router) {
+    await removeRepoFromListAndSave(repoPath);
+
+    const atLeastOneRepoExists = reposList.some((repo) => {
+      return fs.existsSync(repo);
+    });
+    const noReposExist = !atLeastOneRepoExists;
+
+    if (noReposExist) {
+      await $router.push({ name: 'scanForRepos' });
+    }
   },
   setCurrentWorkingDirectory: function (directory) {
     directory = (directory || '').trim();

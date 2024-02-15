@@ -9,7 +9,10 @@ import CloneRepo from '@/views/CloneRepo.vue';
 import CommitDiffContainer from '@/views/CommitDiffContainer.vue';
 import CreateNewRepo from '@/views/CreateNewRepo.vue';
 import DevTestingPage from '@/views/DevTestingPage.vue';
+import MissingRepo from '@/views/MissingRepo.vue';
 import ScanForRepos from '@/views/ScanForRepos.vue';
+
+const fs = window.require('fs');
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -49,6 +52,11 @@ export const router = createRouter({
       name: 'scanForRepos',
       component: ScanForRepos
     },
+    {
+      path: '/missing-repo',
+      name: 'missingRepo',
+      component: MissingRepo
+    },
 
     // Redirects
     {
@@ -86,14 +94,21 @@ router.beforeEach(async (to) => {
   }
   if (
     initialLoadComplete &&
-    to.name === 'commits' &&
-    (
+    to.name === 'commits'
+  ) {
+    if (
       !currentRepo ||
       !sortedRepoPaths.length ||
       !currentRepoIsInSidebar
-    )
-  ) {
-    return { name: 'scanForRepos' };
+    ) {
+      return { name: 'scanForRepos' };
+    }
+    if (
+      currentRepo &&
+      !fs.existsSync(currentRepo)
+    ) {
+      return { name: 'missingRepo' };
+    }
   }
 });
 
