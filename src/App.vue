@@ -44,6 +44,8 @@ import GlobalAlerts from '@/components/alerts/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
 
+const fs = window.require('fs');
+
 export default {
   name: 'App',
   components: {
@@ -92,6 +94,7 @@ export default {
       'appLoading'
     ]),
     ...mapState(reposStore, [
+      'currentRepo',
       'reposList'
     ]),
     ...mapState(sidebarStore, [
@@ -111,6 +114,12 @@ export default {
     await this.loadSettings();
     if (!this.reposList.length) {
       this.$router.push({ name: 'scanForRepos' });
+    }
+    if (
+      this.currentRepo &&
+      !fs.existsSync(this.currentRepo)
+    ) {
+      this.$router.push({ name: 'missingRepo' });
     }
   }
 };

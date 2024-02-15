@@ -1,6 +1,6 @@
 <template>
   <div class="view-wrapper">
-    <CloseView v-if="reposList.length" />
+    <CloseView v-if="showX" />
     <h2>{{ title }}</h2>
     <slot></slot>
   </div>
@@ -12,6 +12,8 @@ import { mapState } from 'pinia';
 import { reposStore } from '@/stores/repos.js';
 
 import CloseView from '@/components/CloseView.vue';
+
+const fs = window.require('fs');
 
 export default {
   name: 'ViewWrapper',
@@ -25,7 +27,15 @@ export default {
     }
   },
   computed: {
+    showX: function () {
+      return (
+        this.reposList.length &&
+        this.currentRepo &&
+        fs.existsSync(this.currentRepo)
+      );
+    },
     ...mapState(reposStore, [
+      'currentRepo',
       'reposList'
     ])
   }
