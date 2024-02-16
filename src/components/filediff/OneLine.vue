@@ -67,7 +67,7 @@ export default {
   background: var(--diff-plus);
 }
 .spacer-line {
-  background: var(--white08);
+  background: var(--black25);
 }
 .line-number {
   display: flex;
