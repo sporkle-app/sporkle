@@ -12,9 +12,16 @@
         class="repo-url-input"
         placeholder="Enter url"
       />
-      <button @click="clone">Clone</button>
+      <button :disabled="invalidUrl" @click="clone">Clone</button>
     </div>
-    <ReposFolderPicker />
+    <p v-if="invalidUrl">
+      <strong><em>
+        That repo already exists.
+      </em></strong>
+    </p>
+    <div class="folder-picker">
+      <ReposFolderPicker />
+    </div>
   </ViewWrapper>
 </template>
 
@@ -49,12 +56,12 @@ export default {
         return;
       }
 
-      const repoName = this.url.split('/').pop().replace('.git', '');
-      const repoPath = this.reposFolder + '/' + repoName;
+      const repoPath = this.reposFolder + '/' + this.repoName;
 
       try {
         await this.cloneRepo(this.url, repoPath);
         this.addRepoToList(repoPath);
+        this.url = '';
         this.$router.push({ name: 'commits' });
       } catch (error) {
         this.addErrorAlert('Error cloning repository.', error);
@@ -71,16 +78,32 @@ export default {
     ])
   },
   computed: {
-    ...mapState(reposStore, ['reposFolder'])
+    invalidUrl: function () {
+      for (let i = 0; i < this.reposList.length; i++) {
+        if (this.reposList[i].title === this.repoName) {
+          console.log(this.reposList[i].title, this.repoName);
+          return true;
+        }
+      }
+      return false;
+    },
+    repoName: function () {
+      return this.url.split('/').pop().replace('.git', '');
+    },
+    ...mapState(reposStore, [
+      'reposFolder',
+      'reposList'
+    ])
   }
 };
 </script>
 <style scoped>
+.folder-picker {
+  padding-top: 30px;
+}
 .repo-url-select {
   display: flex;
-  padding-bottom: 20px;
 }
-
 .repo-url-input {
   flex: 1;
 }
