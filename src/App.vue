@@ -20,13 +20,13 @@
       </RouterView>
     </main>
     <GlobalAlerts />
-    <div v-show="appLoading" class="spinner-container">
-      <BaseIcon
-        name="RiLoader5Fill"
-        animation="spin"
-        scale="3"
-      />
-    </div>
+  </div>
+  <div v-show="appLoading" class="spinner-container">
+    <img
+      alt="Sporkle! Logo"
+      class="logo"
+      src="/logo.svg"
+    />
   </div>
 </template>
 
