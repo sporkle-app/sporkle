@@ -2,6 +2,7 @@ import { defineStore, mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { commitsStore } from '@/stores/commits.js';
 import { fileDiffsStore } from '@/stores/fileDiffs.js';
 
 import helpers from '@/helpers/index.js';
@@ -49,6 +50,9 @@ export const branchesStore = defineStore('branches', {
     ]),
     ...mapActions(appLoadingStore, [
       'setBranchesLoading'
+    ]),
+    ...mapActions(commitsStore, [
+      'getCommits'
     ]),
     ...mapActions(fileDiffsStore, [
       'getAndParseDiffs'
@@ -124,6 +128,7 @@ export const branchesStore = defineStore('branches', {
         })
         .finally(async () => {
           await this.updateCurrentBranch();
+          await this.getCommits();
           this.setBranchesLoading(false);
         });
     }
