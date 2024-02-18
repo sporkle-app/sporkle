@@ -65,12 +65,15 @@ export const branchesStore = defineStore('branches', {
       this.getAndParseDiffs();
     },
     setDefaultBranch: function (branch) {
-      this.defaultBranch = (
-        branch ||
-        this.probableDefaultBranch ||
-        this.currentBranch ||
-        ''
-      );
+      if (branch && this.branchNames.includes(branch)) {
+        this.defaultBranch = branch;
+      } else {
+        this.defaultBranch = (
+          this.probableDefaultBranch ||
+          this.currentBranch ||
+          ''
+        );
+      }
     },
     updateCurrentBranch: function (currentRepoPath) {
       this.setCurrentBranch('');
