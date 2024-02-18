@@ -69,7 +69,7 @@ const customIcons = [
   'RiLoopRightLine',
   'RiScanForRepos'
 ];
-const allIconNames = [
+export const allIconNames = [
   ...allImportedIcons.map((icon) => {
     return _kebabCase(icon.name);
   }),

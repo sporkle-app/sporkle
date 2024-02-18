@@ -20,6 +20,9 @@
       <template v-if="file.newPath === '/dev/null'">
         {{ file.oldPath }} <em>(deleted)</em>
       </template>
+      <template v-else-if="file.oldPath === '/dev/null'">
+        {{ file.newPath }} <em>(new file)</em>
+      </template>
       <template v-else>
         {{ file.newPath }}
       </template>
@@ -36,10 +39,7 @@
         />
         <OneLine
           v-if="hunkIndex < (file.hunks.length - 1)"
-          :line="{
-            isNormal: true,
-            lineNumber: '...'
-          }"
+          :line="{ isSpacer: true }"
         />
       </div>
     </BaseAccordion>

@@ -2,6 +2,7 @@ import { defineStore, mapActions } from 'pinia';
 
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
+import { commitsStore } from '@/stores/commits.js';
 import { fileDiffsStore } from '@/stores/fileDiffs.js';
 
 import helpers from '@/helpers/index.js';
@@ -50,6 +51,9 @@ export const branchesStore = defineStore('branches', {
     ...mapActions(appLoadingStore, [
       'setBranchesLoading'
     ]),
+    ...mapActions(commitsStore, [
+      'getCommits'
+    ]),
     ...mapActions(fileDiffsStore, [
       'getAndParseDiffs'
     ]),
@@ -61,12 +65,15 @@ export const branchesStore = defineStore('branches', {
       this.getAndParseDiffs();
     },
     setDefaultBranch: function (branch) {
-      this.defaultBranch = (
-        branch ||
-        this.probableDefaultBranch ||
-        this.currentBranch ||
-        ''
-      );
+      if (branch && this.branchNames.includes(branch)) {
+        this.defaultBranch = branch;
+      } else {
+        this.defaultBranch = (
+          this.probableDefaultBranch ||
+          this.currentBranch ||
+          ''
+        );
+      }
     },
     updateCurrentBranch: function (currentRepoPath) {
       this.setCurrentBranch('');
@@ -121,6 +128,7 @@ export const branchesStore = defineStore('branches', {
         })
         .finally(async () => {
           await this.updateCurrentBranch();
+          await this.getCommits();
           this.setBranchesLoading(false);
         });
     }
