@@ -6,7 +6,7 @@
     role="checkbox"
     tabindex="0"
     @keyup.enter.prevent="emit"
-    @keyup.space.prevent="emit"
+    @keydown.space.prevent="emit"
     @click.stop.prevent="emit"
   >
     <BaseIcon
