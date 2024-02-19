@@ -13,7 +13,7 @@
     @mouseout="clearHoveredCommitHash(hash)"
     @click="setSelectedCommitHash(hash)"
     @keyup.enter="setSelectedCommitHash(hash)"
-    @keyup.space="setSelectedCommitHash(hash)"
+    @keydown.space.prevent="setSelectedCommitHash(hash)"
   >
     <div class="commit-summary-item-description truncate">
       <div
