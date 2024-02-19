@@ -10,7 +10,7 @@
     @mouseout="setHover(false)"
   >
     <span
-      class="float-right"
+      class="close-alert"
       role="button"
       tabindex="0"
       @keydown.enter="deleteAlert"
@@ -100,12 +100,20 @@ export default {
   position: relative;
   display: block;
   background: var(--muted-accent);
-  border-left: 35px solid var(--white25);
+  border: var(--unfocus-ring);
   margin: var(--alert-spacing);
   margin-right: 0px;
   padding: var(--alert-spacing);
   color: var(--white);
   line-height: 1.5;
+}
+.global-alert:focus {
+  border: var(--focus-ring);
+  outline: none;
+}
+.global-alert,
+.global-alert:focus {
+  border-left: 35px solid var(--white25);
 }
 .global-alert-title-icon {
   position: absolute;
@@ -144,7 +152,12 @@ export default {
 .error {
   background: var(--accent);
 }
-.float-right {
+.close-alert {
+  border: var(--unfocus-ring);
   float: right;
+}
+.close-alert:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 </style>

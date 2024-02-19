@@ -134,16 +134,6 @@ export default {
 .repo-filter {
   width: 100%;
   background: var(--white13);
-  border: 1px solid transparent;
-  border-radius: 0px;
   margin: 0px;
-}
-
-.repo-filter {
-  border: var(--unfocus-ring);
-}
-.repo-filter:focus {
-  border: var(--focus-ring);
-  outline: none;
 }
 </style>

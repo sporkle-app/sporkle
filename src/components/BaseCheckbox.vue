@@ -5,8 +5,8 @@
     class="checkbox"
     role="checkbox"
     tabindex="0"
-    @keyup.enter="emit"
-    @keyup.space="emit"
+    @keyup.enter.prevent="emit"
+    @keyup.space.prevent="emit"
     @click.stop.prevent="emit"
   >
     <BaseIcon
@@ -55,6 +55,11 @@ export default {
 .checkbox {
   display: flex;
   align-items: center;
+  border: var(--unfocus-ring);
+}
+.checkbox:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 .checkbox-icon {
   margin-right: 5px;
