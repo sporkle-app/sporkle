@@ -2,12 +2,14 @@
   <div class="branch-dropdowns">
     <BaseSelect
       v-model="baseBranch"
+      class="dropdown"
       label="Base Branch"
       :showLabel="false"
       :options="branchNames"
     />
     <BaseSelect
       v-model="currentBranchSelect"
+      class="dropdown"
       label="Current Branch"
       :showLabel="false"
       :options="branchNames"
@@ -73,5 +75,8 @@ export default {
 .branch-dropdowns {
   display: flex;
   flex-direction: column;
+}
+.dropdown {
+  max-width: 200px;
 }
 </style>

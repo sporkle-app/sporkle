@@ -2,6 +2,7 @@
   <div class="sidebar-footer">
     <div class="icons-container">
       <RouterLink
+        class="sidebar-footer-link"
         :to="{ name: 'settings' }"
         @focusin="settingsHover = true"
         @focusout="settingsHover = false"
@@ -17,6 +18,7 @@
         Settings
       </RouterLink>
       <RouterLink
+        class="sidebar-footer-link"
         :to="{ name: 'about' }"
         @focusin="infoHover = true"
         @focusout="infoHover = false"
@@ -59,7 +61,7 @@ export default {
   background: var(--black66);
   padding: 10px;
 }
-.icons-container > a {
+.sidebar-footer-link {
   margin-left: 10px;
   text-decoration: none;
 }
