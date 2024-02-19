@@ -23,7 +23,7 @@ export const commitLogStore = defineStore('commitLog', {
     setSelectedCommitHash: function (hash) {
       this.selectedCommitHash = hash;
     },
-    clearSelectedCommitHash: function (hash) {
+    clearSelectedCommitHash: function () {
       this.selectedCommitHash = '';
     }
   }
