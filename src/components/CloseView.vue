@@ -48,5 +48,6 @@ export default {
 }
 .close-view:focus {
   border: var(--focus-ring);
+  outline: none;
 }
 </style>

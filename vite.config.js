@@ -16,7 +16,15 @@ export default defineConfig({
       'oh-vue-icons/icons'
     ]
   },
-  plugins: [vue()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          comments: false
+        }
+      }
+    })
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
