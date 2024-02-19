@@ -10,7 +10,7 @@
       tabindex="0"
       @click="toggleCollapsed"
       @keyup.enter="toggleCollapsed"
-      @keyup.space="toggleCollapsed"
+      @keydown.space.prevent="toggleCollapsed"
     >
       <BaseIcon
         name="RiArrowDownSFill"

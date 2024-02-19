@@ -14,7 +14,7 @@
       role="button"
       tabindex="0"
       @keydown.enter="deleteAlert"
-      @keydown.space="deleteAlert"
+      @keydown.space.prevent="deleteAlert"
       @click="deleteAlert"
     >
       <BaseIcon
