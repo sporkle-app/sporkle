@@ -2,7 +2,7 @@
   <ViewWrapper title="Clone down a repository">
     <label for="repo-url-input">
       <strong>
-        Enter url:
+        Paste HTTPS or SSH URL to clone here:
       </strong>
     </label>
     <div class="repo-url-select">
@@ -10,13 +10,26 @@
         v-model="url"
         id="repo-url-input"
         class="repo-url-input"
-        placeholder="Enter url"
+        placeholder="https://github.com/username/repository.git"
       />
-      <button :disabled="invalidUrl" @click="clone">Clone</button>
+      <button :disabled="repoAlreadyExists || repoIsInSidebarAlready" @click="clone">Clone</button>
     </div>
-    <p v-if="invalidUrl">
+    <p v-if="repoAlreadyExists || repoIsInSidebarAlready">
       <strong><em>
         That repo already exists.
+      </em></strong>
+    </p>
+    <p v-if="url && (!startsWithGitOrHttps || !endsWithGit)">
+      <strong><em>
+        Repository cloning URLs generally:
+        <ul>
+          <li v-if="!startsWithGitOrHttps">
+            start in <code>git@ or https://</code>
+          </li>
+          <li v-if="!endsWithGit">
+            end with <code>.git</code>
+          </li>
+        </ul>
       </em></strong>
     </p>
     <div class="folder-picker">
@@ -34,6 +47,9 @@ import { reposStore } from '@/stores/repos.js';
 
 import ReposFolderPicker from '@/components/appsettings/ReposFolderPicker.vue';
 import ViewWrapper from '@/views/ViewWrapper.vue';
+
+const fs = window.require('fs');
+const path = window.require('path');
 
 export default {
   name: 'CloneRepo',
@@ -56,11 +72,9 @@ export default {
         return;
       }
 
-      const repoPath = this.reposFolder + '/' + this.repoName;
-
       try {
-        await this.cloneRepo(this.url, repoPath);
-        this.addRepoToList(repoPath);
+        await this.cloneRepo(this.url, this.repoPath);
+        this.addRepoToList(this.repoPath);
         this.url = '';
         this.$router.push({ name: 'commits' });
       } catch (error) {
@@ -78,21 +92,36 @@ export default {
     ])
   },
   computed: {
-    invalidUrl: function () {
-      for (let i = 0; i < this.reposList.length; i++) {
-        if (this.reposList[i].title === this.repoName) {
-          console.log(this.reposList[i].title, this.repoName);
-          return true;
-        }
+    startsWithGitOrHttps: function () {
+      return this.url.startsWith('git@') || this.url.startsWith('https://');
+    },
+    endsWithGit: function () {
+      return this.url.endsWith('.git');
+    },
+    repoAlreadyExists: function () {
+      if (this.url) {
+        return fs.existsSync(this.repoPath);
       }
       return false;
     },
+    repoIsInSidebarAlready: function () {
+      return this.sortedRepoPaths.includes(this.repoPath);
+    },
     repoName: function () {
-      return this.url.split('/').pop().replace('.git', '');
+      if (this.url) {
+        return path.parse(this.url).name;
+      }
+      return '';
+    },
+    repoPath: function () {
+      if (this.reposFolder && this.repoName) {
+        return path.join(this.reposFolder, this.repoName);
+      }
+      return '';
     },
     ...mapState(reposStore, [
       'reposFolder',
-      'reposList'
+      'sortedRepoPaths'
     ])
   }
 };
