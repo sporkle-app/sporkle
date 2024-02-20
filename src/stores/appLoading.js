@@ -5,6 +5,7 @@ const LOADING_TYPES = [
   'branches',
   'commits',
   'fileDiffs',
+  'gitClone',
   'gitStatus',
   'gitRemotes',
   'repos',

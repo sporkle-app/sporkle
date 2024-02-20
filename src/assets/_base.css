@@ -92,6 +92,11 @@ pre {
   margin: 0px;
   font-size: 14px;
 }
+code {
+  background: var(--black66);
+  border-radius: 4px;
+  padding: 0px 4px 2px 4px;
+}
 
 a {
   border: var(--unfocus-ring);
@@ -100,4 +105,8 @@ a {
 a:focus {
   border: var(--focus-ring);
   outline: none;
+}
+
+li {
+  line-height: 1.4;
 }
