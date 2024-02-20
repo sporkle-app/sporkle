@@ -104,8 +104,8 @@ export default {
 <style scoped>
 .countdown-circle {
   position: absolute;
-  top: 9px;
-  right: 8px;
+  top: 10px;
+  right: 10px;
   stroke: currentColor;
   transform: rotate(-90deg);
 }

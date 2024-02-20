@@ -1,5 +1,20 @@
 <template>
-  <div class="commit-summary-item">
+  <div
+    class="commit-summary-item"
+    :class="{
+      'commit-summary-item-hovered': thisCommitIsHovered,
+      'commit-summary-item-selected': thisCommitIsSelected
+    }"
+    role="button"
+    tabindex="0"
+    @focus="setHoveredCommitHash(hash)"
+    @focusout="clearHoveredCommitHash(hash)"
+    @mouseover="setHoveredCommitHash(hash)"
+    @mouseout="clearHoveredCommitHash(hash)"
+    @click="setSelectedCommitHash(hash)"
+    @keyup.enter="setSelectedCommitHash(hash)"
+    @keydown.space.prevent="setSelectedCommitHash(hash)"
+  >
     <div class="commit-summary-item-description truncate">
       <div
         class="commit-summary-title truncate"
@@ -29,6 +44,10 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia';
+
+import { commitLogStore } from '@/stores/commitLog.js';
+
 import TimeAgo from '@/components/TimeAgo.vue';
 
 export default {
@@ -42,7 +61,31 @@ export default {
       required: true
     }
   },
+  methods: {
+    ...mapActions(commitLogStore, [
+      'clearHoveredCommitHash',
+      'setHoveredCommitHash',
+      'setSelectedCommitHash'
+    ])
+  },
   computed: {
+    ...mapState(commitLogStore, [
+      'hoveredCommitHash',
+      'selectedCommitHash'
+    ]),
+    hash: function () {
+      return this.commit?.hash || '';
+    },
+    hashForComparison: function () {
+      // Fallback to random so we don't highlight commits when the hash is empty string
+      return this.hash || '' + Math.random();
+    },
+    thisCommitIsHovered: function () {
+      return this.hashForComparison === this.hoveredCommitHash;
+    },
+    thisCommitIsSelected: function () {
+      return this.hashForComparison === this.selectedCommitHash;
+    },
     fileCount: function () {
       const count = this.commit?.stats?.length || 0;
       return count.toLocaleString();
@@ -70,7 +113,19 @@ export default {
   display: flex;
   align-items: stretch;
   justify-content: space-between;
+  border: var(--unfocus-ring);
   border-bottom: 1px solid var(--white25);
+}
+.commit-summary-item-hovered {
+  background: var(--black25);
+}
+.commit-summary-item-selected {
+  background: var(--black66);
+}
+.commit-summary-item:focus {
+  border: var(--focus-ring);
+  border-top: 1px solid transparent;
+  outline: none;
 }
 .commit-summary-item-description {
   display: flex;

@@ -2,6 +2,7 @@ import { defineStore, mapActions, mapState } from 'pinia';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
+import { commitLogStore } from '@/stores/commitLog.js';
 import { commitsStore } from '@/stores/commits.js';
 import { fileDiffsStore } from '@/stores/fileDiffs.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
@@ -25,7 +26,7 @@ export const reposStore = defineStore('repos', {
       potentialRepoFolders: [],
       // Text to filter the sidebar by
       repoFilter: '',
-      // The main folder where repos are store
+      // The main folder where repos are stored
       reposFolder: null,
       // The unfiltered list of all added repos
       reposList: []
@@ -42,7 +43,12 @@ export const reposStore = defineStore('repos', {
         await this.setDiffs();
       }
       this.currentRepo = repoPath;
+      if (!window.require('fs').existsSync(repoPath)) {
+        this.setReposLoading(false);
+        return;
+      }
       helpers.setCurrentWorkingDirectory(repoPath);
+      this.clearSelectedCommitHash();
 
       const parallelPromises = [
         this.updateBranches(repoPath),
@@ -106,15 +112,20 @@ export const reposStore = defineStore('repos', {
       this.setReposLoading(false);
     },
     resetCurrentRepo: function () {
+      // Load the first repo in the list that exists
       if (
-        (
-          !this.currentRepo ||
-          !this.sortedRepoPaths.includes(this.currentRepo)
-        ) &&
-        this.sortedRepoPaths[0]
+        !this.currentRepo ||
+        !this.sortedRepoPaths.includes(this.currentRepo)
       ) {
-        this.setCurrentRepo(this.sortedRepoPaths[0]);
+        for (let sortedRepoPath of this.sortedRepoPaths) {
+          if (fs.existsSync(sortedRepoPath)) {
+            this.setCurrentRepo(sortedRepoPath);
+            return;
+          }
+        }
       }
+      // unset the current repo if none exist
+      this.setCurrentRepo(null);
     },
     removeRepoFromList: function (repoPath) {
       this.setReposLoading(true);
@@ -254,6 +265,9 @@ export const reposStore = defineStore('repos', {
       'updateCurrentBranch',
       'updateDefaultBranch',
       'setDefaultBranch'
+    ]),
+    ...mapActions(commitLogStore, [
+      'clearSelectedCommitHash'
     ]),
     ...mapActions(commitsStore, [
       'getCommits'

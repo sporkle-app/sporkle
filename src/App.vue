@@ -20,13 +20,13 @@
       </RouterView>
     </main>
     <GlobalAlerts />
-    <div v-show="appLoading" class="spinner-container">
-      <BaseIcon
-        name="RiLoader5Fill"
-        animation="spin"
-        scale="3"
-      />
-    </div>
+  </div>
+  <div v-show="appLoading" class="spinner-container">
+    <img
+      alt="Sporkle! Logo"
+      class="logo"
+      src="/logo.svg"
+    />
   </div>
 </template>
 
@@ -43,6 +43,8 @@ import BaseIcon from '@/components/BaseIcon.vue';
 import GlobalAlerts from '@/components/alerts/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
+
+const fs = window.require('fs');
 
 export default {
   name: 'App',
@@ -92,6 +94,7 @@ export default {
       'appLoading'
     ]),
     ...mapState(reposStore, [
+      'currentRepo',
       'reposList'
     ]),
     ...mapState(sidebarStore, [
@@ -111,6 +114,12 @@ export default {
     await this.loadSettings();
     if (!this.reposList.length) {
       this.$router.push({ name: 'scanForRepos' });
+    }
+    if (
+      this.currentRepo &&
+      !fs.existsSync(this.currentRepo)
+    ) {
+      this.$router.push({ name: 'missingRepo' });
     }
   }
 };

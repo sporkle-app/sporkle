@@ -10,6 +10,7 @@
       tabindex="0"
       @click="toggleCollapsed"
       @keyup.enter="toggleCollapsed"
+      @keydown.space.prevent="toggleCollapsed"
     >
       <BaseIcon
         name="RiArrowDownSFill"
@@ -19,6 +20,9 @@
       />
       <template v-if="file.newPath === '/dev/null'">
         {{ file.oldPath }} <em>(deleted)</em>
+      </template>
+      <template v-else-if="file.oldPath === '/dev/null'">
+        {{ file.newPath }} <em>(new file)</em>
       </template>
       <template v-else>
         {{ file.newPath }}
@@ -36,10 +40,7 @@
         />
         <OneLine
           v-if="hunkIndex < (file.hunks.length - 1)"
-          :line="{
-            isNormal: true,
-            lineNumber: '...'
-          }"
+          :line="{ isSpacer: true }"
         />
       </div>
     </BaseAccordion>
@@ -101,8 +102,13 @@ export default {
   top: 0px;
   width: 100%;
   background-image: linear-gradient(to right, var(--white25), var(--white25)), linear-gradient(to right, var(--bg), var(--bg));
+  border: var(--unfocus-ring);
   border-top: 1px solid var(--white13);
   padding: 2px 2px 5px 2px;
+}
+.file-header:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 
 .file-header.expanded {

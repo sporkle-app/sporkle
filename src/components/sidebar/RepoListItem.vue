@@ -17,6 +17,10 @@ import { andSaveStore } from '@/stores/andSave.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { reposStore } from '@/stores/repos.js';
 
+import helpers from '@/helpers/index.js';
+
+const fs = window.require('fs');
+
 export default {
   name: 'RepoListItem',
   props: {
@@ -36,8 +40,14 @@ export default {
       // show spinner before navigating
       this.$forceUpdate();
 
-      await this.setCurrentRepoAndSave(this.repo.filePath);
-      await this.$router.push({ name: 'commits' });
+      const repoPath = this.repo.filePath;
+
+      await this.setCurrentRepoAndSave(repoPath);
+      if (repoPath && !fs.existsSync(repoPath)) {
+        await this.$router.push({ name: 'missingRepo' });
+      } else {
+        await this.$router.push({ name: 'commits' });
+      }
       this.setSidebarLoading(false);
     },
     showContextMenu: function ($event) {
@@ -45,18 +55,20 @@ export default {
 
       const items = [
         {
-          label: 'Remove repo from list',
-          click: async () => {
-            await this.removeRepoFromListAndSave(this.repo.filePath);
-            if (!this.reposList.length) {
-              this.$router.push({ name: 'scanForRepos' });
-            }
-          }
-        },
-        {
           label: 'Open in file explorer',
           click: () => {
             window.nw.Shell.openItem(this.repo.filePath);
+          }
+        },
+        {
+          label: 'Remove repo from list',
+          click: () => {
+            helpers.removeRepoFromApp(
+              this.removeRepoFromListAndSave,
+              this.repo.filePath,
+              this.sortedRepoPaths,
+              this.$router
+            );
           }
         }
       ];
@@ -81,7 +93,7 @@ export default {
     },
     ...mapState(reposStore, [
       'currentRepo',
-      'reposList'
+      'sortedRepoPaths'
     ])
   }
 };

@@ -5,7 +5,7 @@
     scale="2"
     tabindex="0"
     @keyup.enter="setLoadingAndNavigate"
-    @keyup.space="setLoadingAndNavigate"
+    @keydown.space.prevent="setLoadingAndNavigate"
     @click="setLoadingAndNavigate"
   />
 </template>
@@ -48,5 +48,6 @@ export default {
 }
 .close-view:focus {
   border: var(--focus-ring);
+  outline: none;
 }
 </style>

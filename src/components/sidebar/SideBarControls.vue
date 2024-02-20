@@ -53,9 +53,9 @@ import { andSaveStore } from '@/stores/andSave.js';
 import { reposStore } from '@/stores/repos.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
-import BaseIcon from '@/components/BaseIcon.vue';
+import helpers from '@/helpers/index.js';
 
-const openFolderExplorer = window.require('nw-programmatic-folder-select');
+import BaseIcon from '@/components/BaseIcon.vue';
 
 export default {
   name: 'SideBarControls',
@@ -63,17 +63,12 @@ export default {
     BaseIcon
   },
   methods: {
-    addRepo: function () {
-      const options = {
-        title: 'Select your repo folder',
-        directory: (this.reposFolder || undefined)
-      };
-      openFolderExplorer(window, options, async (repoPath) => {
-        if (repoPath) {
-          await this.addRepoToListAndSave(repoPath);
-          this.$router.push({ name: 'commits' });
-        }
-      });
+    addRepo: async function () {
+      const repoPath = await helpers.openFileExplorerToSelectRepo(this.reposFolder);
+      if (repoPath) {
+        await this.addRepoToListAndSave(repoPath);
+        await this.$router.push({ name: 'commits' });
+      }
     },
     cloneRepo: function () {
       this.$router.push({ name: 'cloneRepo' });
@@ -139,16 +134,6 @@ export default {
 .repo-filter {
   width: 100%;
   background: var(--white13);
-  border: 1px solid transparent;
-  border-radius: 0px;
   margin: 0px;
-}
-
-.repo-filter {
-  border: var(--unfocus-ring);
-}
-.repo-filter:focus {
-  border: var(--focus-ring);
-  outline: none;
 }
 </style>
