@@ -1,5 +1,6 @@
 <template>
   <ViewWrapper title="Clone down a repository">
+    <ReposFolderPicker class="folder-picker" />
     <label for="repo-url-input">
       <strong>
         Paste HTTPS or SSH URL to clone here:
@@ -23,21 +24,17 @@
       </em></strong>
     </p>
     <p v-if="url && (!startsWithGitOrHttps || !endsWithGit)">
-      <strong><em>
-        Repository cloning URLs generally:
-        <ul>
-          <li v-if="!startsWithGitOrHttps">
-            begin with <code>git@</code> or <code>https://</code>
-          </li>
-          <li v-if="!endsWithGit">
-            end with <code>.git</code>
-          </li>
-        </ul>
-      </em></strong>
+      <strong>Tip!</strong>
+      Repository cloning URLs generally:
+      <ul>
+        <li v-if="!startsWithGitOrHttps">
+          begin with <code>https://</code> or <code>git@</code>
+        </li>
+        <li v-if="!endsWithGit">
+          end with <code>.git</code>
+        </li>
+      </ul>
     </p>
-    <div class="folder-picker">
-      <ReposFolderPicker />
-    </div>
   </ViewWrapper>
 </template>
 
@@ -131,7 +128,7 @@ export default {
 </script>
 <style scoped>
 .folder-picker {
-  padding-top: 30px;
+  margin-bottom: 30px;
 }
 .repo-url-select {
   display: flex;
