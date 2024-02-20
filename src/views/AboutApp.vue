@@ -70,6 +70,10 @@ export default {
     return {
       authors: [
         {
+          name: 'Drew Radcliff',
+          url: 'https://www.drewradcliff.com'
+        },
+        {
           name: 'J. Lewis',
           url: 'https://github.com/lewxdev'
         }
