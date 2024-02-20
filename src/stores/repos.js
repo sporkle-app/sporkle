@@ -2,6 +2,7 @@ import { defineStore, mapActions, mapState } from 'pinia';
 
 import { appLoadingStore } from '@/stores/appLoading.js';
 import { branchesStore } from '@/stores/branches.js';
+import { commitLogStore } from '@/stores/commitLog.js';
 import { commitsStore } from '@/stores/commits.js';
 import { fileDiffsStore } from '@/stores/fileDiffs.js';
 import { gitRemotesStore } from '@/stores/gitRemotes.js';
@@ -47,6 +48,7 @@ export const reposStore = defineStore('repos', {
         return;
       }
       helpers.setCurrentWorkingDirectory(repoPath);
+      this.clearSelectedCommitHash();
 
       const parallelPromises = [
         this.updateBranches(repoPath),
@@ -263,6 +265,9 @@ export const reposStore = defineStore('repos', {
       'updateCurrentBranch',
       'updateDefaultBranch',
       'setDefaultBranch'
+    ]),
+    ...mapActions(commitLogStore, [
+      'clearSelectedCommitHash'
     ]),
     ...mapActions(commitsStore, [
       'getCommits'

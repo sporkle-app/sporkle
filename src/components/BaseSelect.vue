@@ -11,6 +11,7 @@
       :id="forId"
       :value="modelValue"
       class="base-select"
+      :title="modelValue"
       @input="update"
     >
       <option
@@ -70,5 +71,7 @@ export default {
 }
 .base-select {
   width: 100%;
+  font-family: var(--monospace);
+  font-size: 13px;
 }
 </style>

@@ -51,11 +51,17 @@ input,
 select,
 textarea {
   background: var(--input);
-  border: 0px;
+  border: var(--unfocus-ring);
   padding: 10px;
   color: var(--text);
   font-family: var(--sans-serif);
   font-size: 16px;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 
 input[type="range"]{
@@ -78,6 +84,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 input[type="range"]:focus {
   background: var(--white08);
+  border: var(--unfocus-ring);
   outline: none;
 }
 
@@ -87,5 +94,10 @@ pre {
 }
 
 a {
+  border: var(--unfocus-ring);
   color: var(--link);
+}
+a:focus {
+  border: var(--focus-ring);
+  outline: none;
 }

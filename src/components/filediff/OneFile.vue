@@ -10,6 +10,7 @@
       tabindex="0"
       @click="toggleCollapsed"
       @keyup.enter="toggleCollapsed"
+      @keydown.space.prevent="toggleCollapsed"
     >
       <BaseIcon
         name="RiArrowDownSFill"
@@ -101,8 +102,13 @@ export default {
   top: 0px;
   width: 100%;
   background-image: linear-gradient(to right, var(--white25), var(--white25)), linear-gradient(to right, var(--bg), var(--bg));
+  border: var(--unfocus-ring);
   border-top: 1px solid var(--white13);
   padding: 2px 2px 5px 2px;
+}
+.file-header:focus {
+  border: var(--focus-ring);
+  outline: none;
 }
 
 .file-header.expanded {
