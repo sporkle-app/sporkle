@@ -16,14 +16,15 @@
 
       <h3>With help from:</h3>
       <ul>
-        <li>
+        <li
+          v-for="(author, authorIndex) in authors"
+          :key="'author' + authorIndex"
+        >
           <a
-            v-for="(author, authorIndex) in authors"
             v-text="author.name"
             href="#"
             :title="author.url"
             @click.prevent="openExternal"
-            :key="'author' + authorIndex"
           ></a>
         </li>
       </ul>
