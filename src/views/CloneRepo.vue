@@ -12,7 +12,10 @@
         class="repo-url-input"
         placeholder="https://github.com/username/repository.git"
       />
-      <button :disabled="repoAlreadyExists || repoIsInSidebarAlready" @click="clone">Clone</button>
+      <button
+        :disabled="repoAlreadyExists || repoIsInSidebarAlready"
+        @click="clone"
+      >Clone</button>
     </div>
     <p v-if="repoAlreadyExists || repoIsInSidebarAlready">
       <strong><em>
@@ -24,7 +27,7 @@
         Repository cloning URLs generally:
         <ul>
           <li v-if="!startsWithGitOrHttps">
-            start in <code>git@ or https://</code>
+            begin with <code>git@</code> or <code>https://</code>
           </li>
           <li v-if="!endsWithGit">
             end with <code>.git</code>
@@ -99,7 +102,7 @@ export default {
       return this.url.endsWith('.git');
     },
     repoAlreadyExists: function () {
-      if (this.url) {
+      if (this.repoPath) {
         return fs.existsSync(this.repoPath);
       }
       return false;
