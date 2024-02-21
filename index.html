@@ -36,9 +36,24 @@
       .red-hat-mono { font-family: 'Red Hat Mono'; }
       .bold { font-weight: bold; }
       .italic { font-style: italic; }
+      .hide { display: none; }
+      a {
+        color: hsl(264, 100%, 59%);
+      }
+      #git-not-found {
+        text-align: center;
+      }
+      .error-wrapper {
+        width: auto;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 0px 20px;
+        font-size: 20px;
+        text-align: left;
+      }
     </style>
   </head>
   <body>
+
     <div id="app" class="pre-app-load">
       <img
         alt="Sporkle! Logo"
@@ -57,6 +72,41 @@
         <span class="red-hat-mono bold italic">.</span>
       </span>
     </div>
+
+    <div id="git-not-found" class="pre-app-load hide">
+      <img
+        alt="Sporkle! Logo"
+        class="logo"
+        src="logo.svg"
+      />
+        <h1><em>Sporkle!</em> cannot function without a global Git install.</h1>
+        <h2>Git does not seem to be installed on your computer.</h2>
+      <div class="error-wrapper">
+        <ol>
+          <li>Go to <a href="#" id="scm">git-scm.com</a> to download Git for you computer.</li>
+          <li>After you have installed Git, relaunch <em>Sporkle!</em></li>
+        </ol>
+      </div>
+    </div>
+
+    <script>
+      try {
+        // Synchronously check for git,
+        // so that Vue must wait for this to pass before loading
+        require('which').sync('git');
+      } catch {
+        // Remove the #app so Vue cannot mount
+        document.getElementById('app').remove();
+
+        // Show the warning text
+        document.getElementById('git-not-found').classList.remove('hide');
+
+        // Make sure clicking the link works
+        document.getElementById('scm').addEventListener('click', function () {
+          nw.Shell.openExternal('https://git-scm.com');
+        });
+      }
+    </script>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

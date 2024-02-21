@@ -43,7 +43,8 @@
     "gitdiff-parser": "^0.3.1",
     "nw-dev-keybindings": "^1.0.1",
     "nw-programmatic-folder-select": "^1.0.5",
-    "simple-git": "^3.22.0"
+    "simple-git": "^3.22.0",
+    "which": "^4.0.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.10",
