@@ -92,7 +92,7 @@ const helpers = {
    * @return {Promis}          Resolves to a string or rejects with error.
    */
   runCommand: async function (command) {
-    console.log(command);
+    console.info(command);
     let error;
     let output;
     try {

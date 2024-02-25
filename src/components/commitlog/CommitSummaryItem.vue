@@ -28,10 +28,12 @@
         :title="subtitleHover"
       >
         <TimeAgo
-          :date="new Date(commit.author.timestamp)"
+          :date="commit.author.timestamp"
           :showTitle="false"
         />
-        by {{ commit.author.name }}
+        <template v-if="commit.author.name">
+          by {{ commit.author.name }}
+        </template>
       </div>
     </div>
     <div
@@ -105,6 +107,12 @@ export default {
       return this.fileCount + ' files';
     },
     subtitleHover: function () {
+      if (!this.commit.author) {
+        return;
+      }
+      if (typeof(this.commit.author.timestamp) === 'string') {
+        return;
+      }
       const dateTime = new Date(this.commit.author.timestamp);
       return [
         dateTime.toLocaleString(),

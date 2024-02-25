@@ -2,12 +2,15 @@ import { defineStore, mapState } from 'pinia';
 
 import { commitsStore } from '@/stores/commits.js';
 
+import { UNCOMMITED } from '@/helpers/constants.js';
+
 export const commitLogStore = defineStore('commitLog', {
   state: function () {
     return {
       commitLogCollapsed: false,
       hoveredCommitHash: '',
-      selectedCommitHash: ''
+      selectedCommitHash: '',
+      uncommitedFilesAmount: 0
     };
   },
   actions: {
@@ -26,7 +29,10 @@ export const commitLogStore = defineStore('commitLog', {
       this.selectedCommitHash = hash;
     },
     clearSelectedCommitHash: function () {
-      this.selectedCommitHash = '';
+      this.selectedCommitHash = UNCOMMITED;
+    },
+    setUncommitedFilesAmount: function (amount) {
+      this.uncommitedFilesAmount = amount || 0;
     }
   },
   getters: {

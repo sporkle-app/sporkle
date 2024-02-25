@@ -7,6 +7,7 @@
       @toggle="showForm = !showForm"
     />
     <BaseAccordion :show="showForm">
+      <CommitSummaryItem :commit="mockCommit" />
       <label class="sr-only" for="create-commit-summary">
         Commit Summary Title
       </label>
@@ -51,17 +52,22 @@
 import { mapState } from 'pinia';
 
 import { branchesStore } from '@/stores/branches.js';
+import { commitLogStore } from '@/stores/commitLog.js';
+
+import { UNCOMMITED } from '@/helpers/constants.js';
 
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import CommitLogTitle from '@/components/commitlog/CommitLogTitle.vue';
+import CommitSummaryItem from '@/components/commitlog/CommitSummaryItem.vue';
 
 export default {
   name: 'CreateCommitForm',
   components: {
     BaseAccordion,
     BaseIcon,
-    CommitLogTitle
+    CommitLogTitle,
+    CommitSummaryItem
   },
   props: {
     files: {
@@ -95,7 +101,20 @@ export default {
   computed: {
     ...mapState(branchesStore, [
       'currentBranch'
-    ])
+    ]),
+    ...mapState(commitLogStore, [
+      'uncommitedFilesAmount'
+    ]),
+    mockCommit: function () {
+      return {
+        hash: UNCOMMITED,
+        author: {
+          timestamp: 'Now'
+        },
+        subject: 'Uncommited Changes',
+        stats: new Array(this.uncommitedFilesAmount)
+      };
+    }
   }
 };
 </script>

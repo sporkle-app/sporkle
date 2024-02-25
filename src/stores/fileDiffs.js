@@ -5,7 +5,10 @@ import { appLoadingStore } from '@/stores/appLoading.js';
 import { commitLogStore } from '@/stores/commitLog.js';
 import { commitsStore } from '@/stores/commits.js';
 
-import { DEV_NULL } from '@/helpers/constants.js';
+import {
+  DEV_NULL,
+  UNCOMMITED
+} from '@/helpers/constants.js';
 import helpers from '@/helpers/index.js';
 
 const gitDiffParser = window.require('gitdiff-parser');
@@ -43,44 +46,71 @@ export const fileDiffsStore = defineStore('fileDiffs', {
     ...mapActions(appLoadingStore, [
       'setFileDiffsLoading'
     ]),
+    ...mapActions(commitLogStore, [
+      'setUncommitedFilesAmount'
+    ]),
+    clearDiffs: function () {
+      this.setDiffs();
+    },
     setDiffs: function (value) {
       this.diffs = value || [];
+      if (this.uncommittedSelected) {
+        this.setUncommitedFilesAmount(this.diffs.length);
+      }
     },
-    getSpecificFileDiff: function (file) {
+    getUntrackedFileDiff: async function (file) {
       const command = [
         'git',
         '--no-pager',
         'diff',
         '--no-index',
         DEV_NULL,
-        file
+        '"' + file + '"'
       ].join(' ');
-      return helpers.runCommand(command);
-    },
-    getSpecificFileDiffsFromCommit: function () {
-      const commit = this.commits.find((commit) => {
-        return commit.hash === this.selectedCommitHash;
-      });
-      if (!commit) {
-        return new Promise((resolve, reject) => {
-          reject('Could not find matching commit');
-        });
+      let error;
+      let diff;
+      try {
+        diff = await helpers.runCommand(command);
+      } catch (err) {
+        error = err;
       }
-      const files = commit.stats.map(function (stat) {
-        return stat.file;
+      return new Promise((resolve, reject) => {
+        if (diff) {
+          resolve(diff);
+        } else if (error) {
+          reject(error);
+        }
+      })
+    },
+    getUntrackedFilesDiffs: async function () {
+      let untrackedFiles = await helpers.runCommand('git ls-files --others --exclude-standard');
+      untrackedFiles = untrackedFiles
+        .split('\n')
+        .filter(Boolean);
+      const results = [];
+      for (let file of untrackedFiles) {
+        try {
+          const result = await this.getUntrackedFileDiff(file);
+          results.push(result);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      return new Promise((resolve, reject) => {
+        resolve(results.join('\n\n'));
       });
-      const promises = [];
-      files.forEach((file) => {
-        promises.push(this.getSpecificFileDiff(file));
-      });
+    },
+    getUncommittedDiffs: function () {
+      const command = generateGitDiffCommandArray().join(' ');
+      const basicDiff = helpers.runCommand(command);
+      const promises = [
+        basicDiff,
+        this.getUntrackedFilesDiffs()
+      ];
       return Promise.all(promises)
         .then((results) => {
           return results.join('\n\n');
         });
-    },
-    getUncommittedDiffs: function () {
-      const command = generateGitDiffCommandArray().join(' ');
-      return helpers.runCommand(command);
     },
     getCommitDiffs: async function () {
       let command = [
@@ -102,13 +132,15 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       return helpers.runCommand(command);
     },
     getDiffs: function () {
+      if (this.uncommittedSelected) {
+        return this.getUncommittedDiffs();
+      }
       if (this.firstEverCommitSelected) {
         return this.getFirstCommitDiff();
       }
       if (this.selectedCommitHash) {
         return this.getCommitDiffs();
       }
-      return this.getUncommittedDiffs();
     },
     getAndParseDiffs: async function (currentRepoPath) {
       this.setFileDiffsLoading(true);
@@ -137,6 +169,9 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       'comparisonHash',
       'firstEverCommitSelected',
       'selectedCommitHash'
-    ])
+    ]),
+    uncommittedSelected: function () {
+      return this.selectedCommitHash === UNCOMMITED;
+    }
   }
 });
