@@ -39,6 +39,7 @@ export const commitsStore = defineStore('commits', {
         }
       }
 
+      window.commits = response;
       this.commits = response || [];
       this.setCommitsLoading(false);
     }

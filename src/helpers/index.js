@@ -1,5 +1,8 @@
-const fs = window.require('fs');
-const path = window.require('path');
+const fs = window.require('node:fs');
+const path = window.require('node:path');
+
+const util = window.require('node:util');
+const exec = util.promisify(window.require('node:child_process').exec);
 
 const diacriticLess = window.require('diacriticless');
 const openFolderExplorer = window.require('nw-programmatic-folder-select');
@@ -81,6 +84,31 @@ const helpers = {
     if (noReposExist) {
       await $router.push({ name: 'scanForRepos' });
     }
+  },
+  /**
+   * Executes a child process with the supplied command, returns a promise.
+   *
+   * @param  {string} command  The executable and arguments to run.
+   * @return {Promis}          Resolves to a string or rejects with error.
+   */
+  runCommand: async function (command) {
+    console.log(command);
+    let error;
+    let output;
+    try {
+      const { stdout, stderr } = await exec(command);
+      output = String(stdout || '');
+      error = stderr;
+    } catch (err) {
+      error = err;
+    }
+    return new Promise((resolve, reject) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(output);
+      }
+    });
   },
   setCurrentWorkingDirectory: function (directory) {
     directory = (directory || '').trim();

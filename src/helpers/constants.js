@@ -10,4 +10,5 @@ function dotDotDot () {
 }
 
 export const APP_NAME = 'Sporkle!';
+export const DEV_NULL = '/dev/null';
 export const DOT_DOT_DOT = dotDotDot();
