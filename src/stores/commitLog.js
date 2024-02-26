@@ -48,6 +48,7 @@ export const commitLogStore = defineStore('commitLog', {
       }
       return -1;
     },
+    // Once we stop showing all commits and only show those for the current branch, this will stop working.
     firstEverCommitSelected: function () {
       const commitIndex = this.selectedCommitIndex;
       return !!(
