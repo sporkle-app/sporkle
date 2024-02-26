@@ -96,25 +96,23 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       untrackedFiles = untrackedFiles
         .split('\n')
         .filter(Boolean);
-      const results = [];
+      const promises = [];
       for (let file of untrackedFiles) {
-        try {
-          const result = await this.getUntrackedFileDiff(file);
-          results.push(result);
-        } catch (error) {
-          console.log(error);
-        }
+        promises.push(this.getUntrackedFileDiff(file));
       }
-      return new Promise((resolve, reject) => {
-        resolve(results.join('\n\n'));
-      });
+      return promises;
     },
-    getUncommittedDiffs: function () {
-      const command = generateGitDiffCommandArray().join(' ');
+    getUncommittedDiffs: async function () {
+      const command = [
+        ...generateGitDiffCommandArray(),
+        // Include already staged files in the diff
+        '--cached'
+      ].join(' ');
       const basicDiff = helpers.runCommand(command);
+      const untrackedFileDiffs = await this.getUntrackedFilesDiffs();
       const promises = [
         basicDiff,
-        this.getUntrackedFilesDiffs()
+        ...untrackedFileDiffs
       ];
       return Promise.all(promises)
         .then((results) => {
