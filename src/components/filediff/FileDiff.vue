@@ -20,7 +20,6 @@
         name="RiLayoutColumnFill"
       />
     </button>
-    <button @click="getUntrackedFilesDiffs">getUntrackedFilesDiffs</button>
     <OneFile
       v-for="(file, fileIndex) in diffs"
       :file="file"
@@ -54,9 +53,6 @@ export default {
   methods: {
     ...mapActions(commitLogStore, [
       'toggleCommitLogCollapsed'
-    ]),
-    ...mapActions(fileDiffsStore, [
-      'getUntrackedFilesDiffs'
     ])
   },
   computed: {

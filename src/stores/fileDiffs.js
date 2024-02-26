@@ -11,6 +11,9 @@ import {
 } from '@/helpers/constants.js';
 import helpers from '@/helpers/index.js';
 
+const util = window.require('node:util');
+const exec = util.promisify(window.require('node:child_process').exec);
+
 const gitDiffParser = window.require('gitdiff-parser');
 
 function generateGitDiffCommandArray () {
@@ -67,20 +70,26 @@ export const fileDiffsStore = defineStore('fileDiffs', {
         DEV_NULL,
         '"' + file + '"'
       ].join(' ');
-      let error;
+      console.info(command);
+
       let diff;
-      try {
-        diff = await helpers.runCommand(command);
-      } catch (err) {
-        error = err;
-      }
+      let error;
+      await exec(command)
+        .then(({ stdout }) => {
+          diff = stdout;
+        })
+        .catch((err) => {
+          diff = err?.stdout;
+          error = err?.message;
+        });
+
       return new Promise((resolve, reject) => {
-        if (diff) {
+        if (diff.startsWith('diff --git ')) {
           resolve(diff);
-        } else if (error) {
+        } else {
           reject(error);
         }
-      })
+      });
     },
     getUntrackedFilesDiffs: async function () {
       let untrackedFiles = await helpers.runCommand('git ls-files --others --exclude-standard');
