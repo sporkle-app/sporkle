@@ -62,6 +62,13 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       }
     },
     getUntrackedFileDiff: async function (file) {
+      /**
+       * So this is fun, when using `--no-index` git decided that
+       * instead of exit code 0 for OK and 1 for Error, they output
+       * 0 if the files match and 1 if they don't. So we need to
+       * manually call this command and handle the "error" as a
+       * success.
+       */
       const command = [
         'git',
         '--no-pager',
