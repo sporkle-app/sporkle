@@ -11,7 +11,7 @@ export default {
   name: 'TimeAgo',
   props: {
     date: {
-      type: Date,
+      type: [String, Number, Date],
       required: true
     },
     showTitle: {
@@ -20,7 +20,12 @@ export default {
     }
   },
   methods: {
-    timeAgo: timesago
+    timeAgo: function (date) {
+      if (typeof(date) === 'string') {
+        return date;
+      }
+      return timesago(date);
+    }
   }
 };
 </script>

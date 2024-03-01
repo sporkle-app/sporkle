@@ -62,7 +62,7 @@
     "eslint-plugin-vuejs-accessibility": "^2.2.1",
     "lodash-es": "^4.17.21",
     "nw": "0.83.0-sdk",
-    "nw-vue-devtools-prebuilt": "^0.0.10",
+    "nw-vue-devtools-5": "^5.0.0",
     "nwjs-builder-phoenix": "^1.15.0",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
@@ -74,7 +74,7 @@
     "vue-router": "^4.2.5",
     "wait-on": "^7.2.0"
   },
-  "chromium-args": "--enable-spell-checking --load-extension='./node_modules/nw-vue-devtools-prebuilt/extension' --disable-features=ProcessPerSiteUpToMainFrameThreshold",
+  "chromium-args": "--enable-spell-checking --load-extension='./node_modules/nw-vue-devtools-5/extension' --disable-features=ProcessPerSiteUpToMainFrameThreshold",
   "build": {
     "nwVersion": "v0.83.0",
     "nwFlavor": "normal",

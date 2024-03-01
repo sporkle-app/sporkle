@@ -55,6 +55,7 @@ export const branchesStore = defineStore('branches', {
       'getCommits'
     ]),
     ...mapActions(fileDiffsStore, [
+      'clearDiffs',
       'getAndParseDiffs'
     ]),
     setBranches: function (branches) {
@@ -62,7 +63,11 @@ export const branchesStore = defineStore('branches', {
     },
     setCurrentBranch: function (branch) {
       this.currentBranch = branch || '';
-      this.getAndParseDiffs();
+      if (this.currentBranch) {
+        this.getAndParseDiffs();
+      } else {
+        this.clearDiffs();
+      }
     },
     setDefaultBranch: function (branch) {
       if (branch && this.branchNames.includes(branch)) {
