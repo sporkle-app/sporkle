@@ -43,6 +43,7 @@ import _kebabCase from 'lodash-es/kebabCase.js';
 import { OhVueIcon, addIcons } from 'oh-vue-icons';
 import * as icons from 'oh-vue-icons/icons/index.js';
 
+
 const allImportedIcons = [
   icons.RiAddCircleFill,
   icons.RiArrowDownSFill,
@@ -54,6 +55,7 @@ const allImportedIcons = [
   icons.RiCloseLine,
   icons.RiErrorWarningLine,
   icons.RiFileCopyFill,
+  icons.RiFileTransferLine,
   icons.RiFolderAddFill,
   icons.RiFolderOpenFill,
   icons.RiGitBranchLine,

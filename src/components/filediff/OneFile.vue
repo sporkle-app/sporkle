@@ -19,14 +19,28 @@
         scale="1.25"
       />
       <template v-if="file.newPath === '/dev/null'">
-        {{ file.oldPath }} <em>(deleted)</em>
+        {{ file.oldPath }}
+        <em>(deleted)</em>
       </template>
       <template v-else-if="file.oldPath === '/dev/null'">
-        {{ file.newPath }} <em>(new file)</em>
+        {{ file.newPath }}
+        <em>(new file)</em>
+      </template>
+      <template v-else-if="file.oldPath !== file.newPath">
+        {{ file.oldPath }}
+        <BaseIcon
+          name="RiFileTransferLine"
+          title="renamed"
+        />
+        {{ file.newPath }}
+        <em>(renamed)</em>
       </template>
       <template v-else>
         {{ file.newPath }}
       </template>
+      <span class="total">
+        -{{ totalChanges.removals }}/+{{ totalChanges.inserts }}
+      </span>
     </div>
     <BaseAccordion :show="!isCollapsed">
       <div
@@ -92,6 +106,22 @@ export default {
         setTimeout(this.scrollIntoView, i);
       }
     }
+  },
+  computed: {
+    totalChanges: function () {
+      let inserts = 0;
+      let removals = 0;
+      this.file.hunks.forEach(function (hunk) {
+        if (hunk?.newLines) {
+          inserts = inserts + hunk.newLines;
+          removals = removals + hunk.oldLines;
+        }
+      });
+      return {
+        inserts,
+        removals
+      };
+    }
   }
 };
 </script>
@@ -110,15 +140,21 @@ export default {
   border: var(--focus-ring);
   outline: none;
 }
-
 .file-header.expanded {
   white-space: unset;
   word-break: break-all;
 }
+.file-header em {
+  opacity: 0.5;
+}
+
 .one-file-caret {
   transition: var(--sidebar-transition) ease transform;
 }
 .one-file-rotate-caret {
   transform: rotate(-90deg);
+}
+.total {
+  float: right;
 }
 </style>

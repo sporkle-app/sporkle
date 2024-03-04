@@ -48,16 +48,17 @@ These features are the core value that this project offers and is what is mostly
 * [x] Filter Sidebar
 * [x] Have swappable themes including: Light (professional), Dark (Low contrast)
 * [x] See a history of all commits on the current branch listed in the middle pane
-* [ ] Switch branches
+* [x] Switch branches
+* [x] Clone a remote repo to a local destination
+* [x] See a diff of files
+  * [ ] (inlcuding per-char diffs)
 * [ ] Visually compare against 1 other branch
-* [ ] See a diff of files (inlcuding per-char diffs)
 * [ ] Pull and push commits
 * [ ] Select files for commits
 * [ ] Create commits
 * [ ] Select lines for commits
 * [ ] Discard all changes that have not been commited yet (`git checkout HEAD -- path/to/file.js` - resets file to last commit)
-* [ ] Discard all changes in one just one file
-* [ ] Clone a remote repo to a local destination
+* [ ] Discard all changes in just one file
 * [ ] Create repos in the app
 * [ ] Merge in latest from other branch
 * [ ] Undo most recent commit (only if it was not pushed)
