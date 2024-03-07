@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import BranchPicker from '@/components/timeline/BranchPicker.vue';
+import BranchPicker from '@/components/toppanel/BranchPicker.vue';
 
 export default {
   name: 'TimeLine',

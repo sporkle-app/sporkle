@@ -12,7 +12,7 @@
       class="main-container"
       :class="{ 'sidebar-hidden': sidebarCollapsed }"
     >
-      <TimeLinePanel />
+      <TopPanel />
       <RouterView v-slot="{ Component }">
         <KeepAlive>
           <Component :is="Component" />
@@ -42,7 +42,7 @@ import { themeStore } from '@/stores/theme.js';
 import BaseIcon from '@/components/BaseIcon.vue';
 import GlobalAlerts from '@/components/alerts/GlobalAlerts.vue';
 import SideBar from '@/components/sidebar/SideBar.vue';
-import TimeLinePanel from '@/components/timeline/TimeLinePanel.vue';
+import TopPanel from '@/components/toppanel/TopPanel.vue';
 
 const fs = window.require('fs');
 
@@ -52,7 +52,7 @@ export default {
     BaseIcon,
     GlobalAlerts,
     SideBar,
-    TimeLinePanel
+    TopPanel
   },
   methods: {
     ...mapActions(saveLoadDataStore, [
