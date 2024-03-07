@@ -90,7 +90,7 @@ export default {
 <style scoped>
 .file-diff {
   width: calc(100vw - var(--commit-log-width) - var(--sidebar-width));
-  height: calc(100vh - var(--timeline-height));
+  height: calc(100vh - var(--top-panel-height));
   overflow: auto;
 }
 .file-diff.animate {

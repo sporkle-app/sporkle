@@ -54,6 +54,7 @@ const allImportedIcons = [
   icons.RiCloseLine,
   icons.RiErrorWarningLine,
   icons.RiFileCopyFill,
+  icons.RiFileTransferLine,
   icons.RiFolderAddFill,
   icons.RiFolderOpenFill,
   icons.RiGitBranchLine,

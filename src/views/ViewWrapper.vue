@@ -45,7 +45,7 @@ export default {
 <style scoped>
 .view-wrapper {
   container-type: inline-size;
-  height: calc(100vh - var(--timeline-height));
+  height: calc(100vh - var(--top-panel-height));
   padding: 20px;
   overflow: auto;
 }
