@@ -4,7 +4,7 @@
     ref="oneFile"
   >
     <div
-      class="file-header truncate"
+      class="file-header"
       :class="{ expanded: !isCollapsed }"
       role="button"
       tabindex="0"
@@ -18,27 +18,44 @@
         :class="{ 'one-file-rotate-caret': isCollapsed }"
         scale="1.25"
       />
-      <template v-if="file.newPath === '/dev/null'">
-        {{ file.oldPath }}
-        <em>(deleted)</em>
-      </template>
-      <template v-else-if="file.oldPath === '/dev/null'">
-        {{ file.newPath }}
-        <em>(new file)</em>
-      </template>
-      <template v-else-if="file.oldPath !== file.newPath">
-        {{ file.oldPath }}
-        <BaseIcon
-          name="RiFileTransferLine"
-          title="renamed"
-        />
-        {{ file.newPath }}
-        <em>(renamed)</em>
-      </template>
-      <template v-else>
-        {{ file.newPath }}
-      </template>
-      <span class="total">
+      <span
+        class="file-name"
+        :class="{ truncate: isCollapsed }"
+        :title="fileNameTitle"
+      >
+        <template v-if="file.newPath === DEV_NULL">
+          <template v-if="isCollapsed">{{ file.oldPath }}&nbsp;</template>
+          <span v-else v-html="addWbrToPath(file.oldPath)"></span>
+          <em>(deleted)</em>
+        </template>
+        <template v-else-if="file.oldPath === DEV_NULL">
+          <template v-if="isCollapsed">{{ file.newPath }}&nbsp;</template>
+          <span v-else v-html="addWbrToPath(file.newPath)"></span>
+          <em>(new file)</em>
+        </template>
+        <template v-else-if="file.oldPath !== file.newPath">
+          <template v-if="isCollapsed">{{ file.oldPath }}&nbsp;</template>
+          <span v-else v-html="addWbrToPath(file.oldPath)"></span>
+          <wbr v-if="!isCollapsed" />
+          <BaseIcon
+            name="RiFileTransferLine"
+            title="renamed"
+          />
+          <wbr v-if="!isCollapsed" />
+          <template v-if="isCollapsed">&nbsp;{{ file.newPath }}&nbsp;</template>
+          <span v-else v-html="' ' + addWbrToPath(file.newPath)"></span>
+          <wbr v-if="!isCollapsed" />
+          <em>(renamed)</em>
+        </template>
+        <template v-else>
+          <template v-if="isCollapsed">{{ file.newPath }}</template>
+          <span v-else v-html="addWbrToPath(file.newPath)"></span>
+        </template>
+      </span>
+      <span
+        class="total"
+        :style="totalColor"
+      >
         -{{ totalChanges.removals }}/+{{ totalChanges.inserts }}
       </span>
     </div>
@@ -62,6 +79,8 @@
 </template>
 
 <script>
+import { DEV_NULL } from '@/helpers/constants.js';
+
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
 import OneLine from '@/components/filediff/OneLine.vue';
@@ -79,12 +98,22 @@ export default {
       required: true
     }
   },
+  constants: {
+    DEV_NULL
+  },
   data: function () {
     return {
       isCollapsed: false
     };
   },
   methods: {
+    addWbrToPath: function (input) {
+      const sanitized = window.escape(input);
+      return sanitized
+        .replaceAll('/', '<wbr />/<wbr />')
+        .replaceAll('\\', '<wbr />\\<wbr />')
+        .replaceAll('<wbr /><wbr />', '<wbr />') + ' ';
+    },
     scrollIntoView: function () {
       const scrollSettings = {
         behavior: 'smooth',
@@ -108,6 +137,21 @@ export default {
     }
   },
   computed: {
+    fileNameTitle: function () {
+      if (!this.isCollapsed) {
+        return undefined;
+      }
+      const oldPath = this.file?.oldPath;
+      const newPath = this.file?.newPath;
+      if (newPath === DEV_NULL) {
+        return oldPath + ' (deleted)';
+      } else if (oldPath === DEV_NULL) {
+        return newPath + ' (new file)';
+      } else if (oldPath !== newPath) {
+        return '- ' + oldPath + '\n+ ' + newPath;
+      }
+      return newPath;
+    },
     totalChanges: function () {
       let inserts = 0;
       let removals = 0;
@@ -121,6 +165,19 @@ export default {
         inserts,
         removals
       };
+    },
+    totalColor: function () {
+      const diff = this.totalChanges.inserts - this.totalChanges.removals;
+      if (diff > 0) {
+        return 'background: var(--diff-plus)';
+      }
+      if (diff < 0) {
+        return 'background: var(--diff-minus)';
+      }
+      if (this.totalChanges.inserts === 0) {
+        return '';
+      }
+      return 'background: var(--black13)';
     }
   }
 };
@@ -130,6 +187,8 @@ export default {
 .file-header {
   position: sticky;
   top: 0px;
+  display: flex;
+  align-items: center;
   width: 100%;
   background-image: linear-gradient(to right, var(--white25), var(--white25)), linear-gradient(to right, var(--bg), var(--bg));
   border: var(--unfocus-ring);
@@ -147,6 +206,9 @@ export default {
 .file-header em {
   opacity: 0.5;
 }
+.file-name {
+  flex-grow: 1;
+}
 
 .one-file-caret {
   transition: var(--sidebar-transition) ease transform;
@@ -155,6 +217,8 @@ export default {
   transform: rotate(-90deg);
 }
 .total {
-  float: right;
+  margin-right: 5px;
+  padding: 2px 3px;
+  white-space: nowrap;
 }
 </style>
