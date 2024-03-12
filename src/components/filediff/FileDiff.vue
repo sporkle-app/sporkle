@@ -25,6 +25,7 @@
       :file="file"
       :key="'file' + fileIndex"
     />
+    <div class="spacer"></div>
   </div>
 </template>
 
@@ -104,5 +105,8 @@ export default {
 }
 .file-diff.sidebar-collapsed.commit-log-collapsed {
   width: calc(100vw);
+}
+.spacer {
+  height: 33px;
 }
 </style>
