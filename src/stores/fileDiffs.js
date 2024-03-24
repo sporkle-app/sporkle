@@ -110,15 +110,18 @@ export const fileDiffsStore = defineStore('fileDiffs', {
       return promises;
     },
     getUncommittedDiffs: async function () {
-      const command = [
+      const basicCommand = generateGitDiffCommandArray().join(' ');
+      const stagedCommand = [
         ...generateGitDiffCommandArray(),
-        // Include already staged files in the diff
         '--cached'
       ].join(' ');
-      const basicDiff = helpers.runCommand(command);
+
+      const basicDiff = helpers.runCommand(basicCommand);
+      const diffOfAlreadyStagedFiles = helpers.runCommand(stagedCommand);
       const untrackedFileDiffs = await this.getUntrackedFilesDiffs();
       const promises = [
         basicDiff,
+        diffOfAlreadyStagedFiles,
         ...untrackedFileDiffs
       ];
       return Promise.all(promises)
