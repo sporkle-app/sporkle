@@ -52,12 +52,7 @@
           <span v-else v-html="addWbrToPath(file.newPath)"></span>
         </template>
       </span>
-      <span
-        class="total"
-        :style="totalColor"
-      >
-        -{{ totalChanges.removals }}/+{{ totalChanges.inserts }}
-      </span>
+      <DiffTotals :files="file && file.hunks" />
     </div>
     <BaseAccordion :show="!isCollapsed">
       <div
@@ -83,6 +78,7 @@ import { DEV_NULL } from '@/helpers/constants.js';
 
 import BaseAccordion from '@/components/BaseAccordion.vue';
 import BaseIcon from '@/components/BaseIcon.vue';
+import DiffTotals from '@/components/filediff/DiffTotals.vue';
 import OneLine from '@/components/filediff/OneLine.vue';
 
 export default {
@@ -90,6 +86,7 @@ export default {
   components: {
     BaseAccordion,
     BaseIcon,
+    DiffTotals,
     OneLine
   },
   props: {
@@ -151,33 +148,6 @@ export default {
         return '- ' + oldPath + '\n+ ' + newPath;
       }
       return newPath;
-    },
-    totalChanges: function () {
-      let inserts = 0;
-      let removals = 0;
-      this.file.hunks.forEach(function (hunk) {
-        if (hunk?.newLines) {
-          inserts = inserts + hunk.newLines;
-          removals = removals + hunk.oldLines;
-        }
-      });
-      return {
-        inserts,
-        removals
-      };
-    },
-    totalColor: function () {
-      const diff = this.totalChanges.inserts - this.totalChanges.removals;
-      if (diff > 0) {
-        return 'background: var(--diff-plus)';
-      }
-      if (diff < 0) {
-        return 'background: var(--diff-minus)';
-      }
-      if (this.totalChanges.inserts === 0) {
-        return '';
-      }
-      return 'background: var(--black13)';
     }
   }
 };
@@ -215,10 +185,5 @@ export default {
 }
 .one-file-rotate-caret {
   transform: rotate(-90deg);
-}
-.total {
-  margin-right: 5px;
-  padding: 2px 3px;
-  white-space: nowrap;
 }
 </style>
