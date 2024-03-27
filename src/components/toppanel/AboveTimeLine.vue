@@ -49,7 +49,7 @@ import { commitsStore } from '@/stores/commits.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
-import CreateBranchPopout from '@/components/timeline/CreateBranchPopout.vue';
+import CreateBranchPopout from '@/components/toppanel/CreateBranchPopout.vue';
 
 export default {
   name: 'AboveTimeLine',

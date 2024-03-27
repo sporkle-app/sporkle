@@ -25,6 +25,7 @@
       :file="file"
       :key="'file' + fileIndex"
     />
+    <div class="spacer"></div>
   </div>
 </template>
 
@@ -90,7 +91,7 @@ export default {
 <style scoped>
 .file-diff {
   width: calc(100vw - var(--commit-log-width) - var(--sidebar-width));
-  height: calc(100vh - var(--timeline-height));
+  height: calc(100vh - var(--top-panel-height));
   overflow: auto;
 }
 .file-diff.animate {
@@ -104,5 +105,8 @@ export default {
 }
 .file-diff.sidebar-collapsed.commit-log-collapsed {
   width: calc(100vw);
+}
+.spacer {
+  height: 33px;
 }
 </style>

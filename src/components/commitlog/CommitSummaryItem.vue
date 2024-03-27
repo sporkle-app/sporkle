@@ -11,9 +11,9 @@
     @focusout="clearHoveredCommitHash(hash)"
     @mouseover="setHoveredCommitHash(hash)"
     @mouseout="clearHoveredCommitHash(hash)"
-    @click="setSelectedCommitHash(hash)"
-    @keyup.enter="setSelectedCommitHash(hash)"
-    @keydown.space.prevent="setSelectedCommitHash(hash)"
+    @click="selectCommit"
+    @keyup.enter="selectCommit"
+    @keydown.space.prevent="selectCommit"
   >
     <div class="commit-summary-item-description truncate">
       <div
@@ -28,10 +28,12 @@
         :title="subtitleHover"
       >
         <TimeAgo
-          :date="new Date(commit.author.timestamp)"
+          :date="commit.author.timestamp"
           :showTitle="false"
         />
-        by {{ commit.author.name }}
+        <template v-if="commit.author.name">
+          by {{ commit.author.name }}
+        </template>
       </div>
     </div>
     <div
@@ -47,6 +49,7 @@
 import { mapActions, mapState } from 'pinia';
 
 import { commitLogStore } from '@/stores/commitLog.js';
+import { fileDiffsStore } from '@/stores/fileDiffs.js';
 
 import TimeAgo from '@/components/TimeAgo.vue';
 
@@ -66,7 +69,14 @@ export default {
       'clearHoveredCommitHash',
       'setHoveredCommitHash',
       'setSelectedCommitHash'
-    ])
+    ]),
+    ...mapActions(fileDiffsStore, [
+      'getAndParseDiffs'
+    ]),
+    selectCommit: async function () {
+      await this.setSelectedCommitHash(this.hash);
+      this.getAndParseDiffs();
+    }
   },
   computed: {
     ...mapState(commitLogStore, [
@@ -97,6 +107,12 @@ export default {
       return this.fileCount + ' files';
     },
     subtitleHover: function () {
+      if (!this.commit.author) {
+        return;
+      }
+      if (typeof(this.commit.author.timestamp) === 'string') {
+        return;
+      }
       const dateTime = new Date(this.commit.author.timestamp);
       return [
         dateTime.toLocaleString(),
