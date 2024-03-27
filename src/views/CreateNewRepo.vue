@@ -8,7 +8,7 @@
     </label>
     <div class="new-repo">
       <input
-        v-model="fileName"
+        v-model="repoName"
         id="repoName"
         type="text"
       />
@@ -20,11 +20,6 @@
     <button @click="createNewRepo">
       Create new repository
     </button>
-    
-    
-    <div>
-      {{  reposFolder }}
-    </div>
   </ViewWrapper>
 </template>
 
@@ -36,6 +31,7 @@ import { reposStore } from '@/stores/repos.js';
 
 import helpers from '@/helpers/index.js';
 
+const fs = window.require('fs');
 const path = window.require('path');
 
 export default {
@@ -46,14 +42,23 @@ export default {
   },
   data: function () {
     return {
-      fileName: ''
+      repoName: ''
     };
+  },
+  methods: {
+    createNewRepo: function () {
+      const alreadyExist = fs.existsSync( this.repoPath );
+      if (!alreadyExist) {
+        // create repo somehow
+      }
+    }
   },
   computed: {
     repoPath: function () {
-      const fileName = helpers.fileSystemSafeString(this.fileName);
-      if 
-      return path.join( this.reposFolder, fileName );
+      const repoName = helpers.fileSystemSafeString(this.repoName);
+      if ( repoName ) {
+        return path.join( this.reposFolder, repoName );
+      } 
     },
     ...mapState(reposStore, [
       'reposFolder'
