@@ -50,6 +50,7 @@ export default {
       const alreadyExist = fs.existsSync( this.repoPath );
       if (!alreadyExist) {
         // create repo somehow
+        // exec sync
       }
     }
   },
