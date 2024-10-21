@@ -25,7 +25,7 @@
     <img
       alt="Sporkle! Logo"
       class="logo"
-      src="/logo.svg"
+      src="/public/logo.svg"
     />
   </div>
 </template>
