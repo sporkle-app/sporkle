@@ -7,19 +7,37 @@
       'sidebar-collapsed': sidebarCollapsed
     }"
   >
-    <button
-      :title="(commitLogCollapsed ? 'Show' : 'Hide') + ' Commit Lifecycle Panel'"
-      @click="toggleCommitLogCollapsed"
-    >
-      <BaseIcon
-        v-if="commitLogCollapsed"
-        name="RiLayoutColumnLine"
+    <div>
+      <button
+        :title="(commitLogCollapsed ? 'Show' : 'Hide') + ' Commit Lifecycle Panel'"
+        @click="toggleCommitLogCollapsed"
+      >
+        <BaseIcon
+          v-if="commitLogCollapsed"
+          name="RiLayoutColumnLine"
+        />
+        <BaseIcon
+          v-else
+          name="RiLayoutColumnFill"
+        />
+      </button>
+
+      <span :title="'Hash: ' + (selectedCommit?.hash || '') + '\nMessage: ' + (selectedCommit?.body || '')">
+        {{ selectedCommit?.subject }}
+      </span>
+      <span>
+        {{ selectedCommit?.author?.name }}
+      </span>
+      ({{ diffs.length }} file{{ diffs.length !== 1 ? 's' : '' }})
+      <pre>
+        {{ JSON.stringify(selectedCommit, null, 2) }}
+      </pre>
+      <DiffTotals
+        :files="selectedCommit?.stats"
+        insert="additions"
+        removal="deletions"
       />
-      <BaseIcon
-        v-else
-        name="RiLayoutColumnFill"
-      />
-    </button>
+    </div>
     <OneFile
       v-for="(file, fileIndex) in diffs"
       :file="file"
@@ -38,12 +56,14 @@ import { reposStore } from '@/stores/repos.js';
 import { sidebarStore } from '@/stores/sidebar.js';
 
 import BaseIcon from '@/components/BaseIcon.vue';
+import DiffTotals from '@/components/filediff/DiffTotals.vue';
 import OneFile from '@/components/filediff/OneFile.vue';
 
 export default {
   name: 'FileDiff',
   components: {
     BaseIcon,
+    DiffTotals,
     OneFile
   },
   data: function () {
@@ -58,7 +78,8 @@ export default {
   },
   computed: {
     ...mapState(commitLogStore, [
-      'commitLogCollapsed'
+      'commitLogCollapsed',
+      'selectedCommit'
     ]),
     ...mapState(fileDiffsStore, [
       'diffs'
