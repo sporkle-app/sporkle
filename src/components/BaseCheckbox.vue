@@ -38,6 +38,9 @@ export default {
       default: false
     }
   },
+  emits: [
+    'update:modelValue'
+  ],
   methods: {
     emit: function () {
       this.$emit('update:modelValue', !this.modelValue);

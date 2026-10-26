@@ -206,6 +206,7 @@ export const reposStore = defineStore('repos', {
       const folderNames = [
         // common
         'GitHub',
+        'GitHubSSH',
         'repos',
         // less common
         'github',

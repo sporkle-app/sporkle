@@ -35,9 +35,12 @@ export default {
       }
     ],
     file: {
-      newPath: 'Example diff',
+      oldPath: 'An_Example',
+      newPath: 'Example_Diff',
       hunks: [
         {
+          newLines: 1,
+          oldLines: 1,
           changes: [
             {
               isNormal: true,

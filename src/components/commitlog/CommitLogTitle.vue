@@ -36,7 +36,10 @@ export default {
       type: Boolean,
       default: true
     }
-  }
+  },
+  emits: [
+    'toggle'
+  ]
 };
 </script>
 

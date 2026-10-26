@@ -2,7 +2,7 @@ import { defineStore, mapActions } from 'pinia';
 
 import { appLoadingStore } from './appLoading.js';
 
-const simpleGit = require('simple-git');
+const { simpleGit } = require('simple-git');
 
 export const gitCloneStore = defineStore('gitClone', {
   actions: {
