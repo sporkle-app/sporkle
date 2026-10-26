@@ -29,8 +29,8 @@
     "run:win": "dist\\sporkle-1.0.4-win-x86\\sporkle.exe",
     "run:lin": "./dist/sporkle-1.0.4-linux-x64/sporkle",
     "regression": "rd /s /q node_modules & rd /s /q node_modules & rd /s /q node_modules & npm install && npm run lint && npm run build:win && npm run run:win",
-    "lint": "eslint --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
-    "fix": "eslint --fix --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
+    "lint": "eslint --ext *.js,*.vue src vite.config.js eslint.config.js",
+    "fix": "npm run lint -- --fix",
     "update:vue-devtools": "rimraf ./node_modules/sporkle-devtools-prebuilt && npm install"
   },
   "dependencies": {
@@ -44,19 +44,19 @@
     "which": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.24.1",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "concurrently": "^10.0.6",
-    "eslint": "^8.57.0",
-    "eslint-config-tjw-base": "^2.0.0",
-    "eslint-config-tjw-import": "^1.0.0",
-    "eslint-config-tjw-jest": "^2.0.0",
-    "eslint-config-tjw-vue": "^3.0.0",
-    "eslint-import-resolver-webpack": "^0.13.8",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^27.9.0",
-    "eslint-plugin-vue": "^9.23.0",
-    "eslint-plugin-vuejs-accessibility": "^2.2.1",
+    "eslint": "^10.13.0",
+    "eslint-config-tjw-base": "^5.0.0",
+    "eslint-config-tjw-import-x": "^1.0.1",
+    "eslint-config-tjw-vue": "^4.0.1",
+    "eslint-import-resolver-vite": "^2.2.0",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-vue": "^10.11.1",
+    "eslint-plugin-vuejs-accessibility": "^2.6.3",
+    "globals": "^17.13.0",
     "lodash-es": "^4.18.1",
     "nw": "0.119.2-sdk",
     "nw-vue-devtools-5": "^5.0.0",
@@ -145,7 +145,8 @@
     "esbuild@0.21.5": true,
     "nw@0.119.2-sdk": true,
     "vue-demi@0.12.5": true,
-    "vue-demi@0.14.10": true
+    "vue-demi@0.14.10": true,
+    "unrs-resolver@1.12.2": true
   },
   "devEngines": {
     "runtime": {
