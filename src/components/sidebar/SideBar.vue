@@ -1,12 +1,12 @@
 <template>
-  <div
+  <aside
     :class="{ 'collapse': sidebarCollapsed }"
     class="sidebar"
   >
     <SideBarControls />
     <ReposList />
     <SideBarFooter />
-  </div>
+  </aside>
 </template>
 
 <script>
