@@ -36,6 +36,9 @@ export default {
       default: 15000
     }
   },
+  emits: [
+    'countdownFinished'
+  ],
   data: function () {
     return {
       interval: null,
@@ -95,7 +98,7 @@ export default {
   created: function () {
     this.interval = setInterval(this.decrement, this.speed);
   },
-  beforeDestroy: function () {
+  beforeUnmount: function () {
     clearInterval(this.interval);
   }
 };

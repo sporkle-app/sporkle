@@ -1,6 +1,7 @@
 <template>
   <transition name="modal">
     <div
+      v-if="show"
       class="modal-mask"
       role="button"
       tabindex="0"
@@ -46,11 +47,18 @@
 export default {
   name: 'BaseModal',
   props: {
+    show: {
+      type: Boolean,
+      default: true
+    },
     title: {
       type: String,
       required: false,
       default: ''
     }
-  }
+  },
+  emits: [
+    'close'
+  ]
 };
 </script>

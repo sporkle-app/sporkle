@@ -35,6 +35,9 @@ export default {
       default: 360
     }
   },
+  emits: [
+    'update:modelValue'
+  ],
   methods: {
     emit: function ($event) {
       this.$emit('update:modelValue', parseInt($event.target.value));

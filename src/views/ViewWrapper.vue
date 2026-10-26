@@ -44,6 +44,7 @@ export default {
 
 <style scoped>
 .view-wrapper {
+  position: relative;
   container-type: inline-size;
   height: calc(100vh - var(--top-panel-height));
   padding: 20px;

@@ -4,7 +4,7 @@ import { defineStore, mapActions } from 'pinia';
 import { alertsStore } from '@/stores/alerts.js';
 import { appLoadingStore } from '@/stores/appLoading.js';
 
-const simpleGit = require('simple-git');
+const { simpleGit } = require('simple-git');
 
 export const gitStatusStore = defineStore('gitStatus', {
   state: function () {
