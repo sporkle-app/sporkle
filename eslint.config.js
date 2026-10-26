@@ -30,6 +30,7 @@ const config = [
     // project specific rules/settings
     rules: {
       'import-x/no-extraneous-dependencies': 'off',
+      'import-x/no-unresolved': 'off',
       'vue/v-on-event-hyphenation': ['error', 'never'],
       'vuejs-accessibility/label-has-for': [
         'error',
