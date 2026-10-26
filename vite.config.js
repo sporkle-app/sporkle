@@ -2,6 +2,8 @@ import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import vueDevTools from 'vite-plugin-vue-devtools';
+import vueDevToolsAccessibility from 'vue-dev-tools-accessibility';
 
 // https://vitejs.dev/config/
 const config = defineConfig({
@@ -22,7 +24,11 @@ const config = defineConfig({
           comments: false
         }
       }
-    })
+    }),
+    vueDevTools({
+      launchEditor: 'subl'
+    }),
+    vueDevToolsAccessibility()
   ],
   resolve: {
     alias: {
