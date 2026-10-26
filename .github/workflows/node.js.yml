@@ -1,7 +1,9 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+# Ran on every PR before it can be merged
 
 name: Node.js CI
+
+env:
+  PROTO_TELEMETRY: false
 
 on:
   push:
@@ -15,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: volta-cli/action@v4
+    - uses: actions/checkout@v7
+    - uses: moonrepo/setup-toolchain@v0
+      with:
+        auto-install: true
     - run: node -v
     - run: npm -v
     - run: npm ci
-    - run: npm run build:vue
     - run: npm run lint
+    - run: npm run build:vue

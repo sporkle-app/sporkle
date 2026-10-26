@@ -1,11 +1,12 @@
-/* eslint-disable import/no-unused-modules */
 import { fileURLToPath, URL } from 'node:url';
 
 import vue from '@vitejs/plugin-vue';
 import { defineConfig } from 'vite';
+import vueDevTools from 'vite-plugin-vue-devtools';
+import vueDevToolsAccessibility from 'vue-dev-tools-accessibility';
 
 // https://vitejs.dev/config/
-export default defineConfig({
+const config = defineConfig({
   build: {
     // Make sure this matches the Chromium version built into NW.js
     target: 'chrome119',
@@ -23,7 +24,11 @@ export default defineConfig({
           comments: false
         }
       }
-    })
+    }),
+    vueDevTools({
+      launchEditor: 'subl'
+    }),
+    vueDevToolsAccessibility()
   ],
   resolve: {
     alias: {
@@ -31,3 +36,5 @@ export default defineConfig({
     }
   }
 });
+
+export default config;

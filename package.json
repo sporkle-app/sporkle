@@ -1,6 +1,5 @@
 {
-  "ManifestComments": [
-  ],
+  "ManifestComments": [],
   "name": "sporkle",
   "version": "0.1.0",
   "main": "http://localhost:4175",
@@ -30,49 +29,50 @@
     "run:win": "dist\\sporkle-1.0.4-win-x86\\sporkle.exe",
     "run:lin": "./dist/sporkle-1.0.4-linux-x64/sporkle",
     "regression": "rd /s /q node_modules & rd /s /q node_modules & rd /s /q node_modules & npm install && npm run lint && npm run build:win && npm run run:win",
-    "lint": "eslint --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
-    "fix": "eslint --fix --ext .js,.vue --config=.eslintrc.cjs src vite.config.js .eslintrc.cjs",
+    "lint": "eslint --ext *.js,*.vue src vite.config.js eslint.config.js",
+    "fix": "npm run lint -- --fix",
     "update:vue-devtools": "rimraf ./node_modules/sporkle-devtools-prebuilt && npm install"
   },
   "dependencies": {
     "@fabien0102/git2json": "^1.4.0",
     "diacriticless": "^1.0.1",
-    "express": "^4.19.1",
+    "express": "^5.3.0",
     "gitdiff-parser": "^0.3.1",
     "nw-dev-keybindings": "^1.0.1",
     "nw-programmatic-folder-select": "^1.0.5",
-    "simple-git": "^3.23.0",
-    "which": "^4.0.0"
+    "simple-git": "^4.0.2",
+    "which": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.24.1",
-    "@vitejs/plugin-vue": "^5.0.4",
-    "concurrently": "^8.2.2",
-    "eslint": "^8.57.0",
-    "eslint-config-tjw-base": "^2.0.0",
-    "eslint-config-tjw-import": "^1.0.0",
-    "eslint-config-tjw-jest": "^2.0.0",
-    "eslint-config-tjw-vue": "^3.0.0",
-    "eslint-import-resolver-webpack": "^0.13.8",
-    "eslint-plugin-import": "^2.29.1",
-    "eslint-plugin-jest": "^27.9.0",
-    "eslint-plugin-vue": "^9.23.0",
-    "eslint-plugin-vuejs-accessibility": "^2.2.1",
-    "lodash-es": "^4.17.21",
-    "nw": "0.83.0-sdk",
-    "nw-vue-devtools-5": "^5.0.0",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@vitejs/plugin-vue": "^6.0.10",
+    "concurrently": "^10.0.6",
+    "eslint": "^10.13.0",
+    "eslint-config-tjw-base": "^5.0.0",
+    "eslint-config-tjw-import-x": "^1.0.1",
+    "eslint-config-tjw-vue": "^4.0.1",
+    "eslint-import-resolver-vite": "^2.2.0",
+    "eslint-plugin-import-x": "^4.17.1",
+    "eslint-plugin-vue": "^10.11.1",
+    "eslint-plugin-vuejs-accessibility": "^2.6.3",
+    "globals": "^17.13.0",
+    "lodash-es": "^4.18.1",
+    "nw": "0.119.2-sdk",
     "nwjs-builder-phoenix": "^1.15.0",
     "oh-vue-icons": "^1.0.0-rc3",
-    "pinia": "^2.1.7",
-    "rimraf": "^5.0.5",
+    "pinia": "^4.1.0",
+    "rimraf": "^6.1.3",
     "timesago": "^1.0.1",
-    "vite": "^5.2.6",
-    "vue": "^3.4.21",
-    "vue-options-api-constants-plugin": "^1.0.1",
-    "vue-router": "^4.3.0",
-    "wait-on": "^7.2.0"
+    "vite": "^8.3.5",
+    "vite-plugin-vue-devtools": "^8.2.1",
+    "vue": "^3.5.44",
+    "vue-dev-tools-accessibility": "^0.5.6",
+    "vue-options-api-constants-plugin": "^1.0.3",
+    "vue-router": "^5.4.0",
+    "wait-on": "^9.5.1"
   },
-  "chromium-args": "--enable-spell-checking --load-extension='./node_modules/nw-vue-devtools-5/extension' --disable-features=ProcessPerSiteUpToMainFrameThreshold",
+  "chromium-args": "--enable-spell-checking --disable-features=ProcessPerSiteUpToMainFrameThreshold",
   "build": {
     "nwVersion": "v0.83.0",
     "nwFlavor": "normal",
@@ -140,6 +140,22 @@
   },
   "type": "module",
   "volta": {
-    "node": "21.1.0"
+    "node": "26.12.1"
+  },
+  "allowScripts": {
+    "nw@0.119.2-sdk": true,
+    "vue-demi@0.12.5": true,
+    "vue-demi@0.14.10": true,
+    "unrs-resolver@1.12.2": true
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "26.12.1"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": "12.2.1"
+    }
   }
 }

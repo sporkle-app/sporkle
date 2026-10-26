@@ -26,15 +26,15 @@
     <p v-if="url && (!startsWithGitOrHttps || !endsWithGit)">
       <strong>Tip!</strong>
       Repository cloning URLs generally:
-      <ul>
-        <li v-if="!startsWithGitOrHttps">
-          begin with <code>https://</code> or <code>git@</code>
-        </li>
-        <li v-if="!endsWithGit">
-          end with <code>.git</code>
-        </li>
-      </ul>
     </p>
+    <ul>
+      <li v-if="!startsWithGitOrHttps">
+        begin with <code>https://</code> or <code>git@</code>
+      </li>
+      <li v-if="!endsWithGit">
+        end with <code>.git</code>
+      </li>
+    </ul>
   </ViewWrapper>
 </template>
 
