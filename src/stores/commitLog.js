@@ -39,6 +39,15 @@ export const commitLogStore = defineStore('commitLog', {
     ...mapState(commitsStore, [
       'commits'
     ]),
+    selectedCommit: function () {
+      if (this.selectedCommitHash) {
+        const commit = this.commits.find((commit) => {
+          return commit.hash === this.selectedCommitHash;
+        });
+        return commit;
+      }
+      return -1;
+    },
     selectedCommitIndex: function () {
       if (this.selectedCommitHash) {
         const commitIndex = this.commits.findIndex((commit) => {
