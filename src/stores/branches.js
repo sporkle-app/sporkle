@@ -10,7 +10,7 @@ import helpers from '@/helpers/index.js';
 const util = window.require('node:util');
 const exec = util.promisify(window.require('node:child_process').exec);
 
-const simpleGit = require('simple-git');
+const { simpleGit } = require('simple-git');
 
 async function getOneBranchName (command, currentRepoPath) {
   helpers.setCurrentWorkingDirectory(currentRepoPath);
